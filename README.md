@@ -1,2 +1,2 @@
-# shorty
+# Shorty
 Create shortcuts for Intent Radio
