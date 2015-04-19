@@ -12,22 +12,22 @@ public class BroadcastActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
+
+        // Get the intent
         Intent intent = getIntent();
 
+	// Get the url and name
 	String url = intent.getStringExtra("url");
 	String name = intent.getStringExtra("name");
 
+	// Create an intent to play using Intent Radio
 	Intent broadcast = new Intent("org.smblott.intentradio.PLAY");
-	// BBC Radio 4
-        // broadcast.putExtra("url", "http://www.listenlive.eu/bbcradio4.m3u");
-        // broadcast.putExtra("name", "BBC Radio 4");
+
+	// Put the url and name in the broadcast intent
         broadcast.putExtra("url", url);
         broadcast.putExtra("name", name);
 
 	sendBroadcast(broadcast);
-
-	showToast(name);
 
 	setResult(RESULT_OK);
 	finish();
