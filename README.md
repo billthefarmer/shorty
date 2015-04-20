@@ -12,9 +12,9 @@ Create shortcuts for [Intent Radio](http://smblott.org/intent_radio).
 ## Using
 
 Enter the station name and the url of the station in the fields and
-touch the **Create Shortcut** button. Touch the **Cancel** button to
-cancel. A shortcut will be generated, either where you dragged the
-Shorty shortcut, or in the next vacant slot on the desktop. It will be
+touch the **Create** button. Touch the **Cancel** button to cancel. A
+shortcut will be generated, either where you dragged the Shorty
+shortcut, or in the next vacant slot on the desktop. It will be
 labelled with name of the station.
 
 The shortcut, when touched, will run Shorty in the background, which
