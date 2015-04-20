@@ -3,8 +3,10 @@ package org.billthefarmer.shorty;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 public class MainActivity extends Activity
     implements View.OnClickListener
 {
+    protected final static String PREF_URL = "pref_url";
+    protected final static String PREF_NAME = "pref_name";
+
     private RadioGroup group;
     private TextView nameView;
     private TextView urlView;
@@ -27,15 +32,30 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+	// Get group and views
 	group = (RadioGroup)findViewById(R.id.group);
 	nameView = (TextView)findViewById(R.id.name);
 	urlView = (TextView)findViewById(R.id.url);
 
+	// Get buttons
 	Button cancel = (Button)findViewById(R.id.cancel);
 	cancel.setOnClickListener(this);
 
 	Button create = (Button)findViewById(R.id.create);
 	create.setOnClickListener(this);
+
+	// Get preferences
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	String name = preferences.getString(PREF_NAME, null);
+	String url = preferences.getString(PREF_URL, null);
+
+	// Set fields from preferences
+	if (name != null)
+	    nameView.setText(name);
+	if (url != null)
+	    urlView.setText(url);
     }
 
     // On click
@@ -111,6 +131,17 @@ public class MainActivity extends Activity
 		    shortcut.putExtra("name", name);
 		    shortcut.putExtra("action",
 				      "org.smblott.intentradio.PLAY");
+		    // Get preferences
+		    SharedPreferences preferences =
+			PreferenceManager.getDefaultSharedPreferences(this);
+
+		    // Get editor
+		    SharedPreferences.Editor editor = preferences.edit();
+
+		    // Update preferences
+		    editor.putString(PREF_URL, url);
+		    editor.putString(PREF_NAME, name);
+		    editor.apply();
 		    break;
 
 		    // Stop
@@ -145,9 +176,11 @@ public class MainActivity extends Activity
 		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
 		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon.getBitmap());
 
+		// Send broadcast
 		sendBroadcast(intent);
 		showToast(name);
 
+		// Make the activity go away
 		setResult(RESULT_CANCELED);
 		finish();
 	    }

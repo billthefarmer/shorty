@@ -3,8 +3,10 @@ package org.billthefarmer.shorty;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -27,15 +29,30 @@ public class ShortcutActivity extends Activity
         super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
 
+	// Get group and views
 	group = (RadioGroup)findViewById(R.id.group);
 	nameView = (TextView)findViewById(R.id.name);
 	urlView = (TextView)findViewById(R.id.url);
 
+	// Get buttons
 	Button cancel = (Button)findViewById(R.id.cancel);
 	cancel.setOnClickListener(this);
 
 	Button create = (Button)findViewById(R.id.create);
 	create.setOnClickListener(this);
+
+	// Get preferences
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	String name = preferences.getString(MainActivity.PREF_NAME, null);
+	String url = preferences.getString(MainActivity.PREF_URL, null);
+
+	// Set fields from preferences
+	if (name != null)
+	    nameView.setText(name);
+	if (url != null)
+	    urlView.setText(url);
     }
 
     // On click
@@ -89,7 +106,7 @@ public class ShortcutActivity extends Activity
 	    {
 		// Get the url and name
 		String url = urlView.getText().toString();
-		String name = nameView.getText.toString()();
+		String name = nameView.getText().toString();
 
 		// Create the shortcut intent
 		Intent shortcut = new
@@ -100,10 +117,26 @@ public class ShortcutActivity extends Activity
 		switch (action)
 		{
 		case R.id.play:
+		    // Check the fields
+		    if (url == null || url.length() == 0)
+			url = "http://www.listenlive.eu/bbcradio4.m3u";
+		    if (name == null || name.length() == 0)
+			name = "BBC Radio 4";
 		    shortcut.putExtra("url", url);
 		    shortcut.putExtra("name", name);
 		    shortcut.putExtra("action",
 				      "org.smblott.intentradio.PLAY");
+		    // Get preferences
+		    SharedPreferences preferences =
+			PreferenceManager.getDefaultSharedPreferences(this);
+
+		    // Get editor
+		    SharedPreferences.Editor editor = preferences.edit();
+
+		    // Update preferences
+		    editor.putString(MainActivity.PREF_URL, url);
+		    editor.putString(MainActivity.PREF_NAME, name);
+		    editor.apply();
 		    break;
 
 		case R.id.stop:
