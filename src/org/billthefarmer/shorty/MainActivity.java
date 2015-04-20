@@ -63,8 +63,6 @@ public class MainActivity extends Activity
     @Override
     public void onClick(View v)
     {
-        // Do something in response to button click
-
 	// Get id
 
 	int id = v.getId();

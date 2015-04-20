@@ -60,8 +60,6 @@ public class ShortcutActivity extends Activity
     @Override
     public void onClick(View v)
     {
-        // Do something in response to button click
-
 	// Get id
 
 	int id = v.getId();
@@ -116,6 +114,8 @@ public class ShortcutActivity extends Activity
 		int action = group.getCheckedRadioButtonId();
 		switch (action)
 		{
+		    // Play
+
 		case R.id.play:
 		    // Check the fields
 		    if (url == null || url.length() == 0)
@@ -139,17 +139,23 @@ public class ShortcutActivity extends Activity
 		    editor.apply();
 		    break;
 
+		    // Stop
+
 		case R.id.stop:
 		    name = "Stop";
 		    shortcut.putExtra("action",
 				      "org.smblott.intentradio.STOP");
 		    break;
 
+		    // Pause
+
 		case R.id.pause:
 		    name = "Pause";
 		    shortcut.putExtra("action",
 				      "org.smblott.intentradio.PAUSE");
 		    break;
+
+		    // Restart
 
 		case R.id.restart:
 		    name = "Restart";
