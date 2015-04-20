@@ -3,9 +3,7 @@
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio
 http://smblott.org/intent_radio).
 
-![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png)
-
-![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png) ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
 
  * Create shortcuts from the app or using the android launcher from
    the desktop.
