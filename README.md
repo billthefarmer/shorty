@@ -5,6 +5,8 @@ http://smblott.org/intent_radio).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png)
 
+![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
+
  * Create shortcuts from the app or using the android launcher from
    the desktop.
  * Defaults to BBC Radio 4 if the fields are left empty.
