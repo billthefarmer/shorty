@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 public class BroadcastActivity extends Activity
 {
-    /** Called when the activity is first created. */
+    // On create
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -19,9 +21,10 @@ public class BroadcastActivity extends Activity
 	// Get the url and name
 	String url = intent.getStringExtra("url");
 	String name = intent.getStringExtra("name");
+	String action = intent.getStringExtra("action");
 
 	// Create an intent to play using Intent Radio
-	Intent broadcast = new Intent("org.smblott.intentradio.PLAY");
+	Intent broadcast = new Intent(action);
 
 	// Put the url and name in the broadcast intent
         broadcast.putExtra("url", url);

@@ -2,13 +2,17 @@
 <resources>
   <string name="app_name">Shorty</string>
   <string name="info">
-    Create a shortcut which will start Intent Radio with
-    the display name and url that you enter below. Click
-    on the Create Shortcut button below to create the
-    shortcut. Click on the Cancel button to cancel.
+    Create a shortcut which will start Intent Radio with the display
+    name and url that you enter below. Touch the Create Shortcut
+    button below to create the shortcut. Touch the Cancel button to
+    cancel.
   </string>
-  <string name="name">Please enter station name</string>
-  <string name="url">Please enter station url</string>
+  <string name="name">Station name</string>
+  <string name="url">Station url</string>
   <string name="cancel">Cancel</string>
   <string name="create">Create Shortcut</string>
+  <string name="play">Play</string>
+  <string name="stop">Stop</string>
+  <string name="pause">Pause</string>
+  <string name="restart">Restart</string>
 </resources>
