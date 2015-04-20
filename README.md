@@ -1,7 +1,6 @@
 # Shorty
 
-Create shortcuts for [Intent Radio](http://smblott.org/intent_radio
-http://smblott.org/intent_radio).
+Create shortcuts for [Intent Radio](http://smblott.org/intent_radio).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png) ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
 
@@ -19,9 +18,9 @@ Shorty shortcut, or in the next vacant slot on the desktop. It will be
 labelled with name of the station.
 
 The shortcut, when touched, will run Shorty in the background, which
-will send a request to [Intent Radio](http://smblott.org/intent_radio
-http://smblott.org/intent_radio) to play the station you
-requested. Stop, Pause and Restart shortcuts may also be created.
+will send a request to [Intent Radio](http://smblott.org/intent_radio)
+to play the station you requested. Stop, Pause and Restart shortcuts
+may also be created.
 
 The shortcuts use Shorty in the background, so will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
