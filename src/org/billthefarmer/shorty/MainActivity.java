@@ -29,8 +29,9 @@ import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -68,8 +69,7 @@ public class MainActivity extends Activity
 	create.setOnClickListener(this);
 
 	// Get preferences
-	SharedPreferences preferences =
-	    PreferenceManager.getDefaultSharedPreferences(this);
+	SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 
 	String name = preferences.getString(PREF_NAME, null);
 	String url = preferences.getString(PREF_URL, null);
@@ -79,6 +79,49 @@ public class MainActivity extends Activity
 	    nameView.setText(name);
 	if (url != null)
 	    urlView.setText(url);
+    }
+
+    // Menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+	// Inflate the menu; this adds items to the action bar if it
+	// is present.
+	getMenuInflater().inflate(R.menu.main, menu);
+
+	return true;
+    }
+
+    // On options item
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+	// Get id
+
+	int id = item.getItemId();
+	switch (id)
+	{
+
+	    // Lookup
+
+	case R.id.action_lookup:
+	    return onLookupClick(item);
+
+	default:
+	    return false;
+	}
+    }
+
+    // On lookup click
+
+    private boolean onLookupClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, LookupActivity.class);
+	startActivity(intent);
+
+	return true;
     }
 
     // On click
@@ -154,7 +197,7 @@ public class MainActivity extends Activity
 				      "org.smblott.intentradio.PLAY");
 		    // Get preferences
 		    SharedPreferences preferences =
-			PreferenceManager.getDefaultSharedPreferences(this);
+			getPreferences(MODE_PRIVATE);
 
 		    // Get editor
 		    SharedPreferences.Editor editor = preferences.edit();

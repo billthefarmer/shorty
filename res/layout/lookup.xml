@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+  <LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android" 
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center_horizontal"
+	android:layout_marginLeft="8dp"
+	android:layout_marginRight="8dp"
+	android:layout_marginTop="8dp"
+	android:layout_marginBottom="8dp"
+	android:text="@string/lookup_info" />
+
+    <EditText
+	android:id="@+id/lu_name"
+	android:inputType="textCapWords"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="8dp"
+	android:layout_marginRight="8dp"
+	android:hint="@string/name" />
+
+    <EditText
+	android:id="@+id/lu_url"
+	android:inputType="textUri"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="8dp"
+	android:layout_marginRight="8dp"
+	android:hint="@string/url" />
+
+
+    <LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	android:layout_gravity="center_horizontal">
+
+      <Button
+	  android:id="@+id/lu_cancel"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/cancel" />
+
+      <Button
+	  android:id="@+id/lu_add"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/add" />
+
+      <Button
+	  android:id="@+id/lu_delete"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/delete" />
+
+      <Button
+	  android:id="@+id/lu_select"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/select" />
+
+    </LinearLayout>
+
+    <ListView
+	android:id="@+id/list"
+	android:choiceMode="singleChoice"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="8dp"
+	android:layout_marginRight="8dp"
+	android:layout_marginTop="8dp"
+	android:entries="@array/entries" />
+
+  </LinearLayout>
+</ScrollView>

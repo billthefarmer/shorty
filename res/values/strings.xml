@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Shorty</string>
+
   <string name="info">
     Create a shortcut which will start Intent Radio with the display
     name and url that you enter below. Defaults to BBC Radio 4 if left
     blank. Touch the Create button below to create the shortcut. Touch
     the Cancel button to cancel.
   </string>
+
+  <string name="lookup_info">
+    Select a station from the list below and touch the select
+    button. To add to the list fill in the fields below and touch the
+    add button.
+  </string>
+
   <string name="name">Station name</string>
   <string name="url">Station url</string>
+
   <string name="cancel">Cancel</string>
   <string name="create">Create</string>
+
   <string name="play">Play</string>
   <string name="stop">Stop</string>
   <string name="pause">Pause</string>
   <string name="restart">Restart</string>
+
+  <string name="add"> Add </string>
+  <string name="delete">Delete</string>
+  <string name="select">Select</string>
+
+  <string name="action_lookup">Lookup</string>
+  <string name="action_help">Help</string>
+  <string name="action_settings">Settings</string>
 </resources>

@@ -12,7 +12,8 @@
       android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
   <application android:label="@string/app_name"
-	       android:icon="@drawable/ic_launcher">
+	       android:icon="@drawable/ic_launcher"
+	       android:theme="@style/AppTheme">
     <activity android:name="MainActivity"
               android:label="@string/app_name"
 	      android:noHistory="true"
@@ -39,6 +40,9 @@
 	<action android:name="org.billthefarmer.shorty.BROADCAST"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
+    </activity>
+    <activity android:name="LookupActivity"
+              android:label="@string/app_name">
     </activity>
   </application>
 </manifest>
