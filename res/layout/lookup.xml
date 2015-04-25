@@ -60,10 +60,10 @@
 	  android:text="@string/add" />
 
       <Button
-	  android:id="@+id/lu_delete"
+	  android:id="@+id/lu_remove"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
-	  android:text="@string/delete" />
+	  android:text="@string/remove" />
 
       <Button
 	  android:id="@+id/lu_select"
@@ -80,8 +80,7 @@
 	android:layout_height="wrap_content"
 	android:layout_marginLeft="8dp"
 	android:layout_marginRight="8dp"
-	android:layout_marginTop="8dp"
-	android:entries="@array/entries" />
+	android:layout_marginTop="8dp" />
 
   </LinearLayout>
 </ScrollView>

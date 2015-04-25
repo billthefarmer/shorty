@@ -29,6 +29,7 @@ import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,7 +70,8 @@ public class MainActivity extends Activity
 	create.setOnClickListener(this);
 
 	// Get preferences
-	SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+	SharedPreferences preferences =
+ 	    PreferenceManager.getDefaultSharedPreferences(this);
 
 	String name = preferences.getString(PREF_NAME, null);
 	String url = preferences.getString(PREF_URL, null);
@@ -195,9 +197,10 @@ public class MainActivity extends Activity
 		    shortcut.putExtra("name", name);
 		    shortcut.putExtra("action",
 				      "org.smblott.intentradio.PLAY");
+
 		    // Get preferences
 		    SharedPreferences preferences =
-			getPreferences(MODE_PRIVATE);
+			PreferenceManager.getDefaultSharedPreferences(this);
 
 		    // Get editor
 		    SharedPreferences.Editor editor = preferences.edit();
