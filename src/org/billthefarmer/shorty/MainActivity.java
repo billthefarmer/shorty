@@ -122,6 +122,13 @@ public class MainActivity extends Activity
 	case R.id.action_lookup:
 	    return onLookupClick(item);
 
+	    // Help
+
+	case R.id.action_help:
+	    return onHelpClick(item);
+
+	    // About
+
 	case R.id.action_about:
 	    return onAboutClick(item);
 
@@ -140,7 +147,17 @@ public class MainActivity extends Activity
 	return true;
     }
 
-    // On lookup click
+    // On help click
+
+    private boolean onHelpClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, HelpActivity.class);
+	startActivity(intent);
+
+	return true;
+    }
+
+    // On about click
 
     private boolean onAboutClick(MenuItem item)
     {
@@ -218,6 +235,7 @@ public class MainActivity extends Activity
 		    if (url == null || url.length() == 0)
 			url = resources.getString(R.string.default_url);
 
+		    // Set extra fields
 		    shortcut.putExtra("url", url);
 		    shortcut.putExtra("name", name);
 		    shortcut.putExtra("action", PLAY);

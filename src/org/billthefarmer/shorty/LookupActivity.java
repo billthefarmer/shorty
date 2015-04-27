@@ -26,9 +26,9 @@ package org.billthefarmer.shorty;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -41,15 +41,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class LookupActivity extends Activity
     implements AdapterView.OnItemClickListener, View.OnClickListener
 {
     private final static String PREF_ENTRIES = "pref_entries";
     private final static String PREF_VALUES = "pref_values";
+    private final static String SHORTY_DIR = "Shorty";
+    private final static String SHORTY_FILE = "entries.json";
 
     private TextView nameView;
     private TextView urlView;
@@ -261,6 +268,18 @@ public class LookupActivity extends Activity
 	    sendBroadcast(broadcast);
 	    break;
 
+	    // Save
+
+	case R.id.action_save:
+	    saveData();
+	    break;
+
+	    // Restore
+
+	case R.id.action_restore:
+	    restoreData();
+	    break;
+
 	default:
 	    return false;
 	}
@@ -367,40 +386,159 @@ public class LookupActivity extends Activity
 	}
     }
 
-    // Checks external storage is available for read and write
+    // Save data
 
-    public boolean isExternalStorageWritable()
+    void saveData()
     {
-	String state = Environment.getExternalStorageState();
-	if (Environment.MEDIA_MOUNTED.equals(state))
-	    return true;
+	// Create a JSON array
+	JSONArray data = new JSONArray();
 
-	return false;
+	// Loop through the data
+	int i = 0;
+	for (String name: entryList)
+	{
+	    try
+	    {
+		// Create a JSON object
+		JSONObject entry = new JSONObject();
+
+		// Add the entry
+		entry.put("url", valueList.get(i));
+		entry.put("name", name);
+		data.put(entry);
+	    }
+
+	    catch (Exception e) {}
+
+	    i++;
+	}
+
+	try
+	{
+	    // Get the path to sdcard
+	    File sdcard = Environment.getExternalStorageDirectory();
+
+	    // Add a new directory path
+	    File dir = new File(sdcard, SHORTY_DIR);
+
+	    // Create this directory if not already created
+	    dir.mkdir();
+
+	    // Create the file
+	    File file = new File(dir, SHORTY_FILE);
+
+	    // Create a file writer
+	    FileWriter writer = new FileWriter(file);
+
+	    // Write the data
+	    writer.write(data.toString(2));
+	    writer.close();
+
+	    showToast(R.string.data_saved, i);
+	}
+
+	catch (Exception e)
+	{
+	    showToast(R.string.no_write);
+	}
     }
-    /*
-    void writeFile()
+
+    // Restore data
+
+    void restoreData()
     {
-	// get the path to sdcard
-	File sdcard = Environment.getExternalStorageDirectory();
-	// to this path add a new directory path
-	File dir = new File(sdcard.getAbsolutePath() + "/your-dir-name/");
-	// create this directory if not already created
-	dir.mkdir();
-	// create the file in which we will write the contents
-	File file = new File(dir, "My-File-Name.txt");
-	FileOutputStream os = outStream = new FileOutputStream(file);
-	String data = “This is the content of my file”;
-	os.write(data.getBytes());
-	os.close();
-    }
-    */
+	StringBuilder text = new StringBuilder();
+
+	try
+	{
+	    // Get the path to sdcard
+	    File sdcard = Environment.getExternalStorageDirectory();
+
+	    // Add a new directory path
+	    File dir = new File(sdcard, SHORTY_DIR);
+
+	    // Create the file
+	    File file = new File(dir, SHORTY_FILE);
+
+	    // Create a file reader
+	    FileReader reader = new FileReader(file);
+
+	    // Create a buffered reader
+	    BufferedReader buffer = new BufferedReader(reader);
+
+	    String line;
+	    while ((line = buffer.readLine()) != null)
+		text.append(line);
+
+	    buffer.close();
+	}
+
+	catch (Exception e)
+	{
+	    showToast(R.string.no_read);
+	    return;
+	}
+
+	entryList.clear();
+	valueList.clear();
+
+	try
+	{
+	    JSONArray data = new JSONArray(text.toString());
+	    for (int i = 0; !data.isNull(i); i++)
+	    {
+		JSONObject entry = data.getJSONObject(i);
+
+		String name = entry.getString("name");
+		String url = entry.getString("url");
+
+		entryList.add(name);
+		valueList.add(url);
+	    }
+	}
+
+	catch (Exception e)
+	{
+	    showToast(R.string.read_error);
+	}
+ 
+	// Get preferences
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Get editor
+	SharedPreferences.Editor editor = preferences.edit();
+
+	// Get entries
+	JSONArray entryArray = new JSONArray(entryList);
+	JSONArray valueArray = new JSONArray(valueList);
+
+	// Update preferences
+	editor.putString(PREF_ENTRIES, entryArray.toString());
+	editor.putString(PREF_VALUES, valueArray.toString());
+	editor.apply();
+
+	// Update display
+	arrayAdapter.notifyDataSetChanged();
+
+	showToast(R.string.data_restored, entryList.size());
+   }
+
     // Show toast.
 
-    void showToast(int id)
+    void showToast(int id, Object... args)
     {
 	// Get text from resources
 	Resources resources = getResources();
 	String text = resources.getString(id);
+	showToast(text, args);
+    }
+
+    // Show toast.
+
+    void showToast(String format, Object... args)
+    {
+	String text = String.format(format, args);
 	showToast(text);
     }
 

@@ -125,9 +125,9 @@ public class ShortcutActivity extends Activity
 
 	    else
 	    {
-		// Get the url and name
-		String url = urlView.getText().toString();
+		// Get the name and url
 		String name = nameView.getText().toString();
+		String url = urlView.getText().toString();
 
 		// Create the shortcut intent
 		Intent shortcut = new
@@ -140,14 +140,20 @@ public class ShortcutActivity extends Activity
 		    // Play
 
 		case R.id.play:
+		    // Get resources
+		    Resources resources = getResources();
+
 		    // Check the fields
-		    if (url == null || url.length() == 0)
-			url = "http://www.listenlive.eu/bbcradio4.m3u";
 		    if (name == null || name.length() == 0)
-			name = "BBC Radio 4";
+			name = resources.getString(R.string.default_name);
+		    if (url == null || url.length() == 0)
+			url = resources.getString(R.string.default_url);
+
+		    // Set extra fields
 		    shortcut.putExtra("url", url);
 		    shortcut.putExtra("name", name);
 		    shortcut.putExtra("action", MainActivity.PLAY);
+
 		    // Get preferences
 		    SharedPreferences preferences =
 			PreferenceManager.getDefaultSharedPreferences(this);
@@ -156,8 +162,8 @@ public class ShortcutActivity extends Activity
 		    SharedPreferences.Editor editor = preferences.edit();
 
 		    // Update preferences
-		    editor.putString(MainActivity.PREF_URL, url);
 		    editor.putString(MainActivity.PREF_NAME, name);
+		    editor.putString(MainActivity.PREF_URL, url);
 		    editor.apply();
 		    break;
 

@@ -19,11 +19,11 @@
       android:showAsAction="ifRoom"
       android:title="@string/about"
       android:icon="@drawable/ic_action_about" />
-
+  <!--
   <item
       android:id="@+id/action_settings"
       android:showAsAction="ifRoom"
       android:title="@string/settings"
       android:icon="@drawable/ic_action_settings" />
-
+  -->
 </menu>

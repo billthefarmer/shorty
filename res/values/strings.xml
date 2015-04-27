@@ -3,16 +3,56 @@
   <string name="app_name">Shorty</string>
 
   <string name="info">
-    Create a shortcut for Intent Radio using the fields and buttons
-    below. Defaults to BBC Radio 4 if left blank.
+    <b>Create a shortcut for Intent Radio using the fields and buttons
+    below.</b>
+  </string>
+
+  <string name="help_text">
+    <b>Shorty</b>\n
+    <b>Generate shortcuta</b>
+    \n\n
+    The display shows two fields for the name and url of the radio
+    station. Fill in the fields and touch the <b>Create</b> button to
+    create the shortcut. The <b>Cancel</b> button will close the
+    display. The <b>Lookup</b> button on the toolbar will open the
+    Lookup display.
+    \n\n
+    <b>Look up stations</b>
+    \n
+    The display shows the same to fields which may be filled in by
+    selecting an item on the list or using the keyboard. The
+    <b>Add</b> button will add an entry. The <b>Remove</b> button will
+    remove the selected entry. The <b>Select</b> button will close the
+    display and return. The toolbar buttons may be used to play, stop,
+    pause or restart the selected station directly.
+    \n\n
+    <b>Save and Restore</b>
+    \n
+    The <b>Save</b>and <b>Restore</b> items on the menu may be used to
+    save and restore the current list of stations. The file location
+    is <i>Shorty/entries.json</i>. This folder is accessible from a
+    file manager or a connected PC. The file is in JSON format
+    (http://json.org). It may be edited with a text editor.
   </string>
 
   <string name="lookup_info">
-    Add and remove stations from the list using the buttons below.
+    <b>Add and remove stations from the list using the buttons below.</b>
   </string>
 
   <string name="not_installed">
     Intent Radio not installed\n Please install IntentRadio
+  </string>
+
+  <string name="no_write">
+    "Can't write to storage"
+  </string>
+
+  <string name="no_read">
+    "Can't read file from storage"
+  </string>
+
+  <string name="read_error">
+    "File read error"
   </string>
 
   <string name="version">Shorty version %s</string>
@@ -43,5 +83,8 @@
   <string name="about">About</string>
   <string name="help">Help</string>
   <string name="settings">Settings</string>
+
+  <string name="data_saved">%d entries saved</string>
+  <string name="data_restored">%d entries restored</string>
 
 </resources>
