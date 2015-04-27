@@ -35,7 +35,7 @@ will play a station in Intent Radio directly. The **Save** and
 **Restore** items in the menu will save and restore the current
 station list. The list location is *Shorty/entries.json*. This folder
 is accessible from a file manager or a connected PC. The list is in
-[JSON](http//:json.org). It may be edited with a text editor.
+[JSON](http://json.org). It may be edited with a text editor.
 
 The shortcuts use Shorty in the background, so will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
