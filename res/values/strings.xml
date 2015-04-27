@@ -19,8 +19,8 @@
     \n\n
     <b>Look up stations</b>
     \n
-    The display shows the same to fields which may be filled in by
-    selecting an item on the list or using the keyboard. The
+    The lookup display shows the same two fields which may be filled
+    in by selecting an item on the list or using the keyboard. The
     <b>Add</b> button will add an entry. The <b>Remove</b> button will
     remove the selected entry. The <b>Select</b> button will close the
     display and return. The toolbar buttons may be used to play, stop,
@@ -32,7 +32,7 @@
     save and restore the current list of stations. The file location
     is <i>Shorty/entries.json</i>. This folder is accessible from a
     file manager or a connected PC. The file is in JSON format
-    (http://json.org). It may be edited with a text editor.
+    (<i>http://json.org</i>). It may be edited with a text editor.
   </string>
 
   <string name="lookup_info">

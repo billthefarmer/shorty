@@ -19,7 +19,7 @@
 	android:layout_marginRight="8dp"
 	android:layout_marginTop="8dp"
 	android:layout_marginBottom="8dp"
-	android:textSize="18sp"
+	android:textSize="16sp"
 	android:text="@string/lookup_info" />
 
     <EditText
