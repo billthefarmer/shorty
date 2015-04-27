@@ -32,8 +32,10 @@ display. Touch and item in the list to fill the fields, and the
 **Remove** buttons to add and remove entries in the list. The
 **Play**, **Stop**, **Pause** and **Restart** items in the toolbar
 will play a station in Intent Radio directly. The **Save** and
-**Restore** items in the menu will save and restore the station
-list. The list is stored in *Short/entries.json*.
+**Restore** items in the menu will save and restore the current
+station list. The list location is *Shorty/entries.json*. This folder
+is accessible from a file manager or a connected PC. The list is in
+[JSON](http//:json.org). It may be edited with a text editor.
 
 The shortcuts use Shorty in the background, so will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
