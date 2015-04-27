@@ -48,25 +48,19 @@
 	android:layout_gravity="center_horizontal">
 
       <Button
-	  android:id="@+id/lu_cancel"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/cancel" />
-
-      <Button
-	  android:id="@+id/lu_add"
+	  android:id="@+id/add"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
 	  android:text="@string/add" />
 
       <Button
-	  android:id="@+id/lu_remove"
+	  android:id="@+id/remove"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
 	  android:text="@string/remove" />
 
       <Button
-	  android:id="@+id/lu_select"
+	  android:id="@+id/select"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
 	  android:text="@string/select" />

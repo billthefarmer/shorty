@@ -25,6 +25,7 @@ package org.billthefarmer.shorty;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
@@ -117,8 +118,7 @@ public class ShortcutActivity extends Activity
 
 	    if (icon == null)
 	    {
-		showToast("Intent Radio not installed\n" +
-			  "Please install IntentRadio");
+		showToast(R.string.not_installed);
 		setResult(RESULT_CANCELED);
 		finish();
 	    }
@@ -131,7 +131,7 @@ public class ShortcutActivity extends Activity
 
 		// Create the shortcut intent
 		Intent shortcut = new
-		    Intent("org.billthefarmer.shorty.BROADCAST");
+		    Intent(MainActivity.BROADCAST);
 
 		// Get the action
 		int action = group.getCheckedRadioButtonId();
@@ -147,8 +147,7 @@ public class ShortcutActivity extends Activity
 			name = "BBC Radio 4";
 		    shortcut.putExtra("url", url);
 		    shortcut.putExtra("name", name);
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.PLAY");
+		    shortcut.putExtra("action", MainActivity.PLAY);
 		    // Get preferences
 		    SharedPreferences preferences =
 			PreferenceManager.getDefaultSharedPreferences(this);
@@ -166,24 +165,21 @@ public class ShortcutActivity extends Activity
 
 		case R.id.stop:
 		    name = "Stop";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.STOP");
+		    shortcut.putExtra("action", MainActivity.STOP);
 		    break;
 
 		    // Pause
 
 		case R.id.pause:
 		    name = "Pause";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.PAUSE");
+		    shortcut.putExtra("action", MainActivity.PAUSE);
 		    break;
 
 		    // Restart
 
 		case R.id.restart:
 		    name = "Restart";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.RESTART");
+		    shortcut.putExtra("action", MainActivity.RESTART);
 		    break;
 		}
 
@@ -202,10 +198,19 @@ public class ShortcutActivity extends Activity
 
     // Show toast.
 
+    void showToast(int id)
+    {
+	// Get text from resources
+	Resources resources = getResources();
+	String text = resources.getString(id);
+	showToast(text);
+    }
+
+    // Show toast.
+
     void showToast(String text)
     {
 	// Make a new toast
-
 	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 	toast.setGravity(Gravity.CENTER, 0, 0);
 	toast.show();

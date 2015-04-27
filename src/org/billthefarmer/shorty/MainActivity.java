@@ -25,6 +25,7 @@ package org.billthefarmer.shorty;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,6 +45,16 @@ public class MainActivity extends Activity
 {
     protected final static String PREF_URL = "pref_url";
     protected final static String PREF_NAME = "pref_name";
+
+    protected final static String PLAY = "org.smblott.intentradio.PLAY";
+    protected final static String PAUSE = "org.smblott.intentradio.PAUSE";
+    protected final static String RESTART = "org.smblott.intentradio.RESTART";
+    protected final static String STOP = "org.smblott.intentradio.STOP";
+
+    protected final static String BROADCAST =
+	"org.billthefarmer.shorty.BROADCAST";
+    protected final static String INSTALL_SHORTCUT =
+	"com.android.launcher.action.INSTALL_SHORTCUT";
 
     private RadioGroup group;
     private TextView nameView;
@@ -111,6 +122,9 @@ public class MainActivity extends Activity
 	case R.id.action_lookup:
 	    return onLookupClick(item);
 
+	case R.id.action_about:
+	    return onAboutClick(item);
+
 	default:
 	    return false;
 	}
@@ -121,6 +135,16 @@ public class MainActivity extends Activity
     private boolean onLookupClick(MenuItem item)
     {
 	Intent intent = new Intent(this, LookupActivity.class);
+	startActivity(intent);
+
+	return true;
+    }
+
+    // On lookup click
+
+    private boolean onAboutClick(MenuItem item)
+    {
+	Intent intent = new Intent(this, AboutActivity.class);
 	startActivity(intent);
 
 	return true;
@@ -143,7 +167,6 @@ public class MainActivity extends Activity
 	    finish();
 	    break;
 
-
 	    // Create
 
 	case R.id.create:
@@ -165,21 +188,19 @@ public class MainActivity extends Activity
 
 	    if (icon == null)
 	    {
-		showToast("Intent Radio not installed\n" +
-			  "Please install IntentRadio");
+		showToast(R.string.not_installed);
 		setResult(RESULT_CANCELED);
 		finish();
 	    }
 
 	    else
 	    {
-		// Get the url and name
-		String url = urlView.getText().toString();
+		// Get the name and url
 		String name = nameView.getText().toString();
+		String url = urlView.getText().toString();
 
 		// Create the shortcut intent
-		Intent shortcut = new
-		    Intent("org.billthefarmer.shorty.BROADCAST");
+		Intent shortcut = new Intent(BROADCAST);
 
 		// Get the action
 		int action = group.getCheckedRadioButtonId();
@@ -188,15 +209,18 @@ public class MainActivity extends Activity
 		    // Play
 
 		case R.id.play:
+		    // Get resources
+		    Resources resources = getResources();
+
 		    // Check the fields
-		    if (url == null || url.length() == 0)
-			url = "http://www.listenlive.eu/bbcradio4.m3u";
 		    if (name == null || name.length() == 0)
-			name = "BBC Radio 4";
+			name = resources.getString(R.string.default_name);
+		    if (url == null || url.length() == 0)
+			url = resources.getString(R.string.default_url);
+
 		    shortcut.putExtra("url", url);
 		    shortcut.putExtra("name", name);
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.PLAY");
+		    shortcut.putExtra("action", PLAY);
 
 		    // Get preferences
 		    SharedPreferences preferences =
@@ -206,8 +230,8 @@ public class MainActivity extends Activity
 		    SharedPreferences.Editor editor = preferences.edit();
 
 		    // Update preferences
-		    editor.putString(PREF_URL, url);
 		    editor.putString(PREF_NAME, name);
+		    editor.putString(PREF_URL, url);
 		    editor.apply();
 		    break;
 
@@ -215,30 +239,26 @@ public class MainActivity extends Activity
 
 		case R.id.stop:
 		    name = "Stop";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.STOP");
+		    shortcut.putExtra("action", STOP);
 		    break;
 
 		    // Pause
 
 		case R.id.pause:
 		    name = "Pause";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.PAUSE");
+		    shortcut.putExtra("action", PAUSE);
 		    break;
 
 		    // Restart
 
 		case R.id.restart:
 		    name = "Restart";
-		    shortcut.putExtra("action",
-				      "org.smblott.intentradio.RESTART");
+		    shortcut.putExtra("action", RESTART);
 		    break;
 		}
 
 		// Create the shortcut
-		Intent intent = new
-		    Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+		Intent intent = new Intent(INSTALL_SHORTCUT);
 		intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcut);
 		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
 		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon.getBitmap());
@@ -257,10 +277,19 @@ public class MainActivity extends Activity
 
     // Show toast.
 
+    void showToast(int id)
+    {
+	// Get text from resources
+	Resources resources = getResources();
+	String text = resources.getString(id);
+	showToast(text);
+    }
+
+    // Show toast.
+
     void showToast(String text)
     {
 	// Make a new toast
-
 	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 	toast.setGravity(Gravity.CENTER, 0, 0);
 	toast.show();

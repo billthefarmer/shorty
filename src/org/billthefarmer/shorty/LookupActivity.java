@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
@@ -72,19 +73,15 @@ public class LookupActivity extends Activity
 	urlView = (TextView)findViewById(R.id.lu_url);
 
 	// Get buttons, set listener
-	Button cancel = (Button)findViewById(R.id.lu_cancel);
-	if (cancel != null)
-	    cancel.setOnClickListener(this);
-
-	Button add = (Button)findViewById(R.id.lu_add);
+	Button add = (Button)findViewById(R.id.add);
 	if (add != null)
 	    add.setOnClickListener(this);
 
-	Button remove = (Button)findViewById(R.id.lu_remove);
+	Button remove = (Button)findViewById(R.id.remove);
 	if (remove != null)
 	    remove.setOnClickListener(this);
 
-	Button select = (Button)findViewById(R.id.lu_select);
+	Button select = (Button)findViewById(R.id.select);
 	if (select != null)
 	    select.setOnClickListener(this);
 
@@ -178,11 +175,25 @@ public class LookupActivity extends Activity
 	listView.setAdapter(arrayAdapter);
     }
 
+    // Menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+	// Inflate the menu; this adds items to the action bar if it
+	// is present.
+	getMenuInflater().inflate(R.menu.lookup, menu);
+
+	return true;
+    }
+
     // On options item selected
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+	Intent broadcast;
+
 	// Get id
 
 	int id = item.getItemId();
@@ -194,6 +205,60 @@ public class LookupActivity extends Activity
 	    Intent intent = new Intent(this, MainActivity.class);
 	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    startActivity(intent);
+	    break;
+
+	    // Play
+
+	case R.id.action_play:
+	    // Get the name and url
+	    String name = nameView.getText().toString();
+	    String url = urlView.getText().toString();
+
+	    // Get resources
+	    Resources resources = getResources();
+
+	    // Check the fields
+	    if (name == null || name.length() == 0)
+		name = resources.getString(R.string.default_name);
+	    if (url == null || url.length() == 0)
+		url = resources.getString(R.string.default_url);
+
+	    // Create an intent to play using Intent Radio
+	    broadcast = new Intent(MainActivity.PLAY);
+
+	    // Put the name and url in the broadcast intent
+	    broadcast.putExtra("name", name);
+	    broadcast.putExtra("url", url);
+
+	    // Send it
+	    sendBroadcast(broadcast);
+	    break;
+
+	    // Pause
+
+	case R.id.action_pause:
+	    // Create an intent to pause using Intent Radio
+	    broadcast = new Intent(MainActivity.PAUSE);
+
+	    sendBroadcast(broadcast);
+	    break;
+
+	    // Restart
+
+	case R.id.action_restart:
+	    // Create an intent to restart using Intent Radio
+	    broadcast = new Intent(MainActivity.RESTART);
+
+	    sendBroadcast(broadcast);
+	    break;
+
+	    // Stop
+
+	case R.id.action_stop:
+	    // Create an intent to stop using Intent Radio
+	    broadcast = new Intent(MainActivity.STOP);
+
+	    sendBroadcast(broadcast);
 	    break;
 
 	default:
@@ -228,24 +293,14 @@ public class LookupActivity extends Activity
 	// Get editor
 	SharedPreferences.Editor editor = preferences.edit();
 
-	// Create intent
-	Intent intent = new Intent(this, MainActivity.class);
-	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 	// Get id
 
 	int id = v.getId();
 	switch (id)
 	{
-	    // Cancel
-
-	case R.id.lu_cancel:
-	    startActivity(intent);
-	    break;
-
 	    // Add
 
-	case R.id.lu_add:
+	case R.id.add:
 	    // Add entry
 	    entryList.add(nameView.getText().toString());
 	    valueList.add(urlView.getText().toString());
@@ -265,7 +320,7 @@ public class LookupActivity extends Activity
 
 	    // Remove
 
-	case R.id.lu_remove:
+	case R.id.remove:
 	    // Check entry is selected
 	    if (listView.getCheckedItemCount() == 0)
 	    {
@@ -293,7 +348,7 @@ public class LookupActivity extends Activity
 
 	    // Select
 
-	case R.id.lu_select:
+	case R.id.select:
 
 	    // Update preferences
 	    editor.putString(MainActivity.PREF_URL,
@@ -302,10 +357,51 @@ public class LookupActivity extends Activity
 			     nameView.getText().toString());
 	    editor.apply();
 
+	    // Create intent
+	    Intent intent = new Intent(this, MainActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 	    // Go back
 	    startActivity(intent);
 	    break;
 	}
+    }
+
+    // Checks external storage is available for read and write
+
+    public boolean isExternalStorageWritable()
+    {
+	String state = Environment.getExternalStorageState();
+	if (Environment.MEDIA_MOUNTED.equals(state))
+	    return true;
+
+	return false;
+    }
+    /*
+    void writeFile()
+    {
+	// get the path to sdcard
+	File sdcard = Environment.getExternalStorageDirectory();
+	// to this path add a new directory path
+	File dir = new File(sdcard.getAbsolutePath() + "/your-dir-name/");
+	// create this directory if not already created
+	dir.mkdir();
+	// create the file in which we will write the contents
+	File file = new File(dir, "My-File-Name.txt");
+	FileOutputStream os = outStream = new FileOutputStream(file);
+	String data = “This is the content of my file”;
+	os.write(data.getBytes());
+	os.close();
+    }
+    */
+    // Show toast.
+
+    void showToast(int id)
+    {
+	// Get text from resources
+	Resources resources = getResources();
+	String text = resources.getString(id);
+	showToast(text);
     }
 
     // Show toast.

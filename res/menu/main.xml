@@ -1,9 +1,29 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
       android:id="@+id/action_lookup"
-      android:showAsAction="always"
-      android:title="@string/action_lookup"
+      android:showAsAction="ifRoom"
+      android:title="@string/lookup"
       android:icon="@drawable/ic_action_lookup" />
+
+  <item
+      android:id="@+id/action_help"
+      android:showAsAction="ifRoom"
+      android:title="@string/help"
+      android:icon="@drawable/ic_action_help" />
+
+  <item
+      android:id="@+id/action_about"
+      android:showAsAction="ifRoom"
+      android:title="@string/about"
+      android:icon="@drawable/ic_action_about" />
+
+  <item
+      android:id="@+id/action_settings"
+      android:showAsAction="ifRoom"
+      android:title="@string/settings"
+      android:icon="@drawable/ic_action_settings" />
 
 </menu>
