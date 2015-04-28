@@ -9,9 +9,11 @@ and [here](https://github.com/billthefarmer/shorty/releases).
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-lookup.png) ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-help.png)
 
  * Create shortcuts from the app or using the android launcher from
-   the desktop.
- * Defaults to BBC Radio 4 if the fields are left empty.
- * Field values remembered between uses.
+ the desktop.
+ * Defaults to BBC Radio 4 if fields are left empty.
+ * Lookup stations from a list.
+ * Field values and list remembered between uses.
+ * Save and restore the list from the device file system.
 
 ## Using
 
@@ -27,7 +29,7 @@ to play the station you requested. Stop, Pause and Restart shortcuts
 may also be created.
 
 Touch the **Lookup** item in the toolbat to show the lookup
-display. Touch and item in the list to fill the fields, and the
+display. Touch an item in the list to fill the fields, and the
 *Select** button to return to the shortcut screen. Use the **Add** and
 **Remove** buttons to add and remove entries in the list. The
 **Play**, **Stop**, **Pause** and **Restart** items in the toolbar
@@ -35,7 +37,7 @@ will play a station in Intent Radio directly. The **Save** and
 **Restore** items in the menu will save and restore the current
 station list. The list location is *Shorty/entries.json*. This folder
 is accessible from a file manager or a connected PC. The list is in
-[JSON](http://json.org). It may be edited with a text editor.
+[JSON](http://json.org) format. It may be edited with a text editor.
 
 The shortcuts use Shorty in the background, so will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
