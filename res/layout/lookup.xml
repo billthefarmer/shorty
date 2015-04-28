@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
 
   <LinearLayout
       xmlns:android="http://schemas.android.com/apk/res/android" 
@@ -15,8 +17,6 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_gravity="center_horizontal"
-	android:layout_marginLeft="8dp"
-	android:layout_marginRight="8dp"
 	android:layout_marginTop="8dp"
 	android:layout_marginBottom="8dp"
 	android:textSize="16sp"
@@ -27,8 +27,6 @@
 	android:inputType="textCapWords"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginLeft="8dp"
-	android:layout_marginRight="8dp"
 	android:hint="@string/name" />
 
     <EditText
@@ -36,8 +34,6 @@
 	android:inputType="textUri"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginLeft="8dp"
-	android:layout_marginRight="8dp"
 	android:hint="@string/url" />
 
 
@@ -73,8 +69,6 @@
 	android:choiceMode="singleChoice"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginLeft="8dp"
-	android:layout_marginRight="8dp"
 	android:layout_marginTop="8dp" />
 
   </LinearLayout>

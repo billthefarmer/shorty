@@ -29,10 +29,10 @@
     \n\n
     <b>Save and Restore</b>
     \n
-    The <b>Save</b>and <b>Restore</b> items on the menu may be used to
-    save and restore the current list of stations. The list location
-    is <i>Shorty/entries.json</i>. This folder is accessible from a
-    file manager or a connected PC. The list is in JSON format
+    The <b>Save</b> and <b>Restore</b> items on the menu may be used
+    to save and restore the current list of stations. The list
+    location is <i>Shorty/entries.json</i>. This folder is accessible
+    from a file manager or a connected PC. The list is in JSON format
     (<i>http://json.org</i>). It may be edited with a text editor.
   </string>
 
