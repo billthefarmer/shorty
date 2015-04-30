@@ -27,7 +27,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class HelpActivity extends Activity
 {
@@ -39,6 +42,14 @@ public class HelpActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help);
+
+	TextView view = (TextView)findViewById(R.id.help);
+	String text = RawTextReader.read(this, R.raw.help);
+	if (view != null)
+	{
+	    view.setMovementMethod(LinkMovementMethod.getInstance());
+	    view.setText(Html.fromHtml(text));
+	}
 
 	// Enable back navigation on action bar
 	ActionBar actionBar = getActionBar();

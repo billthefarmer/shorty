@@ -8,9 +8,11 @@
     android:fillViewport="true">
 
   <TextView
+      android:id="@+id/help"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:textSize="16sp"
+      android:textIsSelectable="true"
       android:text="@string/help_text" />
 
 </ScrollView>
