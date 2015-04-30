@@ -46,12 +46,16 @@ public class RawTextReader
 	String line;
 	StringBuilder text = new StringBuilder();
 
-	try {
-	    while ( ( line = buff.readLine()) != null )
+	try
+	{
+	    while ((line = buff.readLine()) != null)
 		text.append(line + "\n" );
 	}
+
 	catch (Exception e)
-	{ return ""; }
+	{
+	    return "";
+	}
 
 	return text.toString();
     }
