@@ -209,9 +209,7 @@ public class LookupActivity extends Activity
 	    // Home
 
 	case android.R.id.home:
-	    Intent intent = new Intent(this, MainActivity.class);
-	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    startActivity(intent);
+	    finish();
 	    break;
 
 	    // Play
