@@ -52,6 +52,7 @@ public class AboutActivity extends Activity
     	// Get info
 
     	PackageInfo info = null;
+
     	try
     	{
     	    info = manager.getPackageInfo("org.billthefarmer.shorty", 0);
