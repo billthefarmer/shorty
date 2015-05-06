@@ -33,8 +33,16 @@
   save and restore the current list of stations. The list location
   is <i>Shorty/entries.json</i>. This folder is accessible from a file
   manager or a connected PC. The list is
-  in <a href="http://json.org">JSON</a> format. It may be edited with
-  a text editor.
+  in <a href="http://json.org">JSON</a> format.
+</p>
+
+<h4>Extras</h4>
+<p>
+  The <b>Save</b> function also attempts to read a file
+  called <i>extras.csv</i> in the same location. This file is
+  in <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+  format, which may be saved from a spreadsheet. If found the entries
+  will be added and the file deleted so it won't be read again.
 </p>
 
 <h4>More Information</h4>
@@ -77,3 +85,9 @@
     "name": "BBC World Service"
   }
 ]</tt>
+
+<h4>Example extras file</h4>
+<tt>
+"BBC Sussex","http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_sussex/format/pls.pls"<br>
+"Splash FM","http://s3.xrad.io:8096/listen.pls"<br>
+</tt>

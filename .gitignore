@@ -24,3 +24,6 @@ proguard/
 
 # JSON files
 *.json
+
+# CSV files
+*.csv

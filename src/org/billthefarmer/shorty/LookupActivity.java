@@ -57,6 +57,7 @@ public class LookupActivity extends Activity
     private final static String PREF_VALUES = "pref_values";
     private final static String SHORTY_DIR = "Shorty";
     private final static String SHORTY_FILE = "entries.json";
+    private final static String SHORTY_EXTRA = "extras.csv";
 
     private TextView nameView;
     private TextView urlView;
@@ -411,6 +412,8 @@ public class LookupActivity extends Activity
 	    i++;
 	}
 
+	// Open a file to write the JSON array
+
 	try
 	{
 	    // Get the path to sdcard
@@ -447,6 +450,8 @@ public class LookupActivity extends Activity
     {
 	StringBuilder text = new StringBuilder();
 
+	// Open a file to read the JSON
+
 	try
 	{
 	    // Get the path to sdcard
@@ -471,14 +476,19 @@ public class LookupActivity extends Activity
 	    buffer.close();
 	}
 
+	// No file or can't read it
+
 	catch (Exception e)
 	{
 	    showToast(R.string.no_read);
 	    return;
 	}
 
+	// Clear the entries
 	entryList.clear();
 	valueList.clear();
+
+	// Add the entries from the file to the lists
 
 	try
 	{
@@ -490,8 +500,11 @@ public class LookupActivity extends Activity
 		String name = entry.getString("name");
 		String url = entry.getString("url");
 
-		entryList.add(name);
-		valueList.add(url);
+		if ((name != null) && (url != null))
+		{
+		    entryList.add(name);
+		    valueList.add(url);
+		}
 	    }
 	}
 
@@ -499,7 +512,55 @@ public class LookupActivity extends Activity
 	{
 	    showToast(R.string.read_error);
 	}
- 
+
+	// See if there's an extras file
+
+	try
+	{
+	    // Get the path to sdcard
+	    File sdcard = Environment.getExternalStorageDirectory();
+
+	    // Add a new directory path
+	    File dir = new File(sdcard, SHORTY_DIR);
+
+	    // Create the file
+	    File file = new File(dir, SHORTY_EXTRA);
+
+	    // Create a file reader
+	    FileReader reader = new FileReader(file);
+
+	    // Create a buffered reader
+	    BufferedReader buffer = new BufferedReader(reader);
+
+	    // Read the entries into the lists
+
+	    String line;
+	    while ((line = buffer.readLine()) != null)
+	    {
+		// Turn the CSV into a JSON array
+		String entry =
+		    new StringBuilder("[").append(line).append("]").toString();
+
+		JSONArray entryJSON = new JSONArray(entry);
+		String name = (String)entryJSON.get(0);
+		String url = (String)entryJSON.get(1);
+
+		if ((name != null) && (url != null))
+		{
+		    entryList.add(name);
+		    valueList.add(url);
+		}
+	    }
+
+	    buffer.close();
+
+	    // Delete the file so it won't get read again
+	    file.delete();
+	}
+
+	// Ignore errors
+	catch (Exception e) {}
+
 	// Get preferences
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
@@ -520,7 +581,7 @@ public class LookupActivity extends Activity
 	arrayAdapter.notifyDataSetChanged();
 
 	showToast(R.string.data_restored, entryList.size());
-   }
+    }
 
     // Show toast.
 
