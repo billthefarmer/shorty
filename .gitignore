@@ -27,3 +27,6 @@ proguard/
 
 # CSV files
 *.csv
+
+# JS files
+*.js
