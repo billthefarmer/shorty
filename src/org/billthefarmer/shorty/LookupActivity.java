@@ -50,6 +50,8 @@ import java.util.Arrays;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.opencsv.CSVReader;
+
 public class LookupActivity extends Activity
     implements AdapterView.OnItemClickListener, View.OnClickListener
 {
@@ -520,39 +522,25 @@ public class LookupActivity extends Activity
 	    // Get the path to sdcard
 	    File sdcard = Environment.getExternalStorageDirectory();
 
-	    // Add a new directory path
+	    // Add the directory path
 	    File dir = new File(sdcard, SHORTY_DIR);
 
-	    // Create the file
+	    // Open the file
 	    File file = new File(dir, SHORTY_EXTRA);
 
-	    // Create a file reader
-	    FileReader reader = new FileReader(file);
-
-	    // Create a buffered reader
-	    BufferedReader buffer = new BufferedReader(reader);
-
-	    // Read the entries into the lists
-
-	    String line;
-	    while ((line = buffer.readLine()) != null)
+	    CSVReader reader = new CSVReader(new FileReader(file));
+	    String [] nextLine;
+	    while ((nextLine = reader.readNext()) != null)
 	    {
-		// Turn the CSV into a JSON array
-		String entry =
-		    new StringBuilder("[").append(line).append("]").toString();
+	    	String name = nextLine[0];
+	    	String url = nextLine[1];;
 
-		JSONArray entryJSON = new JSONArray(entry);
-		String name = (String)entryJSON.get(0);
-		String url = (String)entryJSON.get(1);
-
-		if ((name != null) && (url != null))
-		{
-		    entryList.add(name);
-		    valueList.add(url);
-		}
+	    	if ((name != null) && (url != null))
+	    	{
+	    	    entryList.add(name);
+	    	    valueList.add(url);
+	    	}
 	    }
-
-	    buffer.close();
 
 	    // Delete the file so it won't get read again
 	    file.delete();
