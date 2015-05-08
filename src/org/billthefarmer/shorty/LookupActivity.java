@@ -529,7 +529,7 @@ public class LookupActivity extends Activity
 	    File file = new File(dir, SHORTY_EXTRA);
 
 	    CSVReader reader = new CSVReader(new FileReader(file));
-	    String [] nextLine;
+	    String nextLine[];
 	    while ((nextLine = reader.readNext()) != null)
 	    {
 	    	String name = nextLine[0];
