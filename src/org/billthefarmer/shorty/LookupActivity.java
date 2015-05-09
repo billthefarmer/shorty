@@ -61,6 +61,7 @@ public class LookupActivity extends Activity
     private final static String SHORTY_FILE = "entries.json";
 
     protected final static String SHORTY_EXTRA = "extras.csv";
+    protected final static String PATH = "path";
 
     protected final static int IMPORT = 1;
 
@@ -524,40 +525,6 @@ public class LookupActivity extends Activity
 	    showToast(R.string.read_error);
 	}
 
-	// See if there's an extras file
-
-	try
-	{
-	    // Get the path to sdcard
-	    File sdcard = Environment.getExternalStorageDirectory();
-
-	    // Add the directory path
-	    File dir = new File(sdcard, SHORTY_DIR);
-
-	    // Open the file
-	    File file = new File(dir, SHORTY_EXTRA);
-
-	    CSVReader reader = new CSVReader(new FileReader(file));
-	    String nextLine[];
-	    while ((nextLine = reader.readNext()) != null)
-	    {
-	    	String name = nextLine[0];
-	    	String url = nextLine[1];;
-
-	    	if ((name != null) && (url != null))
-	    	{
-	    	    entryList.add(name);
-	    	    valueList.add(url);
-	    	}
-	    }
-
-	    // Delete the file so it won't get read again
-	    file.delete();
-	}
-
-	// Ignore errors
-	catch (Exception e) {}
-
 	// Get preferences
 	SharedPreferences preferences =
 	    PreferenceManager.getDefaultSharedPreferences(this);
@@ -584,6 +551,61 @@ public class LookupActivity extends Activity
 
     void importData()
     {
+	// See if there's an extras file
+
+	try
+	{
+	    // Get the path to sdcard
+	    File sdcard = Environment.getExternalStorageDirectory();
+
+	    // Add the directory path
+	    File dir = new File(sdcard, SHORTY_DIR);
+
+	    // Open the file
+	    File file = new File(dir, SHORTY_EXTRA);
+
+	    // Open a path dialog
+	    Intent intent = new Intent(this, PathActivity.class);
+	    intent.putExtra(PATH, file.getPath());
+	    startActivityForResult (intent, IMPORT);
+	}
+
+	// Ignore errors
+	catch (Exception e) {}
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+				    Intent data)
+    {
+	if (resultCode != RESULT_OK)
+	    return;
+
+	try
+	{
+	    File file = null;
+
+	    CSVReader reader = new CSVReader(new FileReader(file));
+	    String nextLine[];
+	    while ((nextLine = reader.readNext()) != null)
+	    {
+	    	String name = nextLine[0];
+	    	String url = nextLine[1];;
+
+	    	if ((name != null) && (url != null))
+	    	{
+	    	    entryList.add(name);
+	    	    valueList.add(url);
+	    	}
+	    }
+
+	    // Delete the file so it won't get read again
+	    file.delete();
+	}
+
+	// Ignore errors
+	catch (Exception e) {}
+
 	showToast(R.string.data_imported, entryList.size());
     }
 

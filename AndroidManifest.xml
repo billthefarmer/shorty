@@ -44,6 +44,10 @@
     <activity android:name="LookupActivity"
               android:label="@string/app_name">
     </activity>
+    <activity android:name="PathActivity"
+              android:label="@string/app_name"
+	      android:theme="@android:style/Theme.Holo.Dialog">
+    </activity>
     <activity android:name="HelpActivity"
               android:label="@string/app_name">
     </activity>

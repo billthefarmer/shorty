@@ -39,6 +39,10 @@ public class PathActivity extends Activity
         setContentView(R.layout.path);
 
 	TextView text = (TextView)findViewById(R.id.filename);
-	text.setText(LookupActivity.SHORTY_EXTRA);
+
+	Intent intent = getIntent();
+	String path = intent.getStringExtra(LookupActivity.PATH);
+
+	text.setText(path);
     }
 }
