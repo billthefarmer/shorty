@@ -59,7 +59,10 @@ public class LookupActivity extends Activity
     private final static String PREF_VALUES = "pref_values";
     private final static String SHORTY_DIR = "Shorty";
     private final static String SHORTY_FILE = "entries.json";
-    private final static String SHORTY_EXTRA = "extras.csv";
+
+    protected final static String SHORTY_EXTRA = "extras.csv";
+
+    protected final static int IMPORT = 1;
 
     private TextView nameView;
     private TextView urlView;
@@ -279,6 +282,12 @@ public class LookupActivity extends Activity
 
 	case R.id.action_restore:
 	    restoreData();
+	    break;
+
+	    // Import
+
+	case R.id.action_import:
+	    importData();
 	    break;
 
 	default:
@@ -569,6 +578,13 @@ public class LookupActivity extends Activity
 	arrayAdapter.notifyDataSetChanged();
 
 	showToast(R.string.data_restored, entryList.size());
+    }
+
+    // Import data
+
+    void importData()
+    {
+	showToast(R.string.data_imported, entryList.size());
     }
 
     // Show toast.

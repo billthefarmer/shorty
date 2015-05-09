@@ -38,4 +38,10 @@
       android:title="@string/restore"
       android:icon="@drawable/ic_action_save" />
 
+  <item
+      android:id="@+id/action_import"
+      android:showAsAction="ifRoom"
+      android:title="@string/inport"
+      android:icon="@drawable/ic_action_import_export" />
+
 </menu>

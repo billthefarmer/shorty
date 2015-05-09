@@ -12,6 +12,10 @@
     below.</b>
   </string>
 
+  <string name="path_info">
+    <b>Choose a file name</b>
+  </string>
+
   <string name="not_installed">
     Intent Radio not installed\nPlease install IntentRadio
   </string>
@@ -47,6 +51,7 @@
   <string name="restart">Restart</string>
   <string name="save">Save</string>
   <string name="restore">Restore</string>
+  <string name="inport">Import</string>
 
   <string name="add">"  Add  "</string>
   <string name="remove">Remove</string>
@@ -59,5 +64,6 @@
 
   <string name="data_saved">%d entries saved</string>
   <string name="data_restored">%d entries restored</string>
+  <string name="data_imported">%d entries imported</string>
 
 </resources>
