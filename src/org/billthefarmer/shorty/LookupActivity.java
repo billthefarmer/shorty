@@ -520,6 +520,7 @@ public class LookupActivity extends Activity
 	    }
 	}
 
+	// Show resd error
 	catch (Exception e)
 	{
 	    showToast(R.string.read_error);
@@ -555,11 +556,8 @@ public class LookupActivity extends Activity
 
 	try
 	{
-	    // Get the path to sdcard
-	    File sdcard = Environment.getExternalStorageDirectory();
-
 	    // Add the directory path
-	    File dir = new File(sdcard, SHORTY_DIR);
+	    File dir = new File(SHORTY_DIR);
 
 	    // Open the file
 	    File file = new File(dir, SHORTY_EXTRA);
@@ -583,7 +581,14 @@ public class LookupActivity extends Activity
 
 	try
 	{
-	    File file = null;
+	    // Get path from intent
+	    String path = data.getStringExtra(PATH);
+
+	    // Get the path to sdcard
+	    File sdcard = Environment.getExternalStorageDirectory();
+
+	    // Add the path
+	    File file = new File(sdcard, path);
 
 	    CSVReader reader = new CSVReader(new FileReader(file));
 	    String nextLine[];
@@ -599,12 +604,15 @@ public class LookupActivity extends Activity
 	    	}
 	    }
 
-	    // Delete the file so it won't get read again
-	    file.delete();
+	    reader.close();
 	}
 
-	// Ignore errors
-	catch (Exception e) {}
+	// Show resd error
+	catch (Exception e)
+	{
+	    showToast(R.string.read_error);
+	    return;
+	}
 
 	showToast(R.string.data_imported, entryList.size());
     }

@@ -26,10 +26,15 @@ package org.billthefarmer.shorty;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class PathActivity extends Activity
+    implements View.OnClickListener
 {
+    private TextView textView;
+
     // On create
 
     @Override
@@ -38,11 +43,47 @@ public class PathActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.path);
 
-	TextView text = (TextView)findViewById(R.id.filename);
+	textView = (TextView)findViewById(R.id.path);
 
 	Intent intent = getIntent();
 	String path = intent.getStringExtra(LookupActivity.PATH);
 
-	text.setText(path);
+	if (textView != null)
+	    textView.setText(path);
+
+	Button cancel = (Button)findViewById(R.id.path_cancel);
+	if (cancel != null)
+	    cancel.setOnClickListener(this);
+
+	Button ok = (Button)findViewById(R.id.ok);
+	if (ok != null)
+	    ok.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+	// Get id
+
+	int id = v.getId();
+	switch (id)
+	{
+	    // Cancel
+
+	case R.id.path_cancel:
+	    setResult(RESULT_CANCELED);
+	    finish();
+	    break;
+
+	    // OK
+
+	case R.id.ok:
+	    Intent intent = new Intent();
+	    intent.putExtra(LookupActivity.PATH,
+			    textView.getText().toString());
+	    setResult(RESULT_OK, intent);
+	    finish();
+	    break;
+	}
     }
 }

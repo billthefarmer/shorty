@@ -17,7 +17,7 @@
       android:text="@string/path_info" />
 
   <EditText
-      android:id="@+id/filename"
+      android:id="@+id/path"
       android:inputType="text"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content" />
