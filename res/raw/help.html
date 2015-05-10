@@ -36,16 +36,24 @@
   in <a href="http://json.org">JSON</a> format.
 </p>
 
-<h4>Extras</h4>
+<h4>Import</h4>
 <p>
-  The <b>Restore</b> function also attempts to read a file
-  called <i>extras.csv</i> in the same location. This file is
+  The <b>Import</b> item prompts for a file, default
+  <i>extras.csv</i> in the same location. You may change the name
+  and/or location. This file should be
   in <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>
   format, which may be saved from a spreadsheet. If found the entries
-  will be added and the file deleted so it won't be read again.
+  will be added to the list. The function will not add duplicate
+  entries that are already in the list, but will add duplicates in the
+  file itself.
 </p>
 
 <h4>More Information</h4>
+<p>
+  The shortcuts use Shorty in the background, so will no longer work
+  if Shorty is uninstalled. Shorty will not create shortcuts if Intent
+  Radio is not installed.
+</p>
 <p>
   The source code is
   on <a href="https://github.com/billthefarmer/shorty">Github</a>. Please

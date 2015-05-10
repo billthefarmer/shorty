@@ -66,4 +66,10 @@
   <string name="data_restored">%d entries restored</string>
   <string name="data_imported">%d entries imported</string>
 
+  <string name="none_imported">
+    No entries imported\n
+    Perhaps you already\n
+    imported this file
+  </string>
+
 </resources>

@@ -45,11 +45,15 @@ public class PathActivity extends Activity
 
 	textView = (TextView)findViewById(R.id.path);
 
+	// Get path from intent
+
 	Intent intent = getIntent();
 	String path = intent.getStringExtra(LookupActivity.PATH);
 
 	if (textView != null)
 	    textView.setText(path);
+
+	// Set click listener on buttons
 
 	Button cancel = (Button)findViewById(R.id.path_cancel);
 	if (cancel != null)
@@ -59,6 +63,8 @@ public class PathActivity extends Activity
 	if (ok != null)
 	    ok.setOnClickListener(this);
     }
+
+    // On click
 
     @Override
     public void onClick(View v)
@@ -78,6 +84,7 @@ public class PathActivity extends Activity
 	    // OK
 
 	case R.id.ok:
+	    // Return new path in intent
 	    Intent intent = new Intent();
 	    intent.putExtra(LookupActivity.PATH,
 			    textView.getText().toString());

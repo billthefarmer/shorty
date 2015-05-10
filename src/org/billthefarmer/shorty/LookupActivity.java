@@ -47,6 +47,8 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -576,8 +578,12 @@ public class LookupActivity extends Activity
     protected void onActivityResult(int requestCode, int resultCode,
 				    Intent data)
     {
+	// Do nothing if cancelled
 	if (resultCode != RESULT_OK)
 	    return;
+
+	// Get entry list size
+	int old = entryList.size();
 
 	try
 	{
@@ -590,6 +596,10 @@ public class LookupActivity extends Activity
 	    // Add the path
 	    File file = new File(sdcard, path);
 
+	    // Create a set of the current names
+	    Set<String> nameSet = new HashSet<String>(entryList);
+
+	    // Read the file
 	    CSVReader reader = new CSVReader(new FileReader(file));
 	    String nextLine[];
 	    while ((nextLine = reader.readNext()) != null)
@@ -597,7 +607,8 @@ public class LookupActivity extends Activity
 	    	String name = nextLine[0];
 	    	String url = nextLine[1];;
 
-	    	if ((name != null) && (url != null))
+	    	if ((name != null) && (url != null) &&
+		    !nameSet.contains(name))
 	    	{
 	    	    entryList.add(name);
 	    	    valueList.add(url);
@@ -614,7 +625,33 @@ public class LookupActivity extends Activity
 	    return;
 	}
 
-	showToast(R.string.data_imported, entryList.size());
+	// Get preferences
+	SharedPreferences preferences =
+	    PreferenceManager.getDefaultSharedPreferences(this);
+
+	// Get editor
+	SharedPreferences.Editor editor = preferences.edit();
+
+	// Get entries
+	JSONArray entryArray = new JSONArray(entryList);
+	JSONArray valueArray = new JSONArray(valueList);
+
+	// Update preferences
+	editor.putString(PREF_ENTRIES, entryArray.toString());
+	editor.putString(PREF_VALUES, valueArray.toString());
+	editor.apply();
+
+	// Update display
+	arrayAdapter.notifyDataSetChanged();
+
+	// Get entries imported
+	int imported = entryList.size() - old;
+
+	if (imported == 0)
+	    showToast(R.string.none_imported);
+
+	else
+	    showToast(R.string.data_imported, imported);
     }
 
     // Show toast.

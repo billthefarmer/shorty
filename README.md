@@ -39,11 +39,13 @@ station list. The list location is *Shorty/entries.json*. This folder
 is accessible from a file manager or a connected PC. The list is in
 [JSON](http://json.org) format.
 
-The **Restore** function also attempts to read a file called
-*extras.csv* in the same location. This file is in
+The **Import** item prompts for a file, default *extras.csv* in the
+same location. You may change the name and/or location. This file
+should be in
 [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) format,
 which may be saved from a spreadsheet. If found the entries will be
-added and the file deleted so it won't be read again.
+added. The function will not add duplicate entries that are already in
+the list, but will add duplicates in the file itself.
 
 The shortcuts use Shorty in the background, so will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
