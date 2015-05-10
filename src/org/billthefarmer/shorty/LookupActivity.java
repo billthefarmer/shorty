@@ -48,6 +48,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -73,8 +74,8 @@ public class LookupActivity extends Activity
 
     private ArrayAdapter<String> arrayAdapter;
 
-    private ArrayList<String> entryList;
-    private ArrayList<String> valueList;
+    private List<String> entryList;
+    private List<String> valueList;
 
     // On create
 
