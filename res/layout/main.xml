@@ -16,40 +16,46 @@
       android:textSize="16sp"
       android:text="@string/info" />
 
-  <RadioGroup
-      android:id="@+id/group"
-      android:orientation="horizontal"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_gravity="center_horizontal">
+  <HorizontalScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
 
-    <RadioButton
-	android:id="@+id/play"
-	android:checked="true"
+    <RadioGroup
+	android:id="@+id/group"
+	android:orientation="horizontal"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:text="@string/play" />
+	android:layout_marginBottom="8dp"
+	android:layout_gravity="center_horizontal">
 
-    <RadioButton
-	android:id="@+id/stop"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/stop" />
+      <RadioButton
+	  android:id="@+id/play"
+	  android:checked="true"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/play" />
 
-    <RadioButton
-	android:id="@+id/pause"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/pause" />
+      <RadioButton
+	  android:id="@+id/stop"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/stop" />
 
-    <RadioButton
-	android:id="@+id/restart"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/restart" />
+      <RadioButton
+	  android:id="@+id/pause"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/pause" />
 
-  </RadioGroup>
+      <RadioButton
+	  android:id="@+id/restart"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:text="@string/restart" />
+
+    </RadioGroup>
+
+  </HorizontalScrollView>
 
   <EditText
       android:id="@+id/name"
