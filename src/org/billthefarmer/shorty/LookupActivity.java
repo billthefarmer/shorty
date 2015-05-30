@@ -258,10 +258,10 @@ public class LookupActivity extends Activity
 	    sendBroadcast(broadcast);
 	    break;
 
-	    // Restart
+	    // Resume
 
-	case R.id.action_restart:
-	    // Create an intent to restart using Intent Radio
+	case R.id.action_resume:
+	    // Create an intent to resume using Intent Radio
 	    broadcast = new Intent(MainActivity.RESTART);
 
 	    sendBroadcast(broadcast);

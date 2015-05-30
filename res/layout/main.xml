@@ -48,10 +48,10 @@
 	  android:text="@string/pause" />
 
       <RadioButton
-	  android:id="@+id/restart"
+	  android:id="@+id/resume"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
-	  android:text="@string/restart" />
+	  android:text="@string/resume" />
 
     </RadioGroup>
 

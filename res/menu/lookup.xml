@@ -21,10 +21,10 @@
       android:icon="@drawable/ic_action_pause" />
 
   <item
-      android:id="@+id/action_restart"
+      android:id="@+id/action_resume"
       android:showAsAction="ifRoom"
-      android:title="@string/restart"
-      android:icon="@drawable/ic_action_restart" />
+      android:title="@string/resume"
+      android:icon="@drawable/ic_action_resume" />
 
   <item
       android:id="@+id/action_save"

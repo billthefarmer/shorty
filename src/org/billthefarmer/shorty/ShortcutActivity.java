@@ -181,10 +181,10 @@ public class ShortcutActivity extends Activity
 		    shortcut.putExtra("action", MainActivity.PAUSE);
 		    break;
 
-		    // Restart
+		    // Resume
 
-		case R.id.restart:
-		    name = "Restart";
+		case R.id.resume:
+		    name = "Resume";
 		    shortcut.putExtra("action", MainActivity.RESTART);
 		    break;
 		}
