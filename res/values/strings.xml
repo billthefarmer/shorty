@@ -48,7 +48,7 @@
   <string name="play">Play</string>
   <string name="stop">Stop</string>
   <string name="pause">Pause</string>
-  <string name="restart">Restart</string>
+  <string name="restart">Resume</string>
   <string name="save">Save</string>
   <string name="restore">Restore</string>
   <string name="inport">Import</string>
