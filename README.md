@@ -30,7 +30,7 @@ may also be created.
 
 Touch the **Lookup** item in the toolbat to show the lookup
 display. Touch an item in the list to fill the fields, and the
-*Select** button to return to the shortcut screen. Use the **Add** and
+*Select** button to return to the shortcut display. Use the **Add** and
 **Remove** buttons to add and remove entries in the list. The
 **Play**, **Stop**, **Pause** and **Resume** items in the toolbar
 will play a station in Intent Radio directly. The **Save** and
