@@ -1,4 +1,4 @@
-# Shorty
+# Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty)
 
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio).
 The app is available on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.shorty)
