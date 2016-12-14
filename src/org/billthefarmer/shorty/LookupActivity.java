@@ -612,7 +612,7 @@ public class LookupActivity extends Activity
 		    !nameSet.contains(name))
 	    	{
 	    	    entryList.add(name);
-	    	    valueList.add(url);
+ 	    	    valueList.add(url);
 	    	}
 	    }
 
