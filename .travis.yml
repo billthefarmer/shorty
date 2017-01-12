@@ -1,12 +1,14 @@
 
 language: android
+
 android:
   components:
     - platform-tools
     - tools
 
-    - build-tools-23.0.2
+    - build-tools-24.0.2
 
-    - android-17
+    - android-25
 
-script: ant release
+script:
+  - ./gradlew build
