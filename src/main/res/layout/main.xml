@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:gravity="center_horizontal"
+      android:textSize="16sp"
+      android:text="@string/info" />
+
+  <HorizontalScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
+    <RadioGroup
+	android:id="@+id/group"
+	android:orientation="horizontal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="8dp"
+	style="?android:attr/buttonBarStyle"
+	android:layout_gravity="center_horizontal">
+
+      <RadioButton
+	  android:id="@+id/play"
+	  android:checked="true"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  style="?android:attr/buttonBarButtonStyle"
+	  android:text="@string/play" />
+
+      <RadioButton
+	  android:id="@+id/stop"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  style="?android:attr/buttonBarButtonStyle"
+	  android:text="@string/stop" />
+
+      <RadioButton
+	  android:id="@+id/pause"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  style="?android:attr/buttonBarButtonStyle"
+	  android:text="@string/pause" />
+
+      <RadioButton
+	  android:id="@+id/resume"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  style="?android:attr/buttonBarButtonStyle"
+	  android:text="@string/resume" />
+
+    </RadioGroup>
+
+  </HorizontalScrollView>
+
+  <EditText
+      android:id="@+id/name"
+      android:inputType="textCapWords"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:hint="@string/name" />
+
+  <EditText
+      android:id="@+id/url"
+      android:inputType="textUri"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:hint="@string/url" />
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp"
+      style="?android:attr/buttonBarStyle"
+      android:layout_gravity="center_horizontal">
+
+    <Button
+	android:id="@+id/cancel"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	style="?android:attr/buttonBarButtonStyle"
+	android:text="@string/cancel" />
+
+    <Button
+	android:id="@+id/create"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	style="?android:attr/buttonBarButtonStyle"
+	android:text="@string/create" />
+
+  </LinearLayout>
+</LinearLayout>

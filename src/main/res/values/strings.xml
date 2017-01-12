@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Shorty</string>
+
+  <string name="info">
+    <b>Create a shortcut for Intent Radio using the fields and buttons
+    below.</b>
+  </string>
+
+  <string name="lookup_info">
+    <b>Add and remove stations from the list using the buttons
+    below.</b>
+  </string>
+
+  <string name="path_info">
+    <b>Choose a file name</b>
+  </string>
+
+  <string name="not_installed">
+    Intent Radio not installed\nPlease install Intent Radio
+  </string>
+
+  <string name="no_write">
+    "Can't write to storage"
+  </string>
+
+  <string name="no_read">
+    "Can't read file from storage"
+  </string>
+
+  <string name="read_error">
+    "File read error"
+  </string>
+
+  <string name="version">Shorty version %s</string>
+  <string name="copyright">Copyright \u00A9 2015 Bill Farmer</string>
+  <string name="licence">Licence: GNU GPLv3</string>
+
+  <string name="name">Station name</string>
+  <string name="url">Station url</string>
+
+  <string name="default_name">BBC Radio 4</string>
+  <string name="default_url">http://www.listenlive.eu/bbcradio4.m3u</string>
+
+  <string name="cancel">Cancel</string>
+  <string name="create">Create</string>
+
+  <string name="play">Play</string>
+  <string name="stop">Stop</string>
+  <string name="pause">Pause</string>
+  <string name="resume">Resume</string>
+  <string name="save">Save</string>
+  <string name="restore">Restore</string>
+  <string name="inport">Import</string>
+
+  <string name="add">"  Add  "</string>
+  <string name="remove">Remove</string>
+  <string name="select">Select</string>
+
+  <string name="lookup">Lookup</string>
+  <string name="about">About</string>
+  <string name="help">Help</string>
+
+  <string name="data_saved">Entries saved %d</string>
+  <string name="data_restored">Entries restored %d</string>
+  <string name="data_imported">Entries imported %d</string>
+
+  <string name="none_imported">
+    No entries imported\n
+    Perhaps you already\n
+    imported this file
+  </string>
+
+</resources>
