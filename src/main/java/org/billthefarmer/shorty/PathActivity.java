@@ -43,25 +43,25 @@ public class PathActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.path);
 
-	textView = (TextView)findViewById(R.id.path);
+        textView = (TextView)findViewById(R.id.path);
 
-	// Get path from intent
+        // Get path from intent
 
-	Intent intent = getIntent();
-	String path = intent.getStringExtra(LookupActivity.PATH);
+        Intent intent = getIntent();
+        String path = intent.getStringExtra(LookupActivity.PATH);
 
-	if (textView != null)
-	    textView.setText(path);
+        if (textView != null)
+            textView.setText(path);
 
-	// Set click listener on buttons
+        // Set click listener on buttons
 
-	Button cancel = (Button)findViewById(R.id.path_cancel);
-	if (cancel != null)
-	    cancel.setOnClickListener(this);
+        Button cancel = (Button)findViewById(R.id.path_cancel);
+        if (cancel != null)
+            cancel.setOnClickListener(this);
 
-	Button ok = (Button)findViewById(R.id.ok);
-	if (ok != null)
-	    ok.setOnClickListener(this);
+        Button ok = (Button)findViewById(R.id.ok);
+        if (ok != null)
+            ok.setOnClickListener(this);
     }
 
     // On click
@@ -69,28 +69,28 @@ public class PathActivity extends Activity
     @Override
     public void onClick(View v)
     {
-	// Get id
+        // Get id
 
-	int id = v.getId();
-	switch (id)
-	{
-	    // Cancel
+        int id = v.getId();
+        switch (id)
+        {
+        // Cancel
 
-	case R.id.path_cancel:
-	    setResult(RESULT_CANCELED);
-	    finish();
-	    break;
+        case R.id.path_cancel:
+            setResult(RESULT_CANCELED);
+            finish();
+            break;
 
-	    // OK
+        // OK
 
-	case R.id.ok:
-	    // Return new path in intent
-	    Intent intent = new Intent();
-	    intent.putExtra(LookupActivity.PATH,
-			    textView.getText().toString());
-	    setResult(RESULT_OK, intent);
-	    finish();
-	    break;
-	}
+        case R.id.ok:
+            // Return new path in intent
+            Intent intent = new Intent();
+            intent.putExtra(LookupActivity.PATH,
+                            textView.getText().toString());
+            setResult(RESULT_OK, intent);
+            finish();
+            break;
+        }
     }
 }

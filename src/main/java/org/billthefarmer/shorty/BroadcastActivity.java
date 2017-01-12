@@ -41,32 +41,32 @@ public class BroadcastActivity extends Activity
         // Get the intent
         Intent intent = getIntent();
 
-	// Get the url and name
-	String url = intent.getStringExtra("url");
-	String name = intent.getStringExtra("name");
-	String action = intent.getStringExtra("action");
+        // Get the url and name
+        String url = intent.getStringExtra("url");
+        String name = intent.getStringExtra("name");
+        String action = intent.getStringExtra("action");
 
-	// Create an intent to play using Intent Radio
-	Intent broadcast = new Intent(action);
+        // Create an intent to play using Intent Radio
+        Intent broadcast = new Intent(action);
 
-	// Put the url and name in the broadcast intent
+        // Put the url and name in the broadcast intent
         broadcast.putExtra("url", url);
         broadcast.putExtra("name", name);
 
-	sendBroadcast(broadcast);
+        sendBroadcast(broadcast);
 
-	setResult(RESULT_OK);
-	finish();
+        setResult(RESULT_OK);
+        finish();
     }
 
     // Show toast.
 
     void showToast(String text)
     {
-	// Make a new toast
+        // Make a new toast
 
-	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-	toast.setGravity(Gravity.CENTER, 0, 0);
-	toast.show();
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

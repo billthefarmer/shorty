@@ -43,35 +43,35 @@ public class AboutActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
 
-	// Get text view
-    	TextView view = (TextView)findViewById(R.id.version);
+        // Get text view
+        TextView view = (TextView)findViewById(R.id.version);
 
-    	// Get package manager
-    	PackageManager manager = getPackageManager();
+        // Get package manager
+        PackageManager manager = getPackageManager();
 
-    	// Get info
+        // Get info
 
-    	PackageInfo info = null;
+        PackageInfo info = null;
 
-    	try
-    	{
-    	    info = manager.getPackageInfo("org.billthefarmer.shorty", 0);
-    	}
-		
-    	catch (Exception e) {}
+        try
+        {
+            info = manager.getPackageInfo("org.billthefarmer.shorty", 0);
+        }
 
-    	// Set version in text view
+        catch (Exception e) {}
 
-    	if (view != null && info != null)
-    	{
-    	    String v = (String) view.getText();
-    	    String s = String.format(v, info.versionName);
-    	    view.setText(s);
-    	}
+        // Set version in text view
 
-	// Get button
-	Button ok = (Button)findViewById(R.id.ok);
-	ok.setOnClickListener(this);
+        if (view != null && info != null)
+        {
+            String v = (String) view.getText();
+            String s = String.format(v, info.versionName);
+            view.setText(s);
+        }
+
+        // Get button
+        Button ok = (Button)findViewById(R.id.ok);
+        ok.setOnClickListener(this);
     }
 
     // On click
@@ -79,17 +79,17 @@ public class AboutActivity extends Activity
     @Override
     public void onClick(View v)
     {
-	// Get id
+        // Get id
 
-	int id = v.getId();
-	switch (id)
-	{
-	    // Cancel
+        int id = v.getId();
+        switch (id)
+        {
+        // Cancel
 
-	case R.id.ok:
-	    setResult(RESULT_CANCELED);
-	    finish();
-	    break;
-	}
+        case R.id.ok:
+            setResult(RESULT_CANCELED);
+            finish();
+            break;
+        }
     }
 }
