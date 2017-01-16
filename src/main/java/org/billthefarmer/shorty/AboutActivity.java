@@ -24,8 +24,6 @@
 package org.billthefarmer.shorty;
 
 import android.app.Activity;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,26 +44,11 @@ public class AboutActivity extends Activity
         // Get text view
         TextView view = (TextView)findViewById(R.id.version);
 
-        // Get package manager
-        PackageManager manager = getPackageManager();
-
-        // Get info
-
-        PackageInfo info = null;
-
-        try
-        {
-            info = manager.getPackageInfo("org.billthefarmer.shorty", 0);
-        }
-
-        catch (Exception e) {}
-
         // Set version in text view
-
-        if (view != null && info != null)
+        if (view != null)
         {
             String v = (String) view.getText();
-            String s = String.format(v, info.versionName);
+            String s = String.format(v, BuildConfig.VERSION_NAME);
             view.setText(s);
         }
 
