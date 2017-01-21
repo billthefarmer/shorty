@@ -29,10 +29,10 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Toast;
 
+// BroadcastActivity
 public class BroadcastActivity extends Activity
 {
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -64,7 +64,6 @@ public class BroadcastActivity extends Activity
     void showToast(String text)
     {
         // Make a new toast
-
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();

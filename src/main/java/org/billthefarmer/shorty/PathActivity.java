@@ -30,13 +30,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+// PathActivity
 public class PathActivity extends Activity
     implements View.OnClickListener
 {
     private TextView textView;
 
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,7 +46,6 @@ public class PathActivity extends Activity
         textView = (TextView)findViewById(R.id.path);
 
         // Get path from intent
-
         Intent intent = getIntent();
         String path = intent.getStringExtra(LookupActivity.PATH);
 
@@ -54,7 +53,6 @@ public class PathActivity extends Activity
             textView.setText(path);
 
         // Set click listener on buttons
-
         Button cancel = (Button)findViewById(R.id.path_cancel);
         if (cancel != null)
             cancel.setOnClickListener(this);
@@ -65,24 +63,20 @@ public class PathActivity extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
         // Get id
-
         int id = v.getId();
         switch (id)
         {
         // Cancel
-
         case R.id.path_cancel:
             setResult(RESULT_CANCELED);
             finish();
             break;
 
         // OK
-
         case R.id.ok:
             // Return new path in intent
             Intent intent = new Intent();

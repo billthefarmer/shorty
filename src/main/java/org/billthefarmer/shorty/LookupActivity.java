@@ -55,6 +55,7 @@ import org.json.JSONObject;
 
 import com.opencsv.CSVReader;
 
+// LookupActivity
 public class LookupActivity extends Activity
     implements AdapterView.OnItemClickListener, View.OnClickListener
 {
@@ -78,7 +79,6 @@ public class LookupActivity extends Activity
     private List<String> valueList;
 
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -193,7 +193,6 @@ public class LookupActivity extends Activity
     }
 
     // Menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -205,25 +204,21 @@ public class LookupActivity extends Activity
     }
 
     // On options item selected
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         Intent broadcast;
 
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
         // Home
-
         case android.R.id.home:
             finish();
             break;
 
         // Play
-
         case R.id.action_play:
             // Get the name and url
             String name = nameView.getText().toString();
@@ -250,7 +245,6 @@ public class LookupActivity extends Activity
             break;
 
         // Pause
-
         case R.id.action_pause:
             // Create an intent to pause using Intent Radio
             broadcast = new Intent(MainActivity.PAUSE);
@@ -259,7 +253,6 @@ public class LookupActivity extends Activity
             break;
 
         // Resume
-
         case R.id.action_resume:
             // Create an intent to resume using Intent Radio
             broadcast = new Intent(MainActivity.RESTART);
@@ -268,7 +261,6 @@ public class LookupActivity extends Activity
             break;
 
         // Stop
-
         case R.id.action_stop:
             // Create an intent to stop using Intent Radio
             broadcast = new Intent(MainActivity.STOP);
@@ -277,19 +269,16 @@ public class LookupActivity extends Activity
             break;
 
         // Save
-
         case R.id.action_save:
             saveData();
             break;
 
         // Restore
-
         case R.id.action_restore:
             restoreData();
             break;
 
         // Import
-
         case R.id.action_import:
             importData();
             break;
@@ -302,7 +291,6 @@ public class LookupActivity extends Activity
     }
 
     // On item click
-
     @Override
     public void onItemClick(AdapterView parent, View view,
                             int position, long id)
@@ -312,7 +300,6 @@ public class LookupActivity extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
@@ -327,12 +314,10 @@ public class LookupActivity extends Activity
         SharedPreferences.Editor editor = preferences.edit();
 
         // Get id
-
         int id = v.getId();
         switch (id)
         {
         // Add
-
         case R.id.add:
             // Add entry
             entryList.add(nameView.getText().toString());
@@ -352,7 +337,6 @@ public class LookupActivity extends Activity
             break;
 
         // Remove
-
         case R.id.remove:
             // Check entry is selected
             if (listView.getCheckedItemCount() == 0)
@@ -380,7 +364,6 @@ public class LookupActivity extends Activity
             break;
 
         // Select
-
         case R.id.select:
 
             // Update preferences
@@ -401,7 +384,6 @@ public class LookupActivity extends Activity
     }
 
     // Save data
-
     void saveData()
     {
         // Create a JSON array
@@ -428,7 +410,6 @@ public class LookupActivity extends Activity
         }
 
         // Open a file to write the JSON array
-
         try
         {
             // Get the path to sdcard
@@ -460,13 +441,11 @@ public class LookupActivity extends Activity
     }
 
     // Restore data
-
     void restoreData()
     {
         StringBuilder text = new StringBuilder();
 
         // Open a file to read the JSON
-
         try
         {
             // Get the path to sdcard
@@ -504,7 +483,6 @@ public class LookupActivity extends Activity
         valueList.clear();
 
         // Add the entries from the file to the lists
-
         try
         {
             JSONArray data = new JSONArray(text.toString());
@@ -552,11 +530,9 @@ public class LookupActivity extends Activity
     }
 
     // Import data
-
     void importData()
     {
         // See if there's an extras file
-
         try
         {
             // Add the directory path
@@ -656,7 +632,6 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(int id, Object... args)
     {
         // Get text from resources
@@ -666,7 +641,6 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(String format, Object... args)
     {
         String text = String.format(format, args);
@@ -674,11 +648,9 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(String text)
     {
         // Make a new toast
-
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();

@@ -40,6 +40,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// MainActivity
 public class MainActivity extends Activity
     implements View.OnClickListener
 {
@@ -61,7 +62,6 @@ public class MainActivity extends Activity
     private TextView urlView;
 
     // On create
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -95,7 +95,6 @@ public class MainActivity extends Activity
     }
 
     // Menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -107,28 +106,23 @@ public class MainActivity extends Activity
     }
 
     // On options item
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
 
         // Lookup
-
         case R.id.action_lookup:
             return onLookupClick(item);
 
         // Help
-
         case R.id.action_help:
             return onHelpClick(item);
 
         // About
-
         case R.id.action_about:
             return onAboutClick(item);
 
@@ -138,7 +132,6 @@ public class MainActivity extends Activity
     }
 
     // On lookup click
-
     private boolean onLookupClick(MenuItem item)
     {
         Intent intent = new Intent(this, LookupActivity.class);
@@ -148,7 +141,6 @@ public class MainActivity extends Activity
     }
 
     // On help click
-
     private boolean onHelpClick(MenuItem item)
     {
         Intent intent = new Intent(this, HelpActivity.class);
@@ -158,7 +150,6 @@ public class MainActivity extends Activity
     }
 
     // On about click
-
     private boolean onAboutClick(MenuItem item)
     {
         Intent intent = new Intent(this, AboutActivity.class);
@@ -168,32 +159,26 @@ public class MainActivity extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
         // Get id
-
         int id = v.getId();
         switch (id)
         {
         // Cancel
-
         case R.id.cancel:
             setResult(RESULT_CANCELED);
             finish();
             break;
 
         // Create
-
         case R.id.create:
 
             // Get package manager
-
             PackageManager manager = getPackageManager();
 
             // Get Intent Radio icon
-
             BitmapDrawable icon = null;
             try
             {
@@ -224,7 +209,6 @@ public class MainActivity extends Activity
                 switch (action)
                 {
                 // Play
-
                 case R.id.play:
                     // Get resources
                     Resources resources = getResources();
@@ -254,21 +238,18 @@ public class MainActivity extends Activity
                     break;
 
                 // Stop
-
                 case R.id.stop:
                     name = "Stop";
                     shortcut.putExtra("action", STOP);
                     break;
 
                 // Pause
-
                 case R.id.pause:
                     name = "Pause";
                     shortcut.putExtra("action", PAUSE);
                     break;
 
                 // Resume
-
                 case R.id.resume:
                     name = "Resume";
                     shortcut.putExtra("action", RESTART);
@@ -294,7 +275,6 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(int id)
     {
         // Get text from resources
@@ -304,7 +284,6 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(String text)
     {
         // Make a new toast

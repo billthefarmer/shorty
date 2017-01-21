@@ -38,6 +38,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// ShortcutActivity
 public class ShortcutActivity extends Activity
     implements View.OnClickListener
 {
@@ -46,7 +47,6 @@ public class ShortcutActivity extends Activity
     private TextView urlView;
 
     // On create
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -80,17 +80,14 @@ public class ShortcutActivity extends Activity
     }
 
     // On click
-
     @Override
     public void onClick(View v)
     {
         // Get id
-
         int id = v.getId();
         switch (id)
         {
         // Cancel
-
         case R.id.cancel:
             setResult(RESULT_CANCELED);
             finish();
@@ -98,15 +95,12 @@ public class ShortcutActivity extends Activity
 
 
         // Create
-
         case R.id.create:
 
             // Get package manager
-
             PackageManager manager = getPackageManager();
 
             // Get Intent Radio icon
-
             BitmapDrawable icon = null;
             try
             {
@@ -138,7 +132,6 @@ public class ShortcutActivity extends Activity
                 switch (action)
                 {
                 // Play
-
                 case R.id.play:
                     // Get resources
                     Resources resources = getResources();
@@ -168,21 +161,18 @@ public class ShortcutActivity extends Activity
                     break;
 
                 // Stop
-
                 case R.id.stop:
                     name = "Stop";
                     shortcut.putExtra("action", MainActivity.STOP);
                     break;
 
                 // Pause
-
                 case R.id.pause:
                     name = "Pause";
                     shortcut.putExtra("action", MainActivity.PAUSE);
                     break;
 
                 // Resume
-
                 case R.id.resume:
                     name = "Resume";
                     shortcut.putExtra("action", MainActivity.RESTART);
@@ -203,7 +193,6 @@ public class ShortcutActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(int id)
     {
         // Get text from resources
@@ -213,7 +202,6 @@ public class ShortcutActivity extends Activity
     }
 
     // Show toast.
-
     void showToast(String text)
     {
         // Make a new toast

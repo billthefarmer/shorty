@@ -34,7 +34,6 @@ import android.widget.TextView;
 // HelpActivity
 public class HelpActivity extends Activity
 {
-
     // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
