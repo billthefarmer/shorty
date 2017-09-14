@@ -41,6 +41,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -636,6 +637,9 @@ public class LookupActivity extends Activity
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.setView(text, 30, 0, 30, 0);
+        dialog.getWindow()
+            .setSoftInputMode(WindowManager
+                              .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
     }
 
