@@ -1,4 +1,7 @@
+# Hidden files
 .*
+
+# Emacs backups
 *~
 
 # Built application files

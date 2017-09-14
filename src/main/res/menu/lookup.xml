@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
+      android:id="@+id/action_search"
+      android:showAsAction="ifRoom|collapseActionView"
+      android:title="@string/search"
+      android:actionViewClass="android.widget.SearchView"
+      android:icon="@drawable/ic_action_search" />
+      
+  <item
       android:id="@+id/action_play"
       android:showAsAction="ifRoom"
       android:title="@string/play"

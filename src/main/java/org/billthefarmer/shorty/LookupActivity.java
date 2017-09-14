@@ -25,12 +25,18 @@ package org.billthefarmer.shorty;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,9 +44,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -57,7 +66,8 @@ import com.opencsv.CSVReader;
 
 // LookupActivity
 public class LookupActivity extends Activity
-    implements AdapterView.OnItemClickListener, View.OnClickListener
+    implements AdapterView.OnItemClickListener, View.OnClickListener,
+               SearchView.OnQueryTextListener
 {
     private final static String PREF_ENTRIES = "pref_entries";
     private final static String PREF_VALUES = "pref_values";
@@ -68,7 +78,10 @@ public class LookupActivity extends Activity
     protected final static String PATH = "path";
 
     protected final static int IMPORT = 1;
+    private final static int TEXT = 1;
 
+    private SearchView searchView;
+    private MenuItem searchItem;
     private TextView nameView;
     private TextView urlView;
     private ListView listView;
@@ -83,6 +96,16 @@ public class LookupActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean dark = preferences.getBoolean(MainActivity.PREF_DARK, true);
+
+        if (dark)
+            setTheme(R.style.AppDarkTheme);
+
         setContentView(R.layout.lookup);
 
         // Get text views
@@ -114,8 +137,8 @@ public class LookupActivity extends Activity
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Get preferences
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+        // SharedPreferences preferences =
+        //     PreferenceManager.getDefaultSharedPreferences(this);
 
         String name = preferences.getString(MainActivity.PREF_NAME, null);
         String url = preferences.getString(MainActivity.PREF_URL, null);
@@ -185,8 +208,8 @@ public class LookupActivity extends Activity
 
         // Set array adapter
         arrayAdapter =
-            new ArrayAdapter<String>(this,
-                                     android.R.layout.simple_list_item_activated_1,
+            new ArrayAdapter<String>(this, android.R.layout
+                                     .simple_list_item_activated_1,
                                      entryList);
 
         listView.setAdapter(arrayAdapter);
@@ -199,6 +222,15 @@ public class LookupActivity extends Activity
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.lookup, menu);
+
+        searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) searchItem.getActionView();
+
+        if (searchView != null)
+        {
+            searchView.setQueryHint(getText(R.string.hint));
+            searchView.setOnQueryTextListener(this);
+        }
 
         return true;
     }
@@ -215,6 +247,7 @@ public class LookupActivity extends Activity
         {
         // Home
         case android.R.id.home:
+            setResult(RESULT_CANCELED);
             finish();
             break;
 
@@ -284,9 +317,30 @@ public class LookupActivity extends Activity
             break;
 
         default:
-            return false;
+            return super.onOptionsItemSelected(item);
         }
 
+        return true;
+    }
+
+    // onQueryTextChange
+    @Override
+    public boolean onQueryTextChange (String newText)
+    {
+        arrayAdapter.getFilter().filter(newText);
+        return true;
+    }
+
+    // onQueryTextSubmit
+    @Override
+    public boolean onQueryTextSubmit (String query)
+    {
+        String item = (String) listView.getItemAtPosition(0);
+        nameView.setText(item);
+        int index = entryList.indexOf(item);
+        urlView.setText(valueList.get(index));
+
+        searchItem.collapseActionView();
         return true;
     }
 
@@ -295,8 +349,14 @@ public class LookupActivity extends Activity
     public void onItemClick(AdapterView parent, View view,
                             int position, long id)
     {
-        nameView.setText(entryList.get(position));
-        urlView.setText(valueList.get(position));
+        String item = (String) parent.getItemAtPosition(position);
+
+        nameView.setText(item);
+        int index = entryList.indexOf(item);
+        urlView.setText(valueList.get(index));
+
+        if (searchItem.isActionViewExpanded())
+            searchItem.collapseActionView();
     }
 
     // On click
@@ -374,11 +434,11 @@ public class LookupActivity extends Activity
             editor.apply();
 
             // Create intent
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            // Go back
-            startActivity(intent);
+            Intent intent = new Intent();
+            intent.putExtra(MainActivity.URL, urlView.getText().toString());
+            intent.putExtra(MainActivity.NAME, nameView.getText().toString());
+            setResult(RESULT_OK, intent);
+            finish();
             break;
         }
     }
@@ -532,41 +592,61 @@ public class LookupActivity extends Activity
     // Import data
     void importData()
     {
-        // See if there's an extras file
-        try
-        {
-            // Add the directory path
-            File dir = new File(SHORTY_DIR);
+        // Set the directory path
+        File dir = new File(SHORTY_DIR);
 
-            // Open the file
-            File file = new File(dir, SHORTY_EXTRA);
+        // Create the file
+        File file = new File(dir, SHORTY_EXTRA);
 
-            // Open a path dialog
-            Intent intent = new Intent(this, PathActivity.class);
-            intent.putExtra(PATH, file.getPath());
-            startActivityForResult (intent, IMPORT);
-        }
-
-        // Ignore errors
-        catch (Exception e) {}
+        importDialog(R.string.inport, R.string.path_info, file.getPath(),
+                     new DialogInterface.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int id)
+                {
+                    switch (id)
+                    {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        EditText text =
+                            (EditText) ((Dialog) dialog).findViewById(TEXT);
+                        String path = text.getText().toString();
+                        importFile(path);
+                    }
+                }
+            });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data)
+    // importDialog
+    private void importDialog(int title, int message, String path,
+                              DialogInterface.OnClickListener listener)
     {
-        // Do nothing if cancelled
-        if (resultCode != RESULT_OK)
-            return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
 
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, listener);
+        builder.setNegativeButton(R.string.cancel, listener);
+
+        // Create edit text
+        Context context = builder.getContext();
+        EditText text = new EditText(context);
+        text.setId(TEXT);
+        text.setText(path);
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.setView(text, 30, 0, 30, 0);
+        dialog.show();
+    }
+
+    // importFile
+    protected void importFile(String path)
+    {
         // Get entry list size
         int old = entryList.size();
 
         try
         {
-            // Get path from intent
-            String path = data.getStringExtra(PATH);
-
             // Get the path to sdcard
             File sdcard = Environment.getExternalStorageDirectory();
 

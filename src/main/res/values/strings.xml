@@ -32,9 +32,9 @@
     "File read error"
   </string>
 
-  <string name="version">Shorty version %s</string>
-  <string name="copyright">Copyright \u00A9 2015 Bill Farmer</string>
-  <string name="licence">Licence: GNU GPLv3</string>
+  <string name="version">
+    Shorty version %s\nCopyright \u00A9 2017 Bill Farmer\nGNU GPLv3
+  </string>
 
   <string name="name">Station name</string>
   <string name="url">Station url</string>
@@ -42,9 +42,12 @@
   <string name="default_name">BBC Radio 4</string>
   <string name="default_url">http://www.listenlive.eu/bbcradio4.m3u</string>
 
+  <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="create">Create</string>
 
+  <string name="search">Search</string>
+  <string name="hint">Search stations</string>
   <string name="play">Play</string>
   <string name="stop">Stop</string>
   <string name="pause">Pause</string>
@@ -60,6 +63,7 @@
   <string name="lookup">Lookup</string>
   <string name="about">About</string>
   <string name="help">Help</string>
+  <string name="dark">Dark theme</string>
 
   <string name="data_saved">Entries saved %d</string>
   <string name="data_restored">Entries restored %d</string>

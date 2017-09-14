@@ -24,12 +24,15 @@
 package org.billthefarmer.shorty;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
@@ -40,12 +43,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 // MainActivity
 public class MainActivity extends Activity
     implements View.OnClickListener
 {
     protected final static String PREF_URL = "pref_url";
     protected final static String PREF_NAME = "pref_name";
+    protected final static String PREF_DARK = "pref_dark";
+
+    protected final static String URL = "url";
+    protected final static String NAME = "name";
 
     protected final static String PLAY = "org.smblott.intentradio.PLAY";
     protected final static String PAUSE = "org.smblott.intentradio.PAUSE";
@@ -57,15 +66,33 @@ public class MainActivity extends Activity
     protected final static String INSTALL_SHORTCUT =
         "com.android.launcher.action.INSTALL_SHORTCUT";
 
+    protected final static int LOOKUP = 0;
+    private final static int VERSION_M = 23;
+
     private RadioGroup group;
     private TextView nameView;
     private TextView urlView;
+
+    private boolean dark = true;
 
     // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        String name = preferences.getString(PREF_NAME, null);
+        String url = preferences.getString(PREF_URL, null);
+
+        dark = preferences.getBoolean(PREF_DARK, true);
+
+        if (dark)
+            setTheme(R.style.AppDarkTheme);
+
         setContentView(R.layout.main);
 
         // Get group and views
@@ -80,13 +107,6 @@ public class MainActivity extends Activity
         Button create = (Button)findViewById(R.id.create);
         create.setOnClickListener(this);
 
-        // Get preferences
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
-
-        String name = preferences.getString(PREF_NAME, null);
-        String url = preferences.getString(PREF_URL, null);
-
         // Set fields from preferences
         if (name != null)
             nameView.setText(name);
@@ -94,13 +114,36 @@ public class MainActivity extends Activity
             urlView.setText(url);
     }
 
-    // Menu
+    // onPause
+    @Override
+    public void onPause ()
+    {
+        super.onPause();
+
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(PREF_DARK, dark);
+        editor.apply();
+    }
+
+    // onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        return true;
+    }
+
+    // onPrepareOptionsMenu
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu)
+    {
+        menu.findItem(R.id.action_dark).setChecked (dark);
 
         return true;
     }
@@ -113,7 +156,6 @@ public class MainActivity extends Activity
         int id = item.getItemId();
         switch (id)
         {
-
         // Lookup
         case R.id.action_lookup:
             return onLookupClick(item);
@@ -126,8 +168,37 @@ public class MainActivity extends Activity
         case R.id.action_about:
             return onAboutClick(item);
 
+        // Dark
+        case R.id.action_dark:
+            return onDarkClick(item);
+
         default:
             return false;
+        }
+    }
+
+    // onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data)
+    {
+        // Do nothing if cancelled
+        if (resultCode != RESULT_OK)
+            return;
+
+        switch (requestCode)
+        {
+        case LOOKUP:
+ 
+            String name = data.getStringExtra(NAME);
+            String url = data.getStringExtra(URL);
+
+            // Set fields from intent
+            if (name != null)
+                nameView.setText(name);
+            if (url != null)
+                urlView.setText(url);
+            break;
         }
     }
 
@@ -135,7 +206,7 @@ public class MainActivity extends Activity
     private boolean onLookupClick(MenuItem item)
     {
         Intent intent = new Intent(this, LookupActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, LOOKUP);
 
         return true;
     }
@@ -152,8 +223,35 @@ public class MainActivity extends Activity
     // On about click
     private boolean onAboutClick(MenuItem item)
     {
-        Intent intent = new Intent(this, AboutActivity.class);
-        startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.about);
+
+        String format = getString(R.string.version);
+        String message =
+            String.format(Locale.getDefault(),
+                          format, BuildConfig.VERSION_NAME);
+        builder.setMessage(message);
+
+        // Add the button
+        builder.setPositiveButton(R.string.ok, null);
+
+        // Create the AlertDialog
+        builder.show();
+
+        // Intent intent = new Intent(this, AboutActivity.class);
+        // startActivity(intent);
+
+        return true;
+    }
+
+    // On dark click
+    private boolean onDarkClick(MenuItem item)
+    {
+        dark = !dark;
+        item.setChecked(dark);
+
+        if (Build.VERSION.SDK_INT != VERSION_M)
+            recreate();
 
         return true;
     }

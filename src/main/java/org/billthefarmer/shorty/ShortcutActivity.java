@@ -51,6 +51,15 @@ public class ShortcutActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // Get preferences
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean dark = preferences.getBoolean(MainActivity.PREF_DARK, true);
+
+        if (dark)
+            setTheme(R.style.DialogDarkTheme);
         setContentView(R.layout.main);
 
         // Get group and views
@@ -66,8 +75,8 @@ public class ShortcutActivity extends Activity
         create.setOnClickListener(this);
 
         // Get preferences
-        SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+        // SharedPreferences preferences =
+        //     PreferenceManager.getDefaultSharedPreferences(this);
 
         String name = preferences.getString(MainActivity.PREF_NAME, null);
         String url = preferences.getString(MainActivity.PREF_URL, null);
