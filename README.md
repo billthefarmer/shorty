@@ -23,21 +23,38 @@ shortcut will be generated, either where you dragged the Shorty
 shortcut, or in the next vacant slot on the desktop. It will be
 labelled with name of the station.
 
-The shortcut, when touched, will run Shorty in the background, which
-will send a request to [Intent Radio](http://smblott.org/intent_radio)
-to play the station you requested. Stop, Pause and Resume shortcuts
-may also be created.
+Touch the shortcut to run Shorty in the background, which will send a
+request to [Intent Radio](http://smblott.org/intent_radio) to play the
+station you requested. Stop, Pause and Resume shortcuts may also be
+created.
 
-Touch the **Lookup** item in the toolbat to show the lookup
+### Lookup
+
+Touch the **Lookup** icon in the toolbar to show the lookup
 display. Touch an item in the list to fill the fields, and the
-**Select** button to return to the shortcut display. Use the **Add** and
-**Remove** buttons to add and remove entries in the list. The
-**Play**, **Stop**, **Pause** and **Resume** items in the toolbar
-will play a station in Intent Radio directly. The **Save** and
-**Restore** items in the menu will save and restore the current
-station list. The list location is *Shorty/entries.json*. This folder
-is accessible from a file manager or a connected PC. The list is in
-[JSON](http://json.org) format.
+**Select** button to return to the shortcut display. Use the **Add**
+and **Remove** buttons to add and remove entries in the list.
+
+### Search
+
+Touch the **Search** icon in the toolbar to start an interactive
+search of the station list. Touch the **Search** icon in the keyboard
+to choose the first item in the list or touch an item in the list. The
+list will scroll to the chosen item.
+
+### Play
+
+The **Play**, **Stop**, **Pause** and **Resume** items in the toolbar
+will play a station in Intent Radio directly.
+
+### Save and Restore
+
+The **Save** and **Restore** items in the menu will save and restore
+the current station list. The list location is
+*Shorty/entries.json*. This folder is accessible from a file manager
+or a connected PC. The list is in [JSON](http://json.org) format.
+
+### Import
 
 The **Import** item prompts for a file, default *extras.csv* in the
 same location. You may change the name and/or location. This file

@@ -85,9 +85,6 @@ public class MainActivity extends Activity
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(this);
 
-        String name = preferences.getString(PREF_NAME, null);
-        String url = preferences.getString(PREF_URL, null);
-
         dark = preferences.getBoolean(PREF_DARK, true);
 
         if (dark)
@@ -106,12 +103,6 @@ public class MainActivity extends Activity
 
         Button create = (Button)findViewById(R.id.create);
         create.setOnClickListener(this);
-
-        // Set fields from preferences
-        if (name != null)
-            nameView.setText(name);
-        if (url != null)
-            urlView.setText(url);
     }
 
     // onPause
@@ -238,9 +229,6 @@ public class MainActivity extends Activity
         // Create the AlertDialog
         builder.show();
 
-        // Intent intent = new Intent(this, AboutActivity.class);
-        // startActivity(intent);
-
         return true;
     }
 
@@ -308,14 +296,11 @@ public class MainActivity extends Activity
                 {
                 // Play
                 case R.id.play:
-                    // Get resources
-                    Resources resources = getResources();
-
                     // Check the fields
                     if (name == null || name.length() == 0)
-                        name = resources.getString(R.string.default_name);
+                        name = getString(R.string.default_name);
                     if (url == null || url.length() == 0)
-                        url = resources.getString(R.string.default_url);
+                        url = getString(R.string.default_url);
 
                     // Set extra fields
                     shortcut.putExtra("url", url);
@@ -376,8 +361,7 @@ public class MainActivity extends Activity
     void showToast(int id)
     {
         // Get text from resources
-        Resources resources = getResources();
-        String text = resources.getString(id);
+        String text = getString(id);
         showToast(text);
     }
 

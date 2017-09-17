@@ -137,19 +137,6 @@ public class LookupActivity extends Activity
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Get preferences
-        // SharedPreferences preferences =
-        //     PreferenceManager.getDefaultSharedPreferences(this);
-
-        String name = preferences.getString(MainActivity.PREF_NAME, null);
-        String url = preferences.getString(MainActivity.PREF_URL, null);
-
-        // Set fields from preferences
-        if (name != null)
-            nameView.setText(name);
-        if (url != null)
-            urlView.setText(url);
-
         String entryJSON = preferences.getString(PREF_ENTRIES, null);
         String valueJSON = preferences.getString(PREF_VALUES, null);
 
@@ -240,7 +227,7 @@ public class LookupActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        Intent broadcast;
+        Intent broadcast = null;
 
         // Get id
         int id = item.getItemId();
@@ -258,14 +245,11 @@ public class LookupActivity extends Activity
             String name = nameView.getText().toString();
             String url = urlView.getText().toString();
 
-            // Get resources
-            Resources resources = getResources();
-
             // Check the fields
             if (name == null || name.length() == 0)
-                name = resources.getString(R.string.default_name);
+                name = getString(R.string.default_name);
             if (url == null || url.length() == 0)
-                url = resources.getString(R.string.default_url);
+                url = getString(R.string.default_url);
 
             // Create an intent to play using Intent Radio
             broadcast = new Intent(MainActivity.PLAY);
@@ -282,7 +266,6 @@ public class LookupActivity extends Activity
         case R.id.action_pause:
             // Create an intent to pause using Intent Radio
             broadcast = new Intent(MainActivity.PAUSE);
-
             sendBroadcast(broadcast);
             break;
 
@@ -290,7 +273,6 @@ public class LookupActivity extends Activity
         case R.id.action_resume:
             // Create an intent to resume using Intent Radio
             broadcast = new Intent(MainActivity.RESTART);
-
             sendBroadcast(broadcast);
             break;
 
@@ -298,7 +280,6 @@ public class LookupActivity extends Activity
         case R.id.action_stop:
             // Create an intent to stop using Intent Radio
             broadcast = new Intent(MainActivity.STOP);
-
             sendBroadcast(broadcast);
             break;
 
@@ -342,6 +323,8 @@ public class LookupActivity extends Activity
         urlView.setText(valueList.get(index));
 
         searchItem.collapseActionView();
+        listView.setItemChecked(index, true);
+        listView.smoothScrollToPosition(index);
         return true;
     }
 
@@ -358,6 +341,9 @@ public class LookupActivity extends Activity
 
         if (searchItem.isActionViewExpanded())
             searchItem.collapseActionView();
+
+        listView.setItemChecked(index, true);
+        listView.smoothScrollToPosition(index);
     }
 
     // On click
@@ -394,7 +380,11 @@ public class LookupActivity extends Activity
             editor.apply();
 
             // Update display
-            arrayAdapter.notifyDataSetChanged();
+            arrayAdapter = new
+                ArrayAdapter<String>(this, android.R.layout
+                                     .simple_list_item_activated_1,
+                                     entryList);
+            listView.setAdapter(arrayAdapter);
             break;
 
         // Remove
@@ -407,9 +397,13 @@ public class LookupActivity extends Activity
             }
 
             // Remove entry
-            int pos = listView.getCheckedItemPosition();
-            entryList.remove(pos);
-            valueList.remove(pos);
+            String item = (String) listView.getSelectedItem();
+            if (entryList.contains(item))
+            {
+                int index = entryList.indexOf(item);
+                entryList.remove(index);
+                valueList.remove(index);
+            }
 
             // Get entries
             entryArray = new JSONArray(entryList);
@@ -421,18 +415,15 @@ public class LookupActivity extends Activity
             editor.apply();
 
             // Update display
-            arrayAdapter.notifyDataSetChanged();
+            arrayAdapter = new
+                ArrayAdapter<String>(this, android.R.layout
+                                     .simple_list_item_activated_1,
+                                     entryList);
+            listView.setAdapter(arrayAdapter);
             break;
 
         // Select
         case R.id.select:
-
-            // Update preferences
-            editor.putString(MainActivity.PREF_URL,
-                             urlView.getText().toString());
-            editor.putString(MainActivity.PREF_NAME,
-                             nameView.getText().toString());
-            editor.apply();
 
             // Create intent
             Intent intent = new Intent();
@@ -562,7 +553,7 @@ public class LookupActivity extends Activity
             }
         }
 
-        // Show resd error
+        // Show read error
         catch (Exception e)
         {
             showToast(R.string.read_error);
@@ -585,7 +576,11 @@ public class LookupActivity extends Activity
         editor.apply();
 
         // Update display
-        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter = new
+            ArrayAdapter<String>(this, android.R.layout
+                                 .simple_list_item_activated_1,
+                                 entryList);
+        listView.setAdapter(arrayAdapter);
 
         showToast(R.string.data_restored, entryList.size());
     }
@@ -679,7 +674,7 @@ public class LookupActivity extends Activity
             reader.close();
         }
 
-        // Show resd error
+        // Show read error
         catch (Exception e)
         {
             showToast(R.string.read_error);
@@ -703,7 +698,11 @@ public class LookupActivity extends Activity
         editor.apply();
 
         // Update display
-        arrayAdapter.notifyDataSetChanged();
+        arrayAdapter = new
+            ArrayAdapter<String>(this, android.R.layout
+                                 .simple_list_item_activated_1,
+                                 entryList);
+        listView.setAdapter(arrayAdapter);
 
         // Get entries imported
         int imported = entryList.size() - old;
@@ -719,8 +718,7 @@ public class LookupActivity extends Activity
     void showToast(int id, Object... args)
     {
         // Get text from resources
-        Resources resources = getResources();
-        String text = resources.getString(id);
+        String text = getString(id);
         showToast(text, args);
     }
 
