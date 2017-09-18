@@ -39,8 +39,7 @@ and **Remove** buttons to add and remove entries in the list.
 
 Touch the **Search** icon in the toolbar to start an interactive
 search of the station list. Touch the **Search** icon in the keyboard
-to choose the first item in the list or touch an item in the list. The
-list will scroll to the chosen item.
+to choose the first item in the list or touch an item in the list.
 
 ### Play
 

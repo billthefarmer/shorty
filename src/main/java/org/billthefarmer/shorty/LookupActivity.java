@@ -321,10 +321,6 @@ public class LookupActivity extends Activity
         nameView.setText(item);
         int index = entryList.indexOf(item);
         urlView.setText(valueList.get(index));
-
-        searchItem.collapseActionView();
-        listView.setItemChecked(index, true);
-        listView.smoothScrollToPosition(index);
         return true;
     }
 
@@ -338,12 +334,6 @@ public class LookupActivity extends Activity
         nameView.setText(item);
         int index = entryList.indexOf(item);
         urlView.setText(valueList.get(index));
-
-        if (searchItem.isActionViewExpanded())
-            searchItem.collapseActionView();
-
-        listView.setItemChecked(index, true);
-        listView.smoothScrollToPosition(index);
     }
 
     // On click
@@ -379,6 +369,10 @@ public class LookupActivity extends Activity
             editor.putString(PREF_VALUES, valueArray.toString());
             editor.apply();
 
+            // Collapse search view
+            if (searchItem.isActionViewExpanded())
+                searchItem.collapseActionView();
+
             // Update display
             arrayAdapter = new
                 ArrayAdapter<String>(this, android.R.layout
@@ -397,10 +391,11 @@ public class LookupActivity extends Activity
             }
 
             // Remove entry
-            String item = (String) listView.getSelectedItem();
+            int index = listView.getCheckedItemPosition();
+            String item = (String) listView.getItemAtPosition(index);
             if (entryList.contains(item))
             {
-                int index = entryList.indexOf(item);
+                index = entryList.indexOf(item);
                 entryList.remove(index);
                 valueList.remove(index);
             }
@@ -413,6 +408,10 @@ public class LookupActivity extends Activity
             editor.putString(PREF_ENTRIES, entryArray.toString());
             editor.putString(PREF_VALUES, valueArray.toString());
             editor.apply();
+
+            // Collapse search view
+            if (searchItem.isActionViewExpanded())
+                searchItem.collapseActionView();
 
             // Update display
             arrayAdapter = new
@@ -575,6 +574,10 @@ public class LookupActivity extends Activity
         editor.putString(PREF_VALUES, valueArray.toString());
         editor.apply();
 
+        // Collapse search view
+        if (searchItem.isActionViewExpanded())
+            searchItem.collapseActionView();
+
         // Update display
         arrayAdapter = new
             ArrayAdapter<String>(this, android.R.layout
@@ -696,6 +699,10 @@ public class LookupActivity extends Activity
         editor.putString(PREF_ENTRIES, entryArray.toString());
         editor.putString(PREF_VALUES, valueArray.toString());
         editor.apply();
+
+        // Collapse search view
+        if (searchItem.isActionViewExpanded())
+            searchItem.collapseActionView();
 
         // Update display
         arrayAdapter = new
