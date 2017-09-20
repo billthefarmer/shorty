@@ -103,6 +103,15 @@ public class MainActivity extends Activity
 
         Button create = (Button)findViewById(R.id.create);
         create.setOnClickListener(this);
+
+        String name = preferences.getString(PREF_NAME, null);
+        String url = preferences.getString(PREF_URL, null);
+
+        // Set fields from preferences
+        if (name != null)
+            nameView.setText(name);
+        if (url != null)
+            urlView.setText(url);
     }
 
     // onPause

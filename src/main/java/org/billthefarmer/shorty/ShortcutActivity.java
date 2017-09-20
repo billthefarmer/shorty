@@ -60,6 +60,7 @@ public class ShortcutActivity extends Activity
 
         if (dark)
             setTheme(R.style.DialogDarkTheme);
+
         setContentView(R.layout.main);
 
         // Get group and views
@@ -73,10 +74,6 @@ public class ShortcutActivity extends Activity
 
         Button create = (Button)findViewById(R.id.create);
         create.setOnClickListener(this);
-
-        // Get preferences
-        // SharedPreferences preferences =
-        //     PreferenceManager.getDefaultSharedPreferences(this);
 
         String name = preferences.getString(MainActivity.PREF_NAME, null);
         String url = preferences.getString(MainActivity.PREF_URL, null);
