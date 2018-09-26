@@ -13,8 +13,7 @@ import java.io.IOException;
  * Created by scott on 2/19/15.
  */
 
-public class LineReader
-{
+public class LineReader {
     private BufferedReader reader;
     private boolean keepCarriageReturns;
 
@@ -24,8 +23,7 @@ public class LineReader
      * @param reader              - Reader that data will be read from.
      * @param keepCarriageReturns - true if carriage returns should remain in the data, false to remove them.
      */
-    public LineReader(BufferedReader reader, boolean keepCarriageReturns)
-    {
+    public LineReader(BufferedReader reader, boolean keepCarriageReturns) {
         this.reader = reader;
         this.keepCarriageReturns = keepCarriageReturns;
     }
@@ -36,16 +34,13 @@ public class LineReader
      * @return - Line read from reader.
      * @throws IOException - on error from BufferedReader
      */
-    public String readLine() throws IOException
-    {
+    public String readLine() throws IOException {
         return keepCarriageReturns ? readUntilNewline() : reader.readLine();
     }
 
-    private String readUntilNewline() throws IOException
-    {
+    private String readUntilNewline() throws IOException {
         StringBuilder sb = new StringBuilder(CSVParser.INITIAL_READ_SIZE);
-        for (int c = reader.read(); c > -1 && c != '\n'; c = reader.read())
-        {
+        for (int c = reader.read(); c > -1 && c != '\n'; c = reader.read()) {
             sb.append((char) c);
         }
 

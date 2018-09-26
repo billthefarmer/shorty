@@ -6,8 +6,7 @@ import java.util.Iterator;
 /**
  * Provides an Iterator over the data found in opencsv.
  */
-public class CSVIterator implements Iterator<String[]>
-{
+public class CSVIterator implements Iterator<String[]> {
     private CSVReader reader;
     private String[] nextLine;
 
@@ -15,8 +14,7 @@ public class CSVIterator implements Iterator<String[]>
      * @param reader reader for the csv data.
      * @throws IOException if unable to read data from the reader.
      */
-    public CSVIterator(CSVReader reader) throws IOException
-    {
+    public CSVIterator(CSVReader reader) throws IOException {
         this.reader = reader;
         nextLine = reader.readNext();
     }
@@ -27,26 +25,20 @@ public class CSVIterator implements Iterator<String[]>
      *
      * @return true if the CSVIterator has more elements.
      */
-    public boolean hasNext()
-    {
+    public boolean hasNext() {
         return nextLine != null;
     }
 
     /**
-     *
-     * Returns the next elenebt in the iterator.
+     * Returns the next element in the iterator.
      *
      * @return The next element of the iterator.
      */
-    public String[] next()
-    {
+    public String[] next() {
         String[] temp = nextLine;
-        try
-        {
+        try {
             nextLine = reader.readNext();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return temp;
@@ -55,8 +47,7 @@ public class CSVIterator implements Iterator<String[]>
     /**
      * This method is not supported by openCSV and will throw a UnsupportedOperationException if called.
      */
-    public void remove()
-    {
+    public void remove() {
         throw new UnsupportedOperationException("This is a read only iterator.");
     }
 }

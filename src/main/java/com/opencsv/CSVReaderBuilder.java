@@ -1,17 +1,17 @@
 /**
- Copyright 2005 Bytecode Pty Ltd.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * Copyright 2005 Bytecode Pty Ltd.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.opencsv;
 
@@ -39,8 +39,7 @@ import java.io.Reader;
  *
  * @see CSVReader
  */
-public class CSVReaderBuilder
-{
+public class CSVReaderBuilder {
 
     private final Reader reader;
     private int skipLines = CSVReader.DEFAULT_SKIP_LINES;
@@ -54,10 +53,8 @@ public class CSVReaderBuilder
      * @param reader the reader to an underlying CSV source.
      */
     public CSVReaderBuilder(
-        final Reader reader)
-    {
-        if (reader == null)
-        {
+            final Reader reader) {
+        if (reader == null) {
             throw new IllegalArgumentException("Reader may not be null");
         }
         this.reader = reader;
@@ -68,8 +65,7 @@ public class CSVReaderBuilder
      *
      * @return the reader.
      */
-    protected Reader getReader()
-    {
+    protected Reader getReader() {
         return reader;
     }
 
@@ -78,8 +74,7 @@ public class CSVReaderBuilder
      *
      * @return The set number of lines to skip
      */
-    protected int getSkipLines()
-    {
+    protected int getSkipLines() {
         return skipLines;
     }
 
@@ -88,20 +83,18 @@ public class CSVReaderBuilder
      *
      * @return the csvParser used by the builder.
      */
-    protected CSVParser getCsvParser()
-    {
+    protected CSVParser getCsvParser() {
         return csvParser;
     }
 
     /**
-    * Sets the line number to skip for start reading.
+     * Sets the line number to skip for start reading.
      *
      * @param skipLines the line number to skip for start reading.
      * @return the CSVReaderBuilder with skipLines set.
-    */
+     */
     public CSVReaderBuilder withSkipLines(
-        final int skipLines)
-    {
+            final int skipLines) {
         this.skipLines = (skipLines <= 0 ? 0 : skipLines);
         return this;
     }
@@ -112,10 +105,9 @@ public class CSVReaderBuilder
      *
      * @param csvParser the parser to use to parse the input.
      * @return the CSVReaderBuilder with the CSVParser set.
-    */
+     */
     public CSVReaderBuilder withCSVParser(
-        final /*@Nullable*/ CSVParser csvParser)
-    {
+            final /*@Nullable*/ CSVParser csvParser) {
         this.csvParser = csvParser;
         return this;
     }
@@ -125,10 +117,9 @@ public class CSVReaderBuilder
      * Creates the CSVParser.
      * @return the CSVParser based on the set criteria.
      */
-    public CSVReader build()
-    {
+    public CSVReader build() {
         final CSVParser parser =
-            (csvParser != null ? csvParser : new CSVParser());
+                (csvParser != null ? csvParser : new CSVParser());
         return new CSVReader(reader, skipLines, parser, keepCR, verifyReader);
     }
 
@@ -138,8 +129,7 @@ public class CSVReaderBuilder
      * @param keepCR - true to keep carriage returns, false to discard.
      * @return the CSVParser based on the set criteria.
      */
-    public CSVReaderBuilder withKeepCarriageReturn(boolean keepCR)
-    {
+    public CSVReaderBuilder withKeepCarriageReturn(boolean keepCR) {
         this.keepCR = keepCR;
         return this;
     }
@@ -149,8 +139,7 @@ public class CSVReaderBuilder
      *
      * @return true if the reader built will keep carriage returns, false otherwise.
      */
-    protected boolean keepCarriageReturn()
-    {
+    protected boolean keepCarriageReturn() {
         return this.keepCR;
     }
 
@@ -165,8 +154,7 @@ public class CSVReaderBuilder
      * @param verifyReader true if CSVReader should verify reader before each read, false otherwise.
      * @return The CSVParser based on this criteria.
      */
-    public CSVReaderBuilder withVerifyReader(boolean verifyReader)
-    {
+    public CSVReaderBuilder withVerifyReader(boolean verifyReader) {
         this.verifyReader = verifyReader;
         return this;
     }

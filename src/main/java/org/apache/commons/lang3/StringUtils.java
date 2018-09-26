@@ -17,8 +17,7 @@
 
 package org.apache.commons.lang3;
 
-public class StringUtils
-{
+public class StringUtils {
 
     /**
      * <p>Checks if the CharSequence contains only whitespace.</p>
@@ -35,22 +34,18 @@ public class StringUtils
      * StringUtils.isWhitespace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return {@code true} if only contains whitespace, and is non-null
      * @since 2.0
      * @since 3.0 Changed signature from isWhitespace(String) to isWhitespace(CharSequence)
      */
-    public static boolean isWhitespace(final CharSequence cs)
-    {
-        if (cs == null)
-        {
+    public static boolean isWhitespace(final CharSequence cs) {
+        if (cs == null) {
             return false;
         }
         final int sz = cs.length();
-        for (int i = 0; i < sz; i++)
-        {
-            if (Character.isWhitespace(cs.charAt(i)) == false)
-            {
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }

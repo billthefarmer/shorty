@@ -1,20 +1,19 @@
 /**
- Copyright 2005 Bytecode Pty Ltd.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * Copyright 2005 Bytecode Pty Ltd.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.opencsv;
-
 
 
 /**
@@ -30,8 +29,7 @@ package com.opencsv;
  *
  * @see CSVParser
  */
-public class CSVParserBuilder
-{
+public class CSVParserBuilder {
 
     private char separator = CSVParser.DEFAULT_SEPARATOR;
     private char quoteChar = CSVParser.DEFAULT_QUOTE_CHARACTER;
@@ -43,8 +41,7 @@ public class CSVParserBuilder
     /**
      * Default constructor.
      */
-    public CSVParserBuilder()
-    {
+    public CSVParserBuilder() {
     }
 
     /**
@@ -54,8 +51,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withSeparator(
-        final char separator)
-    {
+            final char separator) {
         this.separator = separator;
         return this;
     }
@@ -68,8 +64,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withQuoteChar(
-        final char quoteChar)
-    {
+            final char quoteChar) {
         this.quoteChar = quoteChar;
         return this;
     }
@@ -82,8 +77,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withEscapeChar(
-        final char escapeChar)
-    {
+            final char escapeChar) {
         this.escapeChar = escapeChar;
         return this;
     }
@@ -97,8 +91,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withStrictQuotes(
-        final boolean strictQuotes)
-    {
+            final boolean strictQuotes) {
         this.strictQuotes = strictQuotes;
         return this;
     }
@@ -111,8 +104,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withIgnoreLeadingWhiteSpace(
-        final boolean ignoreLeadingWhiteSpace)
-    {
+            final boolean ignoreLeadingWhiteSpace) {
         this.ignoreLeadingWhiteSpace = ignoreLeadingWhiteSpace;
         return this;
     }
@@ -124,8 +116,7 @@ public class CSVParserBuilder
      * @return The CSVParserBuilder
      */
     public CSVParserBuilder withIgnoreQuotations(
-        final boolean ignoreQuotations)
-    {
+            final boolean ignoreQuotations) {
         this.ignoreQuotations = ignoreQuotations;
         return this;
     }
@@ -134,62 +125,55 @@ public class CSVParserBuilder
      * Constructs CSVParser.
      * @return a new CSVParser with defined settings.
      */
-    public CSVParser build()
-    {
+    public CSVParser build() {
         return new CSVParser(
-                   separator,
-                   quoteChar,
-                   escapeChar,
-                   strictQuotes,
-                   ignoreLeadingWhiteSpace,
-                   ignoreQuotations);
+                separator,
+                quoteChar,
+                escapeChar,
+                strictQuotes,
+                ignoreLeadingWhiteSpace,
+                ignoreQuotations);
     }
 
     /**
      * @return the defined separator.
      */
-    public char getSeparator()
-    {
+    public char getSeparator() {
         return separator;
     }
 
     /**
      * @return the defined quotation character.
      */
-    public char getQuoteChar()
-    {
+    public char getQuoteChar() {
         return quoteChar;
     }
 
     /**
      * @return the defined escape character.
      */
-    public char getEscapeChar()
-    {
+    public char getEscapeChar() {
         return escapeChar;
     }
 
     /**
      * @return the defined strict quotation setting.
      */
-    public boolean isStrictQuotes()
-    {
+    public boolean isStrictQuotes() {
         return strictQuotes;
     }
 
     /**
      * @return the defined ignoreLeadingWhiteSpace setting.
      */
-    public boolean isIgnoreLeadingWhiteSpace()
-    {
+    public boolean isIgnoreLeadingWhiteSpace() {
         return ignoreLeadingWhiteSpace;
     }
 
     /**
      * @return the defined ignoreQuotation setting.
      */
-    public boolean isIgnoreQuotations()
-    {
+    public boolean isIgnoreQuotations() {
         return ignoreQuotations;
     }
 }
