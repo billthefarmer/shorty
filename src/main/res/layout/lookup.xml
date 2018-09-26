@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ButtonStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginRight="8dp"
+    android:orientation="vertical"
+    tools:ignore="ButtonStyle">
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:gravity="center_horizontal"
-      android:textSize="16sp"
-      android:text="@string/lookup_info" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/lookup_info"
+        android:textSize="16sp" />
 
-  <EditText
-      android:id="@+id/lu_name"
-      android:inputType="textCapWords"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/name" />
+    <EditText
+        android:id="@+id/lu_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:inputType="textCapWords" />
 
-  <EditText
-      android:id="@+id/lu_url"
-      android:inputType="textUri"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/url" />
+    <EditText
+        android:id="@+id/lu_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/url"
+        android:inputType="textUri" />
 
 
-  <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
-    <Button
-	android:id="@+id/add"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/add" />
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add" />
 
-    <Button
-	android:id="@+id/remove"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/remove" />
+        <Button
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove" />
 
-    <Button
-	android:id="@+id/select"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/select" />
+        <Button
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select" />
 
-  </LinearLayout>
+    </LinearLayout>
 
-  <ListView
-      android:id="@+id/list"
-      android:choiceMode="singleChoice"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp" />
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:choiceMode="singleChoice" />
 
 </LinearLayout>
