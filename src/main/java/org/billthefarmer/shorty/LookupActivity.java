@@ -35,8 +35,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,25 +49,25 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
+import com.opencsv.CSVReader;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.opencsv.CSVReader;
 
 // LookupActivity
 public class LookupActivity extends Activity
-    implements AdapterView.OnItemClickListener, View.OnClickListener,
-               SearchView.OnQueryTextListener
-{
+        implements AdapterView.OnItemClickListener, View.OnClickListener,
+        SearchView.OnQueryTextListener {
     private final static String PREF_ENTRIES = "pref_entries";
     private final static String PREF_VALUES = "pref_values";
     private final static String SHORTY_DIR = "Shorty";
@@ -81,7 +79,6 @@ public class LookupActivity extends Activity
     protected final static int IMPORT = 1;
     private final static int TEXT = 1;
 
-    private SearchView searchView;
     private MenuItem searchItem;
     private TextView nameView;
     private TextView urlView;
@@ -94,13 +91,12 @@ public class LookupActivity extends Activity
 
     // On create
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean dark = preferences.getBoolean(MainActivity.PREF_DARK, true);
 
@@ -110,24 +106,24 @@ public class LookupActivity extends Activity
         setContentView(R.layout.lookup);
 
         // Get text views
-        nameView = (TextView)findViewById(R.id.lu_name);
-        urlView = (TextView)findViewById(R.id.lu_url);
+        nameView = findViewById(R.id.lu_name);
+        urlView = findViewById(R.id.lu_url);
 
         // Get buttons, set listener
-        Button add = (Button)findViewById(R.id.add);
+        Button add = findViewById(R.id.add);
         if (add != null)
             add.setOnClickListener(this);
 
-        Button remove = (Button)findViewById(R.id.remove);
+        Button remove = findViewById(R.id.remove);
         if (remove != null)
             remove.setOnClickListener(this);
 
-        Button select = (Button)findViewById(R.id.select);
+        Button select = findViewById(R.id.select);
         if (select != null)
             select.setOnClickListener(this);
 
         // get list view
-        listView = (ListView)findViewById(R.id.list);
+        listView = findViewById(R.id.list);
 
         if (listView != null)
             listView.setOnItemClickListener(this);
@@ -144,78 +140,60 @@ public class LookupActivity extends Activity
         Resources resources = getResources();
 
         // Add entries
-        if (entryJSON != null)
-        {
-            try
-            {
+        if (entryJSON != null) {
+            try {
                 JSONArray entryArray = new JSONArray(entryJSON);
-                entryList = new ArrayList<String>();
+                entryList = new ArrayList<>();
                 for (int i = 0; !entryArray.isNull(i); i++)
                     entryList.add(entryArray.getString(i));
-            }
-
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 String entries[] = resources.getStringArray(R.array.entries);
                 entryList =
-                    new ArrayList<String>(Arrays.asList(entries));
+                        new ArrayList<>(Arrays.asList(entries));
             }
-        }
-
-        else
-        {
+        } else {
             String entries[] = resources.getStringArray(R.array.entries);
             entryList =
-                new ArrayList<String>(Arrays.asList(entries));
+                    new ArrayList<>(Arrays.asList(entries));
         }
 
-        if (valueJSON != null)
-        {
-            try
-            {
+        if (valueJSON != null) {
+            try {
                 JSONArray valueArray = new JSONArray(valueJSON);
-                valueList = new ArrayList<String>();
+                valueList = new ArrayList<>();
                 for (int i = 0; !valueArray.isNull(i); i++)
                     valueList.add(valueArray.getString(i));
-            }
-
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 String values[] = resources.getStringArray(R.array.values);
                 valueList =
-                    new ArrayList<String>(Arrays.asList(values));
+                        new ArrayList<>(Arrays.asList(values));
             }
-        }
-
-        else
-        {
+        } else {
             String values[] = resources.getStringArray(R.array.values);
             valueList =
-                new ArrayList<String>(Arrays.asList(values));
+                    new ArrayList<>(Arrays.asList(values));
         }
 
         // Set array adapter
         arrayAdapter =
-            new ArrayAdapter<String>(this, android.R.layout
-                                     .simple_list_item_activated_1,
-                                     entryList);
+                new ArrayAdapter<>(this, android.R.layout
+                        .simple_list_item_activated_1,
+                        entryList);
 
         listView.setAdapter(arrayAdapter);
     }
 
     // Menu
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.lookup, menu);
 
         searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
 
-        if (searchView != null)
-        {
+        if (searchView != null) {
             searchView.setQueryHint(getText(R.string.hint));
             searchView.setOnQueryTextListener(this);
         }
@@ -225,81 +203,79 @@ public class LookupActivity extends Activity
 
     // On options item selected
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        Intent broadcast = null;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent broadcast;
 
         // Get id
         int id = item.getItemId();
-        switch (id)
-        {
-        // Home
-        case android.R.id.home:
-            setResult(RESULT_CANCELED);
-            finish();
-            break;
+        switch (id) {
+            // Home
+            case android.R.id.home:
+                setResult(RESULT_CANCELED);
+                finish();
+                break;
 
-        // Play
-        case R.id.action_play:
-            // Get the name and url
-            String name = nameView.getText().toString();
-            String url = urlView.getText().toString();
+            // Play
+            case R.id.action_play:
+                // Get the name and url
+                String name = nameView.getText().toString();
+                String url = urlView.getText().toString();
 
-            // Check the fields
-            if (name == null || name.length() == 0)
-                name = getString(R.string.default_name);
-            if (url == null || url.length() == 0)
-                url = getString(R.string.default_url);
+                // Check the fields
+                if (name.length() == 0)
+                    name = getString(R.string.default_name);
+                if (url.length() == 0)
+                    url = getString(R.string.default_url);
 
-            // Create an intent to play using Intent Radio
-            broadcast = new Intent(MainActivity.PLAY);
+                // Create an intent to play using Intent Radio
+                broadcast = new Intent(MainActivity.PLAY);
 
-            // Put the name and url in the broadcast intent
-            broadcast.putExtra("name", name);
-            broadcast.putExtra("url", url);
+                // Put the name and url in the broadcast intent
+                broadcast.putExtra("name", name);
+                broadcast.putExtra("url", url);
 
-            // Send it
-            sendBroadcast(broadcast);
-            break;
+                // Send it
+                sendBroadcast(broadcast);
+                break;
 
-        // Pause
-        case R.id.action_pause:
-            // Create an intent to pause using Intent Radio
-            broadcast = new Intent(MainActivity.PAUSE);
-            sendBroadcast(broadcast);
-            break;
+            // Pause
+            case R.id.action_pause:
+                // Create an intent to pause using Intent Radio
+                broadcast = new Intent(MainActivity.PAUSE);
+                sendBroadcast(broadcast);
+                break;
 
-        // Resume
-        case R.id.action_resume:
-            // Create an intent to resume using Intent Radio
-            broadcast = new Intent(MainActivity.RESTART);
-            sendBroadcast(broadcast);
-            break;
+            // Resume
+            case R.id.action_resume:
+                // Create an intent to resume using Intent Radio
+                broadcast = new Intent(MainActivity.RESTART);
+                sendBroadcast(broadcast);
+                break;
 
-        // Stop
-        case R.id.action_stop:
-            // Create an intent to stop using Intent Radio
-            broadcast = new Intent(MainActivity.STOP);
-            sendBroadcast(broadcast);
-            break;
+            // Stop
+            case R.id.action_stop:
+                // Create an intent to stop using Intent Radio
+                broadcast = new Intent(MainActivity.STOP);
+                sendBroadcast(broadcast);
+                break;
 
-        // Save
-        case R.id.action_save:
-            saveData();
-            break;
+            // Save
+            case R.id.action_save:
+                saveData();
+                break;
 
-        // Restore
-        case R.id.action_restore:
-            restoreData();
-            break;
+            // Restore
+            case R.id.action_restore:
+                restoreData();
+                break;
 
-        // Import
-        case R.id.action_import:
-            importData();
-            break;
+            // Import
+            case R.id.action_import:
+                importData();
+                break;
 
-        default:
-            return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
         return true;
@@ -307,16 +283,14 @@ public class LookupActivity extends Activity
 
     // onQueryTextChange
     @Override
-    public boolean onQueryTextChange (String newText)
-    {
+    public boolean onQueryTextChange(String newText) {
         arrayAdapter.getFilter().filter(newText);
         return true;
     }
 
     // onQueryTextSubmit
     @Override
-    public boolean onQueryTextSubmit (String query)
-    {
+    public boolean onQueryTextSubmit(String query) {
         String item = (String) listView.getItemAtPosition(0);
         nameView.setText(item);
         int index = entryList.indexOf(item);
@@ -327,8 +301,7 @@ public class LookupActivity extends Activity
     // On item click
     @Override
     public void onItemClick(AdapterView parent, View view,
-                            int position, long id)
-    {
+                            int position, long id) {
         String item = (String) parent.getItemAtPosition(position);
 
         nameView.setText(item);
@@ -338,114 +311,107 @@ public class LookupActivity extends Activity
 
     // On click
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         JSONArray entryArray;
         JSONArray valueArray;
 
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get editor
         SharedPreferences.Editor editor = preferences.edit();
 
         // Get id
         int id = v.getId();
-        switch (id)
-        {
-        // Add
-        case R.id.add:
-            // Add entry
-            entryList.add(nameView.getText().toString());
-            valueList.add(urlView.getText().toString());
+        switch (id) {
+            // Add
+            case R.id.add:
+                // Add entry
+                entryList.add(nameView.getText().toString());
+                valueList.add(urlView.getText().toString());
 
-            // Get entries
-            entryArray = new JSONArray(entryList);
-            valueArray = new JSONArray(valueList);
+                // Get entries
+                entryArray = new JSONArray(entryList);
+                valueArray = new JSONArray(valueList);
 
-            // Update preferences
-            editor.putString(PREF_ENTRIES, entryArray.toString());
-            editor.putString(PREF_VALUES, valueArray.toString());
-            editor.apply();
+                // Update preferences
+                editor.putString(PREF_ENTRIES, entryArray.toString());
+                editor.putString(PREF_VALUES, valueArray.toString());
+                editor.apply();
 
-            // Collapse search view
-            if (searchItem.isActionViewExpanded())
-                searchItem.collapseActionView();
+                // Collapse search view
+                if (searchItem.isActionViewExpanded())
+                    searchItem.collapseActionView();
 
-            // Update display
-            arrayAdapter = new
-                ArrayAdapter<String>(this, android.R.layout
-                                     .simple_list_item_activated_1,
-                                     entryList);
-            listView.setAdapter(arrayAdapter);
-            break;
-
-        // Remove
-        case R.id.remove:
-            // Check entry is selected
-            if (listView.getCheckedItemCount() == 0)
-            {
-                showToast("Nothing selected");
+                // Update display
+                arrayAdapter = new
+                        ArrayAdapter<>(this, android.R.layout
+                        .simple_list_item_activated_1,
+                        entryList);
+                listView.setAdapter(arrayAdapter);
                 break;
-            }
 
-            // Remove entry
-            int index = listView.getCheckedItemPosition();
-            String item = (String) listView.getItemAtPosition(index);
-            if (entryList.contains(item))
-            {
-                index = entryList.indexOf(item);
-                entryList.remove(index);
-                valueList.remove(index);
-            }
+            // Remove
+            case R.id.remove:
+                // Check entry is selected
+                if (listView.getCheckedItemCount() == 0) {
+                    showToast("Nothing selected");
+                    break;
+                }
 
-            // Get entries
-            entryArray = new JSONArray(entryList);
-            valueArray = new JSONArray(valueList);
+                // Remove entry
+                int index = listView.getCheckedItemPosition();
+                String item = (String) listView.getItemAtPosition(index);
+                if (entryList.contains(item)) {
+                    index = entryList.indexOf(item);
+                    entryList.remove(index);
+                    valueList.remove(index);
+                }
 
-            // Update preferences
-            editor.putString(PREF_ENTRIES, entryArray.toString());
-            editor.putString(PREF_VALUES, valueArray.toString());
-            editor.apply();
+                // Get entries
+                entryArray = new JSONArray(entryList);
+                valueArray = new JSONArray(valueList);
 
-            // Collapse search view
-            if (searchItem.isActionViewExpanded())
-                searchItem.collapseActionView();
+                // Update preferences
+                editor.putString(PREF_ENTRIES, entryArray.toString());
+                editor.putString(PREF_VALUES, valueArray.toString());
+                editor.apply();
 
-            // Update display
-            arrayAdapter = new
-                ArrayAdapter<String>(this, android.R.layout
-                                     .simple_list_item_activated_1,
-                                     entryList);
-            listView.setAdapter(arrayAdapter);
-            break;
+                // Collapse search view
+                if (searchItem.isActionViewExpanded())
+                    searchItem.collapseActionView();
 
-        // Select
-        case R.id.select:
+                // Update display
+                arrayAdapter = new
+                        ArrayAdapter<>(this, android.R.layout
+                        .simple_list_item_activated_1,
+                        entryList);
+                listView.setAdapter(arrayAdapter);
+                break;
 
-            // Create intent
-            Intent intent = new Intent();
-            intent.putExtra(MainActivity.URL, urlView.getText().toString());
-            intent.putExtra(MainActivity.NAME, nameView.getText().toString());
-            setResult(RESULT_OK, intent);
-            finish();
-            break;
+            // Select
+            case R.id.select:
+
+                // Create intent
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.URL, urlView.getText().toString());
+                intent.putExtra(MainActivity.NAME, nameView.getText().toString());
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
         }
     }
 
     // Save data
-    void saveData()
-    {
+    void saveData() {
         // Create a JSON array
         JSONArray data = new JSONArray();
 
         // Loop through the data
         int i = 0;
-        for (String name : entryList)
-        {
-            try
-            {
+        for (String name : entryList) {
+            try {
                 // Create a JSON object
                 JSONObject entry = new JSONObject();
 
@@ -453,16 +419,14 @@ public class LookupActivity extends Activity
                 entry.put("url", valueList.get(i));
                 entry.put("name", name);
                 data.put(entry);
+            } catch (Exception e) {
             }
-
-            catch (Exception e) {}
 
             i++;
         }
 
         // Open a file to write the JSON array
-        try
-        {
+        try {
             // Get the path to sdcard
             File sdcard = Environment.getExternalStorageDirectory();
 
@@ -483,22 +447,17 @@ public class LookupActivity extends Activity
             writer.close();
 
             showToast(R.string.data_saved, i);
-        }
-
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             showToast(R.string.no_write);
         }
     }
 
     // Restore data
-    void restoreData()
-    {
+    void restoreData() {
         StringBuilder text = new StringBuilder();
 
         // Open a file to read the JSON
-        try
-        {
+        try {
             // Get the path to sdcard
             File sdcard = Environment.getExternalStorageDirectory();
 
@@ -523,8 +482,7 @@ public class LookupActivity extends Activity
 
         // No file or can't read it
 
-        catch (Exception e)
-        {
+        catch (Exception e) {
             showToast(R.string.no_read);
             return;
         }
@@ -534,18 +492,15 @@ public class LookupActivity extends Activity
         valueList.clear();
 
         // Add the entries from the file to the lists
-        try
-        {
+        try {
             JSONArray data = new JSONArray(text.toString());
-            for (int i = 0; !data.isNull(i); i++)
-            {
+            for (int i = 0; !data.isNull(i); i++) {
                 JSONObject entry = data.getJSONObject(i);
 
                 String name = entry.getString("name");
                 String url = entry.getString("url");
 
-                if ((name != null) && (url != null))
-                {
+                if ((name != null) && (url != null)) {
                     entryList.add(name);
                     valueList.add(url);
                 }
@@ -553,14 +508,13 @@ public class LookupActivity extends Activity
         }
 
         // Show read error
-        catch (Exception e)
-        {
+        catch (Exception e) {
             showToast(R.string.read_error);
         }
 
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get editor
         SharedPreferences.Editor editor = preferences.edit();
@@ -580,47 +534,38 @@ public class LookupActivity extends Activity
 
         // Update display
         arrayAdapter = new
-            ArrayAdapter<String>(this, android.R.layout
-                                 .simple_list_item_activated_1,
-                                 entryList);
+                ArrayAdapter<>(this, android.R.layout
+                .simple_list_item_activated_1,
+                entryList);
         listView.setAdapter(arrayAdapter);
 
         showToast(R.string.data_restored, entryList.size());
     }
 
     // Import data
-    void importData()
-    {
+    void importData() {
         // Set the directory path
         File dir = new File(SHORTY_DIR);
 
         // Create the file
         File file = new File(dir, SHORTY_EXTRA);
 
-        importDialog(R.string.inport, R.string.path_info, file.getPath(),
-                     new DialogInterface.OnClickListener()
-            {
-                public void onClick(DialogInterface dialog, int id)
-                {
-                    switch (id)
-                    {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        EditText text =
-                            (EditText) ((Dialog) dialog).findViewById(TEXT);
-                        String path = text.getText().toString();
-                        importFile(path);
-                    }
-                }
-            });
+        importDialog(file.getPath(), (dialog, id) -> {
+            switch (id) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    EditText text =
+                            ((Dialog) dialog).findViewById(TEXT);
+                    String path = text.getText().toString();
+                    importFile(path);
+            }
+        });
     }
 
     // importDialog
-    private void importDialog(int title, int message, String path,
-                              DialogInterface.OnClickListener listener)
-    {
+    private void importDialog(String path, DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        builder.setMessage(message);
+        builder.setTitle(R.string.inport);
+        builder.setMessage(R.string.path_info);
 
         // Add the buttons
         builder.setPositiveButton(R.string.ok, listener);
@@ -636,19 +581,17 @@ public class LookupActivity extends Activity
         AlertDialog dialog = builder.create();
         dialog.setView(text, 30, 0, 30, 0);
         dialog.getWindow()
-            .setSoftInputMode(WindowManager
-                              .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                .setSoftInputMode(WindowManager
+                        .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         dialog.show();
     }
 
     // importFile
-    protected void importFile(String path)
-    {
+    protected void importFile(String path) {
         // Get entry list size
         int old = entryList.size();
 
-        try
-        {
+        try {
             // Get the path to sdcard
             File sdcard = Environment.getExternalStorageDirectory();
 
@@ -656,19 +599,17 @@ public class LookupActivity extends Activity
             File file = new File(sdcard, path);
 
             // Create a set of the current names
-            Set<String> nameSet = new HashSet<String>(entryList);
+            Set<String> nameSet = new HashSet<>(entryList);
 
             // Read the file
             CSVReader reader = new CSVReader(new FileReader(file));
             String nextLine[];
-            while ((nextLine = reader.readNext()) != null)
-            {
+            while ((nextLine = reader.readNext()) != null) {
                 String name = nextLine[0];
-                String url = nextLine[1];;
+                String url = nextLine[1];
 
                 if ((name != null) && (url != null) &&
-                        !nameSet.contains(name))
-                {
+                        !nameSet.contains(name)) {
                     entryList.add(name);
                     valueList.add(url);
                 }
@@ -678,15 +619,14 @@ public class LookupActivity extends Activity
         }
 
         // Show read error
-        catch (Exception e)
-        {
+        catch (Exception e) {
             showToast(R.string.read_error);
             return;
         }
 
         // Get preferences
         SharedPreferences preferences =
-            PreferenceManager.getDefaultSharedPreferences(this);
+                PreferenceManager.getDefaultSharedPreferences(this);
 
         // Get editor
         SharedPreferences.Editor editor = preferences.edit();
@@ -706,9 +646,9 @@ public class LookupActivity extends Activity
 
         // Update display
         arrayAdapter = new
-            ArrayAdapter<String>(this, android.R.layout
-                                 .simple_list_item_activated_1,
-                                 entryList);
+                ArrayAdapter<>(this, android.R.layout
+                .simple_list_item_activated_1,
+                entryList);
         listView.setAdapter(arrayAdapter);
 
         // Get entries imported
@@ -722,23 +662,20 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-    void showToast(int id, Object... args)
-    {
+    void showToast(int id, Object... args) {
         // Get text from resources
         String text = getString(id);
         showToast(text, args);
     }
 
     // Show toast.
-    void showToast(String format, Object... args)
-    {
+    void showToast(String format, Object... args) {
         String text = String.format(format, args);
         showToast(text);
     }
 
     // Show toast.
-    void showToast(String text)
-    {
+    void showToast(String text) {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);

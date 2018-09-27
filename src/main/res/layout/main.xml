@@ -1,102 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ButtonStyle"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:ignore="ButtonStyle">
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:gravity="center_horizontal"
-      android:textSize="16sp"
-      android:text="@string/info" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/info"
+        android:textSize="16sp" />
 
-  <HorizontalScrollView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content">
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <RadioGroup
-	android:id="@+id/group"
-	android:orientation="horizontal"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginBottom="8dp"
-	android:layout_gravity="center_horizontal">
+        <RadioGroup
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
-      <RadioButton
-	  android:id="@+id/play"
-	  android:checked="true"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/play" />
+            <RadioButton
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/play" />
 
-      <RadioButton
-	  android:id="@+id/stop"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/stop" />
+            <RadioButton
+                android:id="@+id/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop" />
 
-      <RadioButton
-	  android:id="@+id/pause"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/pause" />
+            <RadioButton
+                android:id="@+id/pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pause" />
 
-      <RadioButton
-	  android:id="@+id/resume"
-	  android:layout_width="wrap_content"
-	  android:layout_height="wrap_content"
-	  android:text="@string/resume" />
+            <RadioButton
+                android:id="@+id/resume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resume" />
 
-    </RadioGroup>
+        </RadioGroup>
 
-  </HorizontalScrollView>
+    </HorizontalScrollView>
 
-  <EditText
-      android:id="@+id/name"
-      android:inputType="textCapWords"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:hint="@string/name" />
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/name"
+        android:inputType="textCapWords" />
 
-  <EditText
-      android:id="@+id/url"
-      android:inputType="textUri"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:hint="@string/url" />
+    <EditText
+        android:id="@+id/url"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/url"
+        android:inputType="textUri" />
 
-  <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
 
-    <Button
-	android:id="@+id/cancel"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/cancel" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
 
-    <Button
-	android:id="@+id/create"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:text="@string/create" />
+        <Button
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create" />
 
-  </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

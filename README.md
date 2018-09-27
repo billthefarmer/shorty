@@ -1,7 +1,7 @@
-# ![Logo](src/main/res/drawable-mdpi/ic_launcher.png) Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.shorty)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.shorty)
 
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio).
-The app is available on [F-Droid](https://f-droid.org/repository/browse/?fdid=org.billthefarmer.shorty)
+The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.shorty)
 and [here](https://github.com/billthefarmer/shorty/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png) ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
@@ -51,7 +51,7 @@ will play a station in Intent Radio directly.
 The **Save** and **Restore** items in the menu will save and restore
 the current station list. The list location is
 *Shorty/entries.json*. This folder is accessible from a file manager
-or a connected PC. The list is in [JSON](http://json.org) format.
+or a connected PC. The list is in [JSON](https://json.org) format.
 
 ### Import
 
@@ -63,6 +63,6 @@ which may be saved from a spreadsheet. If found the entries will be
 added. The function will not add duplicate entries that are already in
 the list, but will add duplicates in the file itself.
 
-The shortcuts use Shorty in the background, so will no longer work if
+The shortcuts use Shorty in the background, so it will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
 Radio is not installed.
