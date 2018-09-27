@@ -30,10 +30,12 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 // BroadcastActivity
-public class BroadcastActivity extends Activity {
+public class BroadcastActivity extends Activity
+{
     // On create
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Get the intent
@@ -58,7 +60,8 @@ public class BroadcastActivity extends Activity {
     }
 
     // Show toast.
-    void showToast(String text) {
+    void showToast(String text)
+    {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
