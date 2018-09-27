@@ -58,6 +58,8 @@ public class MainActivity extends Activity
     protected final static String RESTART = "org.smblott.intentradio.RESTART";
     protected final static String STOP = "org.smblott.intentradio.STOP";
 
+    protected final static String VLC = "org.videolan.vlc";
+
     protected final static String BROADCAST =
             "org.billthefarmer.shorty.BROADCAST";
     protected final static String INSTALL_SHORTCUT =
