@@ -45,7 +45,8 @@ import java.util.Locale;
 
 // MainActivity
 public class MainActivity extends Activity
-        implements View.OnClickListener {
+    implements View.OnClickListener
+{
     protected final static String PREF_URL = "pref_url";
     protected final static String PREF_NAME = "pref_name";
     protected final static String PREF_DARK = "pref_dark";
@@ -59,9 +60,9 @@ public class MainActivity extends Activity
     protected final static String STOP = "org.smblott.intentradio.STOP";
 
     protected final static String BROADCAST =
-            "org.billthefarmer.shorty.BROADCAST";
+        "org.billthefarmer.shorty.BROADCAST";
     protected final static String INSTALL_SHORTCUT =
-            "com.android.launcher.action.INSTALL_SHORTCUT";
+        "com.android.launcher.action.INSTALL_SHORTCUT";
 
     protected final static int LOOKUP = 0;
     private final static int VERSION_M = 23;
@@ -74,12 +75,13 @@ public class MainActivity extends Activity
 
     // On create
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // Get preferences
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+            PreferenceManager.getDefaultSharedPreferences(this);
 
         dark = preferences.getBoolean(PREF_DARK, true);
 
@@ -112,11 +114,12 @@ public class MainActivity extends Activity
 
     // onPause
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
 
         SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
+            PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(PREF_DARK, dark);
@@ -125,7 +128,8 @@ public class MainActivity extends Activity
 
     // onCreateOptionsMenu
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -135,7 +139,8 @@ public class MainActivity extends Activity
 
     // onPrepareOptionsMenu
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
         menu.findItem(R.id.action_dark).setChecked(dark);
 
         return true;
@@ -143,56 +148,61 @@ public class MainActivity extends Activity
 
     // On options item
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Get id
         int id = item.getItemId();
-        switch (id) {
-            // Lookup
-            case R.id.action_lookup:
-                return onLookupClick(item);
+        switch (id)
+        {
+        // Lookup
+        case R.id.action_lookup:
+            return onLookupClick(item);
 
-            // Help
-            case R.id.action_help:
-                return onHelpClick(item);
+        // Help
+        case R.id.action_help:
+            return onHelpClick(item);
 
-            // About
-            case R.id.action_about:
-                return onAboutClick(item);
+        // About
+        case R.id.action_about:
+            return onAboutClick(item);
 
-            // Dark
-            case R.id.action_dark:
-                return onDarkClick(item);
+        // Dark
+        case R.id.action_dark:
+            return onDarkClick(item);
 
-            default:
-                return false;
+        default:
+            return false;
         }
     }
 
     // onActivityResult
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+                                    Intent data)
+    {
         // Do nothing if cancelled
         if (resultCode != RESULT_OK)
             return;
 
-        switch (requestCode) {
-            case LOOKUP:
+        switch (requestCode)
+        {
+        case LOOKUP:
 
-                String name = data.getStringExtra(NAME);
-                String url = data.getStringExtra(URL);
+            String name = data.getStringExtra(NAME);
+            String url = data.getStringExtra(URL);
 
-                // Set fields from intent
-                if (name != null)
-                    nameView.setText(name);
-                if (url != null)
-                    urlView.setText(url);
-                break;
+            // Set fields from intent
+            if (name != null)
+                nameView.setText(name);
+            if (url != null)
+                urlView.setText(url);
+            break;
         }
     }
 
     // On lookup click
-    private boolean onLookupClick(MenuItem item) {
+    private boolean onLookupClick(MenuItem item)
+    {
         Intent intent = new Intent(this, LookupActivity.class);
         startActivityForResult(intent, LOOKUP);
 
@@ -200,7 +210,8 @@ public class MainActivity extends Activity
     }
 
     // On help click
-    private boolean onHelpClick(MenuItem item) {
+    private boolean onHelpClick(MenuItem item)
+    {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
 
@@ -208,14 +219,15 @@ public class MainActivity extends Activity
     }
 
     // On about click
-    private boolean onAboutClick(MenuItem item) {
+    private boolean onAboutClick(MenuItem item)
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.about);
 
         String format = getString(R.string.version);
         String message =
-                String.format(Locale.getDefault(),
-                        format, BuildConfig.VERSION_NAME);
+            String.format(Locale.getDefault(),
+                          format, BuildConfig.VERSION_NAME);
         builder.setMessage(message);
 
         // Add the button
@@ -228,7 +240,8 @@ public class MainActivity extends Activity
     }
 
     // On dark click
-    private boolean onDarkClick(MenuItem item) {
+    private boolean onDarkClick(MenuItem item)
+    {
         dark = !dark;
         item.setChecked(dark);
 
@@ -240,117 +253,129 @@ public class MainActivity extends Activity
 
     // On click
     @Override
-    public void onClick(View v) {
+    @SuppressWarnings("deprecation")
+    public void onClick(View v)
+    {
         // Get id
         int id = v.getId();
-        switch (id) {
-            // Cancel
-            case R.id.cancel:
+        switch (id)
+        {
+        // Cancel
+        case R.id.cancel:
+            setResult(RESULT_CANCELED);
+            finish();
+            break;
+
+        // Create
+        case R.id.create:
+
+            // Get package manager
+            PackageManager manager = getPackageManager();
+
+            // Get Intent Radio icon
+            BitmapDrawable icon = null;
+            try
+            {
+                icon = (BitmapDrawable)
+                       manager.getApplicationIcon("org.smblott.intentradio");
+            }
+            catch (Exception e)
+            {
+            }
+
+            if (icon == null)
+            {
+                showToast();
                 setResult(RESULT_CANCELED);
                 finish();
-                break;
+            }
+            else
+            {
+                // Get the name and url
+                String name = nameView.getText().toString();
+                String url = urlView.getText().toString();
 
-            // Create
-            case R.id.create:
+                // Create the shortcut intent
+                Intent shortcut = new Intent(BROADCAST);
 
-                // Get package manager
-                PackageManager manager = getPackageManager();
+                // Get the action
+                int action = group.getCheckedRadioButtonId();
+                switch (action)
+                {
+                // Play
+                case R.id.play:
+                    // Check the fields
+                    if (name.length() == 0)
+                        name = getString(R.string.default_name);
+                    if (url.length() == 0)
+                        url = getString(R.string.default_url);
 
-                // Get Intent Radio icon
-                BitmapDrawable icon = null;
-                try {
-                    icon = (BitmapDrawable)
-                            manager.getApplicationIcon("org.smblott.intentradio");
-                } catch (Exception e) {
+                    // Set extra fields
+                    shortcut.putExtra("url", url);
+                    shortcut.putExtra("name", name);
+                    shortcut.putExtra("action", PLAY);
+
+                    // Get preferences
+                    SharedPreferences preferences =
+                        PreferenceManager.getDefaultSharedPreferences(this);
+
+                    // Get editor
+                    SharedPreferences.Editor editor = preferences.edit();
+
+                    // Update preferences
+                    editor.putString(PREF_NAME, name);
+                    editor.putString(PREF_URL, url);
+                    editor.apply();
+                    break;
+
+                // Stop
+                case R.id.stop:
+                    name = "Stop";
+                    shortcut.putExtra("action", STOP);
+                    break;
+
+                // Pause
+                case R.id.pause:
+                    name = "Pause";
+                    shortcut.putExtra("action", PAUSE);
+                    break;
+
+                // Resume
+                case R.id.resume:
+                    name = "Resume";
+                    shortcut.putExtra("action", RESTART);
+                    break;
                 }
 
-                if (icon == null) {
-                    showToast();
-                    setResult(RESULT_CANCELED);
-                    finish();
-                } else {
-                    // Get the name and url
-                    String name = nameView.getText().toString();
-                    String url = urlView.getText().toString();
+                // Create the shortcut
+                Intent intent = new Intent(INSTALL_SHORTCUT);
+                intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcut);
+                intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
+                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon.getBitmap());
 
-                    // Create the shortcut intent
-                    Intent shortcut = new Intent(BROADCAST);
+                // Send broadcast
+                sendBroadcast(intent);
+                showToast(name);
 
-                    // Get the action
-                    int action = group.getCheckedRadioButtonId();
-                    switch (action) {
-                        // Play
-                        case R.id.play:
-                            // Check the fields
-                            if (name.length() == 0)
-                                name = getString(R.string.default_name);
-                            if (url.length() == 0)
-                                url = getString(R.string.default_url);
-
-                            // Set extra fields
-                            shortcut.putExtra("url", url);
-                            shortcut.putExtra("name", name);
-                            shortcut.putExtra("action", PLAY);
-
-                            // Get preferences
-                            SharedPreferences preferences =
-                                    PreferenceManager.getDefaultSharedPreferences(this);
-
-                            // Get editor
-                            SharedPreferences.Editor editor = preferences.edit();
-
-                            // Update preferences
-                            editor.putString(PREF_NAME, name);
-                            editor.putString(PREF_URL, url);
-                            editor.apply();
-                            break;
-
-                        // Stop
-                        case R.id.stop:
-                            name = "Stop";
-                            shortcut.putExtra("action", STOP);
-                            break;
-
-                        // Pause
-                        case R.id.pause:
-                            name = "Pause";
-                            shortcut.putExtra("action", PAUSE);
-                            break;
-
-                        // Resume
-                        case R.id.resume:
-                            name = "Resume";
-                            shortcut.putExtra("action", RESTART);
-                            break;
-                    }
-
-                    // Create the shortcut
-                    Intent intent = new Intent(INSTALL_SHORTCUT);
-                    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcut);
-                    intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, name);
-                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon.getBitmap());
-
-                    // Send broadcast
-                    sendBroadcast(intent);
-                    showToast(name);
-
-                    // Make the activity go away
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
-                break;
+                // Make the activity go away
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+            break;
         }
     }
 
     // Show toast.
-    void showToast() {
+    void showToast()
+    {
         // Get text from resources
         String text = getString(R.string.not_installed);
         showToast(text);
     }
 
     // Show toast.
-    void showToast(String text) {
+    void showToast(String text)
+    {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);

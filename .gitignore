@@ -3,3 +3,8 @@ build/
 local.properties
 .gradle/
 .idea/
+data/
+js/
+*~
+*.apk
+*.orig
