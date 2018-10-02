@@ -25,6 +25,7 @@ package org.billthefarmer.shorty;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -32,6 +33,9 @@ import android.widget.Toast;
 // BroadcastActivity
 public class BroadcastActivity extends Activity
 {
+    protected final static String AUDIO_WILD = "audio/*";
+    protected final static String TITLE = "title";
+
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,18 +46,33 @@ public class BroadcastActivity extends Activity
         Intent intent = getIntent();
 
         // Get the url and name
-        String url = intent.getStringExtra("url");
-        String name = intent.getStringExtra("name");
-        String action = intent.getStringExtra("action");
+        String url = intent.getStringExtra(MainActivity.URL);
+        String name = intent.getStringExtra(MainActivity.NAME);
+        String action = intent.getStringExtra(MainActivity.ACTION);
+        String player = intent.getStringExtra(MainActivity.PLAYER);
 
-        // Create an intent to play using Intent Radio
-        Intent broadcast = new Intent(action);
+        if (MainActivity.VLC.equals(player))
+        {
+            // Create an intent to play using VLC
+            Intent play = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse(url);
+            play.setPackage(player);
+            play.setDataAndType(uri, AUDIO_WILD);
+            play.putExtra(TITLE, name);
+            startActivity(play);
+        }
 
-        // Put the url and name in the broadcast intent
-        broadcast.putExtra("url", url);
-        broadcast.putExtra("name", name);
+        else
+        {
+            // Create an intent to play using Intent Radio
+            Intent broadcast = new Intent(action);
 
-        sendBroadcast(broadcast);
+            // Put the url and name in the broadcast intent
+            broadcast.putExtra(MainActivity.URL, url);
+            broadcast.putExtra(MainActivity.NAME, name);
+
+            sendBroadcast(broadcast);
+        }
 
         setResult(RESULT_OK);
         finish();

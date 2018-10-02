@@ -50,15 +50,19 @@ public class MainActivity extends Activity
     protected final static String PREF_URL = "pref_url";
     protected final static String PREF_NAME = "pref_name";
     protected final static String PREF_DARK = "pref_dark";
+    protected final static String PREF_VLC = "pref_vlc";
 
     protected final static String URL = "url";
     protected final static String NAME = "name";
+    protected final static String ACTION = "action";
+    protected final static String PLAYER = "player";
 
     protected final static String PLAY = "org.smblott.intentradio.PLAY";
     protected final static String PAUSE = "org.smblott.intentradio.PAUSE";
     protected final static String RESTART = "org.smblott.intentradio.RESTART";
     protected final static String STOP = "org.smblott.intentradio.STOP";
 
+    protected final static String INTENTRADIO = "org.smblott.intentradio";
     protected final static String VLC = "org.videolan.vlc";
 
     protected final static String BROADCAST =
@@ -74,6 +78,7 @@ public class MainActivity extends Activity
     private TextView urlView;
 
     private boolean dark = true;
+    private boolean vlc = false;
 
     // On create
     @Override
@@ -107,6 +112,14 @@ public class MainActivity extends Activity
         String name = preferences.getString(PREF_NAME, null);
         String url = preferences.getString(PREF_URL, null);
 
+        vlc = preferences.getBoolean(PREF_VLC, false);
+        if (vlc)
+        {
+            findViewById(R.id.stop).setEnabled(false);
+            findViewById(R.id.pause).setEnabled(false);
+            findViewById(R.id.resume).setEnabled(false);
+        }
+
         // Set fields from preferences
         if (name != null)
             nameView.setText(name);
@@ -125,6 +138,7 @@ public class MainActivity extends Activity
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(PREF_DARK, dark);
+        editor.putBoolean(PREF_VLC, vlc);
         editor.apply();
     }
 
@@ -144,6 +158,7 @@ public class MainActivity extends Activity
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         menu.findItem(R.id.action_dark).setChecked(dark);
+        menu.findItem(R.id.action_vlc).setChecked(vlc);
 
         return true;
     }
@@ -171,6 +186,10 @@ public class MainActivity extends Activity
         // Dark
         case R.id.action_dark:
             return onDarkClick(item);
+
+        // Vlc
+        case R.id.action_vlc:
+            return onVlcClick(item);
 
         default:
             return false;
@@ -253,6 +272,29 @@ public class MainActivity extends Activity
         return true;
     }
 
+    // On vlc click
+    private boolean onVlcClick(MenuItem item)
+    {
+        vlc = !vlc;
+        item.setChecked(vlc);
+
+        if (vlc)
+        {
+            findViewById(R.id.stop).setEnabled(false);
+            findViewById(R.id.pause).setEnabled(false);
+            findViewById(R.id.resume).setEnabled(false);
+        }
+
+        else
+        {
+            findViewById(R.id.stop).setEnabled(true);
+            findViewById(R.id.pause).setEnabled(true);
+            findViewById(R.id.resume).setEnabled(true);
+        }
+
+        return true;
+    }
+
     // On click
     @Override
     @SuppressWarnings("deprecation")
@@ -274,12 +316,12 @@ public class MainActivity extends Activity
             // Get package manager
             PackageManager manager = getPackageManager();
 
-            // Get Intent Radio icon
+            // Get player icon
             BitmapDrawable icon = null;
             try
             {
                 icon = (BitmapDrawable)
-                       manager.getApplicationIcon("org.smblott.intentradio");
+                    manager.getApplicationIcon(vlc? VLC: INTENTRADIO);
             }
             catch (Exception e)
             {
@@ -313,9 +355,10 @@ public class MainActivity extends Activity
                         url = getString(R.string.default_url);
 
                     // Set extra fields
-                    shortcut.putExtra("url", url);
-                    shortcut.putExtra("name", name);
-                    shortcut.putExtra("action", PLAY);
+                    shortcut.putExtra(URL, url);
+                    shortcut.putExtra(NAME, name);
+                    shortcut.putExtra(ACTION, PLAY);
+                    shortcut.putExtra(PLAYER, vlc? VLC: INTENTRADIO);
 
                     // Get preferences
                     SharedPreferences preferences =
@@ -333,19 +376,19 @@ public class MainActivity extends Activity
                 // Stop
                 case R.id.stop:
                     name = "Stop";
-                    shortcut.putExtra("action", STOP);
+                    shortcut.putExtra(ACTION, STOP);
                     break;
 
                 // Pause
                 case R.id.pause:
                     name = "Pause";
-                    shortcut.putExtra("action", PAUSE);
+                    shortcut.putExtra(ACTION, PAUSE);
                     break;
 
                 // Resume
                 case R.id.resume:
                     name = "Resume";
-                    shortcut.putExtra("action", RESTART);
+                    shortcut.putExtra(ACTION, RESTART);
                     break;
                 }
 
@@ -371,7 +414,8 @@ public class MainActivity extends Activity
     void showToast()
     {
         // Get text from resources
-        String text = getString(R.string.not_installed);
+        String text = getString(vlc? R.string.vlc_not_installed:
+                                R.string.not_installed);
         showToast(text);
     }
 

@@ -46,6 +46,8 @@ public class ShortcutActivity extends Activity
     private TextView nameView;
     private TextView urlView;
 
+    private boolean vlc;
+
     // On create
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,6 +80,14 @@ public class ShortcutActivity extends Activity
         String name = preferences.getString(MainActivity.PREF_NAME, null);
         String url = preferences.getString(MainActivity.PREF_URL, null);
 
+        vlc = preferences.getBoolean(MainActivity.PREF_VLC, true);
+        if (vlc)
+        {
+            findViewById(R.id.stop).setEnabled(false);
+            findViewById(R.id.pause).setEnabled(false);
+            findViewById(R.id.resume).setEnabled(false);
+        }
+
         // Set fields from preferences
         if (name != null)
             nameView.setText(name);
@@ -107,13 +117,16 @@ public class ShortcutActivity extends Activity
             // Get package manager
             PackageManager manager = getPackageManager();
 
-            // Get Intent Radio icon
+            // Get icon
             BitmapDrawable icon = null;
             try
             {
                 icon = (BitmapDrawable)
-                       manager.getApplicationIcon("org.smblott.intentradio");
+                    manager.getApplicationIcon(vlc?
+                                               MainActivity.VLC:
+                                               MainActivity.INTENTRADIO);
             }
+
             catch (Exception e)
             {
             }
@@ -124,6 +137,7 @@ public class ShortcutActivity extends Activity
                 setResult(RESULT_CANCELED);
                 finish();
             }
+
             else
             {
                 // Get the name and url
@@ -150,9 +164,12 @@ public class ShortcutActivity extends Activity
                         url = resources.getString(R.string.default_url);
 
                     // Set extra fields
-                    shortcut.putExtra("url", url);
-                    shortcut.putExtra("name", name);
-                    shortcut.putExtra("action", MainActivity.PLAY);
+                    shortcut.putExtra(MainActivity.URL, url);
+                    shortcut.putExtra(MainActivity.NAME, name);
+                    shortcut.putExtra(MainActivity.ACTION, MainActivity.PLAY);
+                    shortcut.putExtra(MainActivity.PLAYER, vlc?
+                                      MainActivity.VLC:
+                                      MainActivity.INTENTRADIO);
 
                     // Get preferences
                     SharedPreferences preferences =
@@ -203,8 +220,8 @@ public class ShortcutActivity extends Activity
     void showToast()
     {
         // Get text from resources
-        Resources resources = getResources();
-        String text = resources.getString(R.string.not_installed);
+        String text = getString(vlc? R.string.vlc_not_installed:
+                                R.string.not_installed);
         showToast(text);
     }
 

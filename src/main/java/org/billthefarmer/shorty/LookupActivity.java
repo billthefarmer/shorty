@@ -32,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -90,6 +91,8 @@ public class LookupActivity extends Activity
     private List<String> entryList;
     private List<String> valueList;
 
+    private boolean vlc;
+
     // On create
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -135,6 +138,8 @@ public class LookupActivity extends Activity
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
 
+        vlc = preferences.getBoolean(MainActivity.PREF_VLC, false);
+
         String entryJSON = preferences.getString(PREF_ENTRIES, null);
         String valueJSON = preferences.getString(PREF_VALUES, null);
 
@@ -151,6 +156,7 @@ public class LookupActivity extends Activity
                 for (int i = 0; !entryArray.isNull(i); i++)
                     entryList.add(entryArray.getString(i));
             }
+
             catch (Exception e)
             {
                 String entries[] = resources.getStringArray(R.array.entries);
@@ -158,6 +164,7 @@ public class LookupActivity extends Activity
                     new ArrayList<>(Arrays.asList(entries));
             }
         }
+
         else
         {
             String entries[] = resources.getStringArray(R.array.entries);
@@ -174,6 +181,7 @@ public class LookupActivity extends Activity
                 for (int i = 0; !valueArray.isNull(i); i++)
                     valueList.add(valueArray.getString(i));
             }
+
             catch (Exception e)
             {
                 String values[] = resources.getStringArray(R.array.values);
@@ -181,6 +189,7 @@ public class LookupActivity extends Activity
                     new ArrayList<>(Arrays.asList(values));
             }
         }
+
         else
         {
             String values[] = resources.getStringArray(R.array.values);
@@ -217,6 +226,17 @@ public class LookupActivity extends Activity
         return true;
     }
 
+    // onPrepareOptionsMenu
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        menu.findItem(R.id.action_stop).setVisible(!vlc);
+        menu.findItem(R.id.action_pause).setVisible(!vlc);
+        menu.findItem(R.id.action_resume).setVisible(!vlc);
+
+        return true;
+    }
+
     // On options item selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -245,15 +265,29 @@ public class LookupActivity extends Activity
             if (url.length() == 0)
                 url = getString(R.string.default_url);
 
-            // Create an intent to play using Intent Radio
-            broadcast = new Intent(MainActivity.PLAY);
+            if (vlc)
+            {
+                // Create an intent to play using VLC
+                Intent play = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(url);
+                play.setPackage(MainActivity.VLC);
+                play.setDataAndType(uri, BroadcastActivity.AUDIO_WILD);
+                play.putExtra(BroadcastActivity.TITLE, name);
+                startActivity(play);
+            }
 
-            // Put the name and url in the broadcast intent
-            broadcast.putExtra("name", name);
-            broadcast.putExtra("url", url);
+            else
+            {
+                // Create an intent to play using Intent Radio
+                broadcast = new Intent(MainActivity.PLAY);
 
-            // Send it
-            sendBroadcast(broadcast);
+                // Put the name and url in the broadcast intent
+                broadcast.putExtra("name", name);
+                broadcast.putExtra("url", url);
+
+                // Send it
+                sendBroadcast(broadcast);
+            }
             break;
 
         // Pause

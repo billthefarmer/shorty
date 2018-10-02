@@ -20,6 +20,10 @@
     Intent Radio not installed.\nPlease install Intent Radio.
   </string>
 
+  <string name="vlc_not_installed">
+    VLC not installed.\nPlease install VLC.
+  </string>
+
   <string name="no_write">
     "Can't write to storage"
   </string>
@@ -64,6 +68,7 @@
   <string name="about">About</string>
   <string name="help">Help</string>
   <string name="dark">Dark theme</string>
+  <string name="vlc">Use VLC</string>
 
   <string name="data_saved">Entries saved %d</string>
   <string name="data_restored">Entries restored %d</string>
