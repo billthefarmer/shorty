@@ -28,9 +28,9 @@ android {
     defaultConfig {
         applicationId "org.billthefarmer.shorty"
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 109
-        versionName "1.09"
+        targetSdkVersion 22
+        versionCode 110
+        versionName "1.10"
     }
 
     compileOptions {
@@ -39,7 +39,7 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities'
+        disable 'IconDensities', 'ExpiringTargetSdkVersion'
         // abortOnError false
     }
 }

@@ -1,8 +1,9 @@
 # ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.shorty)
 
-Create shortcuts for [Intent Radio](http://smblott.org/intent_radio).
-The app is available on [F-Droid](https://f-droid.org/packages/org.billthefarmer.shorty)
-and [here](https://github.com/billthefarmer/shorty/releases).
+Create shortcuts for [Intent Radio](http://smblott.org/intent_radio)
+or [VLC](https://www.videolan.org/vlc/).  The app is available on
+[F-Droid](https://f-droid.org/packages/org.billthefarmer.shorty) and
+[here](https://github.com/billthefarmer/shorty/releases).
 
 ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty.png) ![](https://github.com/billthefarmer/billthefarmer.github.io/raw/master/images/Shorty-dialog.png)
 
@@ -14,6 +15,8 @@ and [here](https://github.com/billthefarmer/shorty/releases).
  * Lookup stations from a list.
  * Field values and list remembered between uses.
  * Save and restore the list from the device file system.
+ * Dark theme.
+ * Use VLC rather than Intent Radio.
 
 ## Using
 
@@ -24,9 +27,19 @@ shortcut, or in the next vacant slot on the desktop. It will be
 labelled with name of the station.
 
 Touch the shortcut to run Shorty in the background, which will send a
-request to [Intent Radio](http://smblott.org/intent_radio) to play the
-station you requested. Stop, Pause and Resume shortcuts may also be
-created.
+request to [Intent Radio](http://smblott.org/intent_radio) or
+[VLC](https://www.videolan.org/vlc/)to play the station you
+requested. Stop, Pause and Resume shortcuts may also be created.
+
+### VLC
+
+Shorty will only create play shortcuts for VLC, and will only play
+stations in VLC. The stop, pause and resume options are not accepted.
+
+### Menu
+
+ * **Dark theme** - Use dark theme
+ * **Use VLC** - Use VLC rather than Intent Radio
 
 ### Lookup
 
@@ -44,7 +57,7 @@ to choose the first item in the list or touch an item in the list.
 ### Play
 
 The **Play**, **Stop**, **Pause** and **Resume** items in the toolbar
-will play a station in Intent Radio directly.
+will play a station in Intent Radio or VLC directly.
 
 ### Save and Restore
 
@@ -65,4 +78,4 @@ the list, but will add duplicates in the file itself.
 
 The shortcuts use Shorty in the background, so it will no longer work if
 Shorty is uninstalled. Shorty will not create shortcuts if Intent
-Radio is not installed.
+Radio or VLC is not installed.

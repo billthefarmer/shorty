@@ -273,7 +273,16 @@ public class LookupActivity extends Activity
                 play.setPackage(MainActivity.VLC);
                 play.setDataAndType(uri, BroadcastActivity.AUDIO_WILD);
                 play.putExtra(BroadcastActivity.TITLE, name);
-                startActivity(play);
+
+                try
+                {
+                    startActivity(play);
+                }
+
+                catch (Exception e)
+                {
+                    showToast(R.string.vlc_not_installed);
+                }
             }
 
             else
@@ -282,8 +291,8 @@ public class LookupActivity extends Activity
                 broadcast = new Intent(MainActivity.PLAY);
 
                 // Put the name and url in the broadcast intent
-                broadcast.putExtra("name", name);
-                broadcast.putExtra("url", url);
+                broadcast.putExtra(MainActivity.NAME, name);
+                broadcast.putExtra(MainActivity.URL, url);
 
                 // Send it
                 sendBroadcast(broadcast);
@@ -478,10 +487,11 @@ public class LookupActivity extends Activity
                 JSONObject entry = new JSONObject();
 
                 // Add the entry
-                entry.put("url", valueList.get(i));
-                entry.put("name", name);
+                entry.put(MainActivity.URL, valueList.get(i));
+                entry.put(MainActivity.NAME, name);
                 data.put(entry);
             }
+
             catch (Exception e)
             {
             }
@@ -513,6 +523,7 @@ public class LookupActivity extends Activity
 
             showToast(R.string.data_saved, i);
         }
+
         catch (Exception e)
         {
             showToast(R.string.no_write);
@@ -550,7 +561,6 @@ public class LookupActivity extends Activity
         }
 
         // No file or can't read it
-
         catch (Exception e)
         {
             showToast(R.string.no_read);
@@ -639,7 +649,8 @@ public class LookupActivity extends Activity
     }
 
     // importDialog
-    private void importDialog(String path, DialogInterface.OnClickListener listener)
+    private void importDialog(String path,
+                              DialogInterface.OnClickListener listener)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.inport);
