@@ -325,7 +325,7 @@ public class MainActivity extends Activity
             try
             {
                 icon = (BitmapDrawable)
-                    manager.getApplicationIcon(vlc? VLC: INTENTRADIO);
+                       manager.getApplicationIcon(vlc ? VLC : INTENTRADIO);
             }
 
             catch (Exception e)
@@ -334,7 +334,7 @@ public class MainActivity extends Activity
 
             if (icon == null)
             {
-                showToast(vlc? R.string.vlc_not_installed:
+                showToast(vlc ? R.string.vlc_not_installed :
                           R.string.not_installed);
                 setResult(RESULT_CANCELED);
                 finish();
@@ -365,7 +365,7 @@ public class MainActivity extends Activity
                     shortcut.putExtra(URL, url);
                     shortcut.putExtra(NAME, name);
                     shortcut.putExtra(ACTION, PLAY);
-                    shortcut.putExtra(PLAYER, vlc? VLC: INTENTRADIO);
+                    shortcut.putExtra(PLAYER, vlc ? VLC : INTENTRADIO);
 
                     // Get preferences
                     SharedPreferences preferences =

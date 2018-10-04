@@ -122,9 +122,9 @@ public class ShortcutActivity extends Activity
             try
             {
                 icon = (BitmapDrawable)
-                    manager.getApplicationIcon(vlc?
-                                               MainActivity.VLC:
-                                               MainActivity.INTENTRADIO);
+                       manager.getApplicationIcon(vlc ?
+                                                  MainActivity.VLC :
+                                                  MainActivity.INTENTRADIO);
             }
 
             catch (Exception e)
@@ -167,8 +167,8 @@ public class ShortcutActivity extends Activity
                     shortcut.putExtra(MainActivity.URL, url);
                     shortcut.putExtra(MainActivity.NAME, name);
                     shortcut.putExtra(MainActivity.ACTION, MainActivity.PLAY);
-                    shortcut.putExtra(MainActivity.PLAYER, vlc?
-                                      MainActivity.VLC:
+                    shortcut.putExtra(MainActivity.PLAYER, vlc ?
+                                      MainActivity.VLC :
                                       MainActivity.INTENTRADIO);
 
                     // Get preferences
@@ -220,7 +220,7 @@ public class ShortcutActivity extends Activity
     void showToast()
     {
         // Get text from resources
-        String text = getString(vlc? R.string.vlc_not_installed:
+        String text = getString(vlc ? R.string.vlc_not_installed :
                                 R.string.not_installed);
         showToast(text);
     }

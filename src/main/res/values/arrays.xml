@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="entries">
-        <item>BBC Radio 1</item>
-        <item>BBC Radio 2</item>
-        <item>BBC Radio 3</item>
-        <item>BBC Radio 4</item>
-        <item>BBC 5 Live</item>
-        <item>BBC 6 Music</item>
-        <item>BBC World Service</item>
-    </string-array>
+  <string-array name="entries">
+    <item>BBC Radio 1</item>
+    <item>BBC Radio 2</item>
+    <item>BBC Radio 3</item>
+    <item>BBC Radio 4</item>
+    <item>BBC 5 Live</item>
+    <item>BBC 6 Music</item>
+    <item>BBC World Service</item>
+  </string-array>
 
-    <string-array name="values">
-        <item>http://www.listenlive.eu/bbcradio1.m3u</item>
-        <item>http://www.listenlive.eu/bbcradio2.m3u</item>
-        <item>http://www.listenlive.eu/bbcradio3.m3u</item>
-        <item>http://www.listenlive.eu/bbcradio4.m3u</item>
-        <item>http://www.listenlive.eu/bbc5live.m3u</item>
-        <item>http://www.listenlive.eu/bbc6music.m3u</item>
-        <item>http://www.bbc.co.uk/worldservice/meta/live/mp3/eneuk.pls</item>
-    </string-array>
+  <string-array name="values">
+    <item>http://www.listenlive.eu/bbcradio1.m3u</item>
+    <item>http://www.listenlive.eu/bbcradio2.m3u</item>
+    <item>http://www.listenlive.eu/bbcradio3.m3u</item>
+    <item>http://www.listenlive.eu/bbcradio4.m3u</item>
+    <item>http://www.listenlive.eu/bbc5live.m3u</item>
+    <item>http://www.listenlive.eu/bbc6music.m3u</item>
+    <item>http://www.bbc.co.uk/worldservice/meta/live/mp3/eneuk.pls</item>
+  </string-array>
 
 </resources>
