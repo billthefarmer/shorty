@@ -41,6 +41,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Locale;
 
 // MainActivity
@@ -245,10 +246,13 @@ public class MainActivity extends Activity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.about);
 
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
         String format = getString(R.string.version);
+
         String message =
             String.format(Locale.getDefault(),
-                          format, BuildConfig.VERSION_NAME);
+                          format, BuildConfig.VERSION_NAME,
+                          dateFormat.format(BuildConfig.BUILT));
         builder.setMessage(message);
 
         // Add the button
@@ -323,16 +327,19 @@ public class MainActivity extends Activity
                 icon = (BitmapDrawable)
                     manager.getApplicationIcon(vlc? VLC: INTENTRADIO);
             }
+
             catch (Exception e)
             {
             }
 
             if (icon == null)
             {
-                showToast();
+                showToast(vlc? R.string.vlc_not_installed:
+                          R.string.not_installed);
                 setResult(RESULT_CANCELED);
                 finish();
             }
+
             else
             {
                 // Get the name and url
@@ -411,11 +418,10 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-    void showToast()
+    void showToast(int id)
     {
         // Get text from resources
-        String text = getString(vlc? R.string.vlc_not_installed:
-                                R.string.not_installed);
+        String text = getString(id);
         showToast(text);
     }
 

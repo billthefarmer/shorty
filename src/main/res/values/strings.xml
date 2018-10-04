@@ -36,8 +36,9 @@
     "File read error"
   </string>
 
-  <string name="version">
-    Shorty version %s\nCopyright \u00A9 2017 Bill Farmer\nGNU GPLv3
+  <string name="version" formatted="false">
+    Shorty version %s\nBuilt %s\nCopyright \u00A9 2017 Bill
+    Farmer\nLicence GNU GPLv3
   </string>
 
   <string name="name">Station name</string>

@@ -31,6 +31,8 @@ android {
         targetSdkVersion 22
         versionCode 110
         versionName "1.10"
+
+        buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
 
     compileOptions {
@@ -39,7 +41,8 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities', 'ExpiringTargetSdkVersion'
+        disable 'IconDensities', 'ExpiringTargetSdkVersion',
+            'StringFormatInvalid'
         // abortOnError false
     }
 }
