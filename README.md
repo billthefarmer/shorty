@@ -35,7 +35,7 @@ requested. Stop, Pause and Resume shortcuts may also be created.
 
 Shorty will only create play shortcuts for VLC, and will only play
 stations in VLC. The stop, pause and resume options are not
-accepted. Use the VLC Notification to control playback.
+accepted. Use the VLC notification to control playback.
 
 ### Menu
 
