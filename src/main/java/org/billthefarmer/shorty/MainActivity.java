@@ -25,6 +25,7 @@ package org.billthefarmer.shorty;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -32,6 +33,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +46,8 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // MainActivity
 public class MainActivity extends Activity
@@ -247,19 +252,29 @@ public class MainActivity extends Activity
         builder.setTitle(R.string.about);
 
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
-        String format = getString(R.string.version);
-
-        String message =
-            String.format(Locale.getDefault(),
-                          format, BuildConfig.VERSION_NAME,
-                          dateFormat.format(BuildConfig.BUILT));
-        builder.setMessage(message);
+        SpannableStringBuilder spannable =
+            new SpannableStringBuilder(getText(R.string.version));
+        Pattern pattern = Pattern.compile("%s");
+        Matcher matcher = pattern.matcher(spannable);
+        if (matcher.find())
+            spannable.replace(matcher.start(), matcher.end(),
+                              BuildConfig.VERSION_NAME);
+        matcher.reset(spannable);
+        if (matcher.find())
+            spannable.replace(matcher.start(), matcher.end(),
+                              dateFormat.format(BuildConfig.BUILT));
+        builder.setMessage(spannable);
 
         // Add the button
         builder.setPositiveButton(R.string.ok, null);
 
         // Create the AlertDialog
-        builder.show();
+        Dialog dialog = builder.show();
+
+        // Set movement method
+        TextView text = dialog.findViewById(android.R.id.message);
+        if (text != null)
+            text.setMovementMethod(LinkMovementMethod.getInstance());
 
         return true;
     }

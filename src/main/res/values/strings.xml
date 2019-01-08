@@ -35,9 +35,11 @@
     "File read error"
   </string>
 
-  <string name="version" formatted="false">
-    Shorty version %s\nBuilt %s\nCopyright \u00A9 2017 Bill
-    Farmer\nLicence GNU GPLv3
+  <string name="version" formatted="false">Shorty <a
+  href="https://github.com/billthefarmer/shorty/releases/latest">version
+  %s</a>\nBuilt %s\nCopyright \u00A9 2017 <a
+  href="https://billthefarmer.github.io">Bill Farmer</a>\nLicence <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
   </string>
 
   <string name="name">Station name</string>
