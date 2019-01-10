@@ -354,7 +354,7 @@ public class LookupActivity extends Activity
     @Override
     public boolean onQueryTextSubmit(String query)
     {
-        String item = (String) listView.getItemAtPosition(0);
+        String item = listView.getItemAtPosition(0).toString();
         nameView.setText(item);
         int index = entryList.indexOf(item);
         urlView.setText(valueList.get(index));
@@ -366,7 +366,7 @@ public class LookupActivity extends Activity
     public void onItemClick(AdapterView parent, View view,
                             int position, long id)
     {
-        String item = (String) parent.getItemAtPosition(position);
+        String item = parent.getItemAtPosition(position).toString();
 
         nameView.setText(item);
         int index = entryList.indexOf(item);
@@ -429,7 +429,7 @@ public class LookupActivity extends Activity
 
             // Remove entry
             int index = listView.getCheckedItemPosition();
-            String item = (String) listView.getItemAtPosition(index);
+            String item = listView.getItemAtPosition(index).toString();
             if (entryList.contains(item))
             {
                 index = entryList.indexOf(item);
