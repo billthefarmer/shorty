@@ -23,6 +23,7 @@
 
 package org.billthefarmer.shorty;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,8 +32,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -78,8 +81,9 @@ public class LookupActivity extends Activity
     protected final static String SHORTY_EXTRA = "extras.csv";
     protected final static String PATH = "path";
 
-    protected final static int IMPORT = 1;
-    private final static int TEXT = 1;
+    private final static int REQUEST_SAVE   = 1;
+    private final static int REQUEST_READ   = 2;
+    private final static int REQUEST_IMPORT = 3;
 
     private MenuItem searchItem;
     private TextView nameView;
@@ -471,9 +475,57 @@ public class LookupActivity extends Activity
         }
     }
 
-    // Save data
-    void saveData()
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults)
     {
+        switch (requestCode)
+        {
+        case REQUEST_SAVE:
+            for (int i = 0; i < grantResults.length; i++)
+                if (permissions[i].equals(Manifest.permission
+                                          .WRITE_EXTERNAL_STORAGE) &&
+                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                    // Granted, save data
+                    saveData();
+            break;
+
+        case REQUEST_READ:
+            for (int i = 0; i < grantResults.length; i++)
+                if (permissions[i].equals(Manifest.permission
+                                          .READ_EXTERNAL_STORAGE) &&
+                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                    // Granted, restore data
+                    restoreData();
+            break;
+
+        case REQUEST_IMPORT:
+            for (int i = 0; i < grantResults.length; i++)
+                if (permissions[i].equals(Manifest.permission
+                                          .READ_EXTERNAL_STORAGE) &&
+                    grantResults[i] == PackageManager.PERMISSION_GRANTED)
+                    // Granted, restore data
+                    importData();
+            break;
+        }
+    }
+
+    // Save data
+    private void saveData()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]
+                    {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                     Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_SAVE);
+                return;
+            }
+        }
+
         // Create a JSON array
         JSONArray data = new JSONArray();
 
@@ -492,9 +544,7 @@ public class LookupActivity extends Activity
                 data.put(entry);
             }
 
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) {}
 
             i++;
         }
@@ -531,8 +581,20 @@ public class LookupActivity extends Activity
     }
 
     // Restore data
-    void restoreData()
+    private void restoreData()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]
+                    {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                     Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
+                return;
+            }
+        }
+
         StringBuilder text = new StringBuilder();
 
         // Open a file to read the JSON
@@ -627,8 +689,21 @@ public class LookupActivity extends Activity
     }
 
     // Import data
-    void importData()
+    private void importData()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]
+                    {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                     Manifest.permission.READ_EXTERNAL_STORAGE},
+                                   REQUEST_IMPORT);
+                return;
+            }
+        }
+
         // Set the directory path
         File dir = new File(SHORTY_DIR);
 
@@ -641,7 +716,7 @@ public class LookupActivity extends Activity
             {
             case DialogInterface.BUTTON_POSITIVE:
                 EditText text =
-                ((Dialog) dialog).findViewById(TEXT);
+                ((Dialog) dialog).findViewById(R.id.path_text);
                 String path = text.getText().toString();
                 importFile(path);
             }
@@ -663,7 +738,7 @@ public class LookupActivity extends Activity
         // Create edit text
         Context context = builder.getContext();
         EditText text = new EditText(context);
-        text.setId(TEXT);
+        text.setId(R.id.path_text);
         text.setText(path);
 
         // Create the AlertDialog
@@ -676,7 +751,7 @@ public class LookupActivity extends Activity
     }
 
     // importFile
-    protected void importFile(String path)
+    private void importFile(String path)
     {
         // Get entry list size
         int old = entryList.size();
@@ -756,7 +831,7 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-    void showToast(int id, Object... args)
+    private void showToast(int id, Object... args)
     {
         // Get text from resources
         String text = getString(id);
@@ -764,14 +839,14 @@ public class LookupActivity extends Activity
     }
 
     // Show toast.
-    void showToast(String format, Object... args)
+    private void showToast(String format, Object... args)
     {
         String text = String.format(format, args);
         showToast(text);
     }
 
     // Show toast.
-    void showToast(String text)
+    private void showToast(String text)
     {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);

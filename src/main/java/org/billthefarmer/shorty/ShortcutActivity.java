@@ -217,7 +217,7 @@ public class ShortcutActivity extends Activity
     }
 
     // Show toast.
-    void showToast()
+    private void showToast()
     {
         // Get text from resources
         String text = getString(vlc ? R.string.vlc_not_installed :
@@ -226,7 +226,7 @@ public class ShortcutActivity extends Activity
     }
 
     // Show toast.
-    void showToast(String text)
+    private void showToast(String text)
     {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);

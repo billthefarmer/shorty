@@ -79,7 +79,7 @@ public class BroadcastActivity extends Activity
     }
 
     // Show toast.
-    void showToast(String text)
+    private void showToast(String text)
     {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);

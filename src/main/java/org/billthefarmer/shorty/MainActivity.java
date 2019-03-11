@@ -343,9 +343,7 @@ public class MainActivity extends Activity
                        manager.getApplicationIcon(vlc ? VLC : INTENTRADIO);
             }
 
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) {}
 
             if (icon == null)
             {
@@ -433,7 +431,7 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-    void showToast(int id)
+    private void showToast(int id)
     {
         // Get text from resources
         String text = getString(id);
@@ -441,7 +439,7 @@ public class MainActivity extends Activity
     }
 
     // Show toast.
-    void showToast(String text)
+    private void showToast(String text)
     {
         // Make a new toast
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
