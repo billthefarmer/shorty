@@ -475,6 +475,7 @@ public class LookupActivity extends Activity
         }
     }
 
+    // onRequestPermissionsResult
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions,

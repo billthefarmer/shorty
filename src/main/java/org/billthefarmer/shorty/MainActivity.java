@@ -77,7 +77,6 @@ public class MainActivity extends Activity
         "com.android.launcher.action.INSTALL_SHORTCUT";
 
     protected final static int LOOKUP = 0;
-    private final static int VERSION_M = 23;
 
     private RadioGroup group;
     private TextView nameView;
@@ -285,7 +284,7 @@ public class MainActivity extends Activity
         dark = !dark;
         item.setChecked(dark);
 
-        if (Build.VERSION.SDK_INT != VERSION_M)
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
             recreate();
 
         return true;
