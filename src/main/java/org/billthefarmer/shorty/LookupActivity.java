@@ -744,7 +744,7 @@ public class LookupActivity extends Activity
 
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
-        dialog.setView(text, 30, 0, 30, 0);
+        dialog.setView(text, 40, 0, 40, 0);
         dialog.getWindow()
         .setSoftInputMode(WindowManager
                           .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
