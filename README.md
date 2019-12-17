@@ -28,7 +28,7 @@ labelled with name of the station.
 
 Touch the shortcut to run Shorty in the background, which will send a
 request to [Intent Radio](http://smblott.org/intent_radio) or
-[VLC](https://www.videolan.org/vlc/)to play the station you
+[VLC](https://www.videolan.org/vlc/) to play the station you
 requested. Stop, Pause and Resume shortcuts may also be created.
 
 ### VLC
