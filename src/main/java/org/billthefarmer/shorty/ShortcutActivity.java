@@ -27,7 +27,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -154,14 +153,11 @@ public class ShortcutActivity extends Activity
                 {
                 // Play
                 case R.id.play:
-                    // Get resources
-                    Resources resources = getResources();
-
                     // Check the fields
                     if (name.length() == 0)
-                        name = resources.getString(R.string.default_name);
+                        name = getString(R.string.default_name);
                     if (url.length() == 0)
-                        url = resources.getString(R.string.default_url);
+                        url = getString(R.string.default_url);
 
                     // Set extra fields
                     shortcut.putExtra(MainActivity.URL, url);
