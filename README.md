@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.shorty)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![Build Status](https://travis-ci.org/billthefarmer/shorty.svg?branch=master)](https://travis-ci.org/billthefarmer/shorty) [![Release](https://img.shields.io/github/release/billthefarmer/shorty.svg?logo=github)](https://github.com/billthefarmer/shorty/releases) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.shorty)
 
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio)
 or [VLC](https://www.videolan.org/vlc/).  The app is available on
