@@ -248,7 +248,7 @@ public class MainActivity extends Activity
     private boolean onAboutClick(MenuItem item)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.about);
+        builder.setTitle(R.string.app_name);
 
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         SpannableStringBuilder spannable =
