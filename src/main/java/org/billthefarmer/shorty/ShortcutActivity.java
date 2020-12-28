@@ -59,8 +59,8 @@ public class ShortcutActivity extends Activity
 
         boolean dark = preferences.getBoolean(MainActivity.PREF_DARK, true);
 
-        if (dark)
-            setTheme(R.style.DialogDarkTheme);
+        if (!dark)
+            setTheme(R.style.DialogTheme);
 
         setContentView(R.layout.main);
 
