@@ -97,8 +97,8 @@ public class MainActivity extends Activity
 
         dark = preferences.getBoolean(PREF_DARK, true);
 
-        if (dark)
-            setTheme(R.style.AppDarkTheme);
+        if (!dark)
+            setTheme(R.style.AppTheme);
 
         setContentView(R.layout.main);
 
