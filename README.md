@@ -39,8 +39,8 @@ accepted. Use the VLC notification to control playback.
 
 ### Menu
 
- * **Dark theme** - Use dark theme
- * **Use VLC** - Use VLC rather than Intent Radio
+ * **Dark theme** &ndash; Use dark theme
+ * **Use VLC** &ndash; Use VLC rather than Intent Radio
 
 ### Lookup
 
