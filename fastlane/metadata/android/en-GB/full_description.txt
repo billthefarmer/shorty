@@ -1,9 +1,8 @@
 Create shortcuts for Intent Radio or VLC
 
-<ul>
-<li>Create shortcuts from the app or the launcher</li>
-<li>Defaults to BBC Radio 4 if no data entered</li>
-<li>Look up stations from a list</li>
-<li>Save and restore list from storage</li>
-<li>Import list from CSV file</li>
-</ul>
+* Create shortcuts from the app or the launcher
+* Defaults to BBC Radio 4 if no data entered
+* Look up stations from a list
+* Save and restore list from storage
+* Import list from CSV file
+

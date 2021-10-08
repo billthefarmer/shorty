@@ -18,6 +18,7 @@
     <activity
         android:name="MainActivity"
         android:label="@string/app_name"
+        android:exported="true"
         android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -28,6 +29,7 @@
         android:name="ShortcutActivity"
         android:label="@string/app_name"
         android:theme="@style/DialogDarkTheme"
+        android:exported="true"
         android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -39,6 +41,7 @@
         android:excludeFromRecents="true"
         android:label="@string/app_name"
         android:noHistory="true"
+        android:exported="true"
         android:theme="@android:style/Theme.NoDisplay">
       <intent-filter>
         <action android:name="org.billthefarmer.shorty.BROADCAST" />
