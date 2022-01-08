@@ -1,4 +1,5 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![.github/workflows/main.yml](https://github.com/billthefarmer/shorty/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/shorty/actions) [![Release](https://img.shields.io/github/release/billthefarmer/shorty.svg?logo=github)](https://github.com/billthefarmer/shorty/releases) [![Available on F-Droid](https://f-droid.org/wiki/images/c/ca/F-Droid-button_available-on_smaller.png)](https://f-droid.org/packages/org.billthefarmer.shorty)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![.github/workflows/main.yml](https://github.com/billthefarmer/shorty/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/shorty/actions) [![Release](https://img.shields.io/github/release/billthefarmer/shorty.svg?logo=github)](https://github.com/billthefarmer/shorty/releases)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.shorty)
 
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio)
 or [VLC](https://www.videolan.org/vlc/).  The app is available on
