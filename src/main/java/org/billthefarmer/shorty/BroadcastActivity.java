@@ -28,7 +28,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.Toast;
 
 // BroadcastActivity
 public class BroadcastActivity extends Activity
@@ -76,14 +75,5 @@ public class BroadcastActivity extends Activity
 
         setResult(RESULT_OK);
         finish();
-    }
-
-    // Show toast.
-    private void showToast(String text)
-    {
-        // Make a new toast
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
     }
 }
