@@ -1,4 +1,4 @@
-# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![.github/workflows/main.yml](https://github.com/billthefarmer/shorty/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/billthefarmer/shorty/actions) [![Release](https://img.shields.io/github/release/billthefarmer/shorty.svg?logo=github)](https://github.com/billthefarmer/shorty/releases)
+# ![Logo](src/main/res/drawable-hdpi/ic_launcher.png) Shorty [![.github/workflows/main.yml](https://github.com/billthefarmer/shorty/workflows/.github/workflows/build.yml/badge.svg)](https://github.com/billthefarmer/shorty/actions) [![Release](https://img.shields.io/github/release/billthefarmer/shorty.svg?logo=github)](https://github.com/billthefarmer/shorty/releases)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.svg" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/org.billthefarmer.shorty)
 
 Create shortcuts for [Intent Radio](http://smblott.org/intent_radio)
