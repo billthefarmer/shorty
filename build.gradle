@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "org.billthefarmer.shorty"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 28
         versionName "1.16"
         versionCode 116
