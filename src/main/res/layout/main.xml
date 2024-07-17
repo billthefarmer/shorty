@@ -84,7 +84,13 @@
       android:layout_marginTop="8dp"
       android:layout_marginBottom="8dp"
       android:orientation="horizontal"
+      tools:ignore="ButtonOrder"
       style="?android:attr/buttonBarStyle">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/cancel"
@@ -92,11 +98,6 @@
         android:layout_height="wrap_content"
         android:text="@string/cancel"
         style="?android:attr/buttonBarButtonStyle" />
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
 
     <Button
         android:id="@+id/create"

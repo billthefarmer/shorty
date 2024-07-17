@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Шкет</string>
+ 
+  <string name="info">
+    <b>Создайте ярлык, используя поля и кнопки ниже.</b>
+  </string>
+ 
+  <string name="lookup_info">
+    <b>Добавляйте и удаляйте станции из списка, используя кнопки ниже.</b>
+  </string>
+ 
+  <string name="path_info">
+    <b>Выберите имя файла</b>
+  </string>
+ 
+  <string name="not_installed">
+    Intent Radio не установлено.\nПожалуйста, установите Intent Radio.
+  </string>
+ 
+  <string name="vlc_not_installed">
+    VLC не установлено.\nПожалуйста, установите VLC.
+  </string>
+ 
+  <string name="no_write">
+    "Невозможно записать в память"
+  </string>
+ 
+  <string name="no_read">
+    "Невозможно прочитать файл из памяти"
+  </string>
+ 
+  <string name="read_error">
+    "Ошибка чтения файла"
+  </string>
+ 
+  <string name="version" formatted="false"><a
+  href="https://github.com/billthefarmer/shorty/releases/latest">%s</a>\n\nСборка
+  %s\n\nВладелец \u00A9 2017 <a
+  href="https://billthefarmer.github.io">Билл Фармер</a>\n\nРусский перевод от <a
+  href="https://github.com/Xapitonov">Xapitonov</a>\n\nЛицензия <a
+  href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+ 
+  <string name="name">Имя станции</string>
+  <string name="url">URL станции</string>
+ 
+  <string name="default_name">Радио Маяк</string>
+  <string name="default_url">https://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps</string>
+ 
+  <string name="ok">OK</string>
+  <string name="cancel">Отмена</string>
+  <string name="create">Создать</string>
+ 
+  <string name="search">Поиск</string>
+  <string name="hint">Поиск станций</string>
+  <string name="play">Воспроизвести</string>
+  <string name="stop">Стоп</string>
+  <string name="pause">Пауза</string>
+  <string name="resume">Продолжить</string>
+  <string name="save">Сохранить</string>
+  <string name="restore">Восстановить</string>
+  <string name="inport">Импортировать</string>
+ 
+  <string name="add">Добавить</string>
+  <string name="remove">Удалить</string>
+  <string name="select">Выбирать</string>
+ 
+  <string name="lookup">Список</string>
+  <string name="about">О программе</string>
+  <string name="help">Справка</string>
+  <string name="dark">Тёмная тема</string>
+  <string name="vlc">Через VLC</string>
+ 
+  <string name="data_saved">Записей сохранено %d</string>
+  <string name="data_restored">Записей восстановлено %d</string>
+  <string name="data_imported">Записей импортировано %d</string>
+ 
+  <string name="none_imported">
+    Записей не импортировано\n
+    Возможно, вы уже\n
+    импортировали этот файл"
+  </string>
+ 
+</resources>
+ 

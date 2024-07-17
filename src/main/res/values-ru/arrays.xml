@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries">
+        <item>Радио Маяк</item>
+        <item>Вести ФМ</item>
+        <item>Радио России</item>
+        <item>Радио Культура</item>
+        <item>Радио Юность (ЮFM)</item>
+        <item>Русское радио</item>
+        <item>Наше радио</item>
+    </string-array>
+    <string-array name="values">
+        <item>https://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps</item>
+        <item>http://icecast.vgtrk.cdnvideo.ru/vestifm_aac_64kbps</item>
+        <item>https://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_192kbps</item>
+        <item>https://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_192kbps</item>
+        <item>https://icecast-vgtrk.cdnvideo.ru/unost_mp3_128kbps</item>
+        <item>https://rusradio.hostingradio.ru/rusradio96.aacp</item>
+        <item>https://nashe1.hostingradio.ru:80/nashe-128.mp3</item>
+    </string-array>
+</resources>
